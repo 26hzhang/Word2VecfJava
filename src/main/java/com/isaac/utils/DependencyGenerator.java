@@ -1,4 +1,4 @@
-package com.isaac.tools;
+package com.isaac.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;

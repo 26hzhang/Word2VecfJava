@@ -1,4 +1,4 @@
-package com.isaac.tools;
+package com.isaac.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,7 +26,7 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 import net.sf.junidecode.Junidecode;
 
-public class Tools {
+public class CorpusTools {
 
 	/**
 	 * Clean up the original / raw text corpus, makes it more accurate and less

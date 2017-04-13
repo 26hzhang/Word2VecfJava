@@ -1,5 +1,7 @@
 package com.isaac.utils;
 
+import com.isaac.representation.Word2VecfModel;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -26,13 +28,11 @@ public class FileUtils {
 	private final static long ONE_GB = 1024 * 1024 * 1024;
 
 	public static void saveWord2VecfModel(String directory, Word2VecfModel model) {
-		String vocabFilename = directory + File.separator + "words.vocab";
-		saveVocabulary(vocabFilename, model.words);
-		String vectorFilename = directory + File.separator + "words.matrix";
-		saveVectors(vectorFilename, model.wordVectors);
-		if (model.contexts != null) {
-			saveVocabulary(directory + File.separator + "contexts.vocab", model.contexts);
-			saveVectors(directory + File.separator + "contexts.matrix", model.contextVectors);
+		saveVocabulary(directory + File.separator + "words.vocab", model.getWords());
+		saveVectors(directory + File.separator + "words.matrix", model.getWordVectors());
+		if (model.getContexts() != null) {
+			saveVocabulary(directory + File.separator + "contexts.vocab", model.getContexts());
+			saveVectors(directory + File.separator + "contexts.matrix", model.getContextVectors());
 		}
 	}
 

@@ -18,19 +18,22 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.isaac.utils.*;
-import com.isaac.utils.Vocabulary.VocabWord;
+import com.isaac.utils.CallableVoid;
+import com.isaac.utils.VocabFunctions;
+import com.isaac.representation.Vocabulary;
+import com.isaac.representation.Vocabulary.VocabWord;
+import com.isaac.representation.Word2VecfModel;
 
 public class Word2VecfTrainerByFile {
-	/** Sentences longer than this are broken into multiple chunks */
-	static final int MAX_SENTENCE_LENGTH = 1_000;
+	/* Sentences longer than this are broken into multiple chunks */
+	//static final int MAX_SENTENCE_LENGTH = 1_000;
 	/** A string longer than this are trunked the first part */
-	static final int MAX_STRING = 100;
+	private static final int MAX_STRING = 100;
 	/** Boundary for maximum exponent allowed */
-	static final int MAX_EXP = 6;
+	private static final int MAX_EXP = 6;
 	/** Size of the pre-cached exponent table */
-	static final int EXP_TABLE_SIZE = 1_000;
-	static final double[] EXP_TABLE = new double[EXP_TABLE_SIZE];
+	private static final int EXP_TABLE_SIZE = 1_000;
+	private static final double[] EXP_TABLE = new double[EXP_TABLE_SIZE];
 	static {
 		for (int i = 0; i < EXP_TABLE_SIZE; i++) {
 			// Pre-compute the exp() table
@@ -45,10 +48,10 @@ public class Word2VecfTrainerByFile {
 	/** define the table size */
 	private static final int TABLE_SIZE = (int) 1e8;
 	/** configurations of word2vecf training */
-	final Word2VecfConfig config;
-	final int layer1_size;
+	private final Word2VecfConfig config;
+	private final int layer1_size;
 
-	long numTrainedTokens;
+	private long numTrainedTokens;
 
 	/* The following includes shared state that is updated per worker thread */
 	/**
@@ -59,13 +62,13 @@ public class Word2VecfTrainerByFile {
 	 */
 	private final AtomicInteger actualWordCount;
 	/** Learning rate, affects how fast values in the layers get updated */
-	volatile double alpha;
+	private volatile double alpha;
 	/**
 	 * This contains the outer layers of the neural network
 	 * First dimension is the vocab size, second is the layer
 	 */
-	final double[][] syn0;
-	final double[][] syn1neg;
+	private final double[][] syn0;
+	private final double[][] syn1neg;
 	/** Used for negative sampling */
 	private final int[] unitable;
 	/** train file */
@@ -199,15 +202,18 @@ public class Word2VecfTrainerByFile {
 				end_offset = fileSize;
 			}
 			file.seek(start_offset);
-			System.out.println("Thread-" + id + "Start offset: " + start_offset);
-			while (file.readChar() != '\n') {
-			}
+			System.out.println("Thread-" + id + ": start offset: " + start_offset);
+			while (file.readChar() != '\n') {} // index to the start of a sentence
 			while (true) {
 				if (file.getFilePointer() >= fileSize - 1 || file.getFilePointer() > end_offset)
 					break;
 				String s = file.readLine();
 				String word = s.split(" ")[0];
+				if (word.length() > MAX_STRING)
+					word = word.substring(0, MAX_STRING);
 				String context = s.split(" ")[1];
+				if (context.length() > MAX_STRING)
+					context = context.substring(0, MAX_STRING);
 				// update alpha
 				if (wordCount - lastWordCount > LEARNING_RATE_UPDATE_FREQUENCY)
 					updateAlpha(iter);

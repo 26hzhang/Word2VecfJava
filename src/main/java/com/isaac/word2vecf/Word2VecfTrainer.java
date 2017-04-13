@@ -21,9 +21,9 @@ import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.isaac.utils.CallableVoid;
 import com.isaac.utils.VocabFunctions;
-import com.isaac.utils.Vocabulary;
-import com.isaac.utils.Vocabulary.VocabWord;
-import com.isaac.utils.Word2VecfModel;
+import com.isaac.representation.Vocabulary;
+import com.isaac.representation.Vocabulary.VocabWord;
+import com.isaac.representation.Word2VecfModel;
 
 public class Word2VecfTrainer {
 	/** Sentences longer than this are broken into multiple chunks */

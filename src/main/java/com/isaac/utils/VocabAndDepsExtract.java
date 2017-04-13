@@ -1,5 +1,7 @@
 package com.isaac.utils;
 
+import com.isaac.representation.Vocabulary;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

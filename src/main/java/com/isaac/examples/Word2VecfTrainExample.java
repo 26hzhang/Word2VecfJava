@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import com.isaac.utils.FileUtils;
-import com.isaac.utils.Word2VecfModel;
+import com.isaac.representation.Word2VecfModel;
 import com.isaac.word2vecf.Word2VecfConfig;
 import com.isaac.word2vecf.Word2VecfTrainerByFile;
 

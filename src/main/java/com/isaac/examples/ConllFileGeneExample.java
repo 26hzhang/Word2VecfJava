@@ -1,6 +1,6 @@
 package com.isaac.examples;
 
-import com.isaac.tools.ConllFileGenerator;
+import com.isaac.utils.ConllFileGenerator;
 
 public class ConllFileGeneExample {
 

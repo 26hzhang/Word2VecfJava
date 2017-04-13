@@ -1,4 +1,4 @@
-package com.isaac.tools;
+package com.isaac.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

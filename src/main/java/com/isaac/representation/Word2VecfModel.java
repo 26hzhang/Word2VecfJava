@@ -1,9 +1,9 @@
-package com.isaac.utils;
+package com.isaac.representation;
 
 import java.util.List;
 
 public class Word2VecfModel {
-	private int layerSize;
+	int layerSize;
 	List<String> words = null;
 	float[][] wordVectors = null;
 	List<String> contexts = null;

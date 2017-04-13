@@ -8,7 +8,8 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import com.isaac.utils.Vocabulary.VocabWord;
+import com.isaac.representation.Vocabulary;
+import com.isaac.representation.Vocabulary.VocabWord;
 
 
 public class VocabFunctions {
