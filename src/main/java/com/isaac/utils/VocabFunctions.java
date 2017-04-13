@@ -6,8 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.stream.Collectors;
 
 import com.isaac.utils.Vocabulary.VocabWord;
 
@@ -39,9 +38,7 @@ public class VocabFunctions {
 	// Adds a word to the vocabulary
 	public int AddWordToVocab(Vocabulary v, String word) {
 		int hash;
-		int length = word.length();
-		if (length > MAX_STRING)
-			length = MAX_STRING;
+		int length = word.length() > MAX_STRING ? MAX_STRING : word.length();
 		VocabWord vocab = new Vocabulary().new VocabWord();
 		vocab.word = word;
 		vocab.cn = 0;
@@ -61,11 +58,10 @@ public class VocabFunctions {
 	// Sorts the vocabulary by frequency using word counts
 	public void SortAndReduceVocab(Vocabulary v, int min_count) {
 		int hash;
-		Collections.sort(v.vocab, new Comparator<VocabWord>() {
-			public int compare(VocabWord o1, VocabWord o2) {
-				return (int) (o2.cn - o1.cn);
-			}
-		});
+		/*Collections.sort(v.vocab, new Comparator<VocabWord>() {
+			public int compare(VocabWord o1, VocabWord o2) { return (int) (o2.cn - o1.cn);}
+		});*/
+		v.vocab = v.vocab.stream().sorted((e1, e2) -> (int) (e2.cn - e1.cn)).collect(Collectors.toList());
 		int size = v.vocab_size;
 		v.word_count = 0;
 		int index = 0;
@@ -98,7 +94,7 @@ public class VocabFunctions {
 		Vocabulary v = new Vocabulary();
 		v.vocab_max_size = 1000;
 		v.vocab_size = 0;
-		v.vocab = new ArrayList<VocabWord>(2000000);
+		v.vocab = new ArrayList<>(2000000);
 		v.vocab_hash = new int[vocab_hash_size];
 		for (int a = 0; a < vocab_hash_size; a++)
 			v.vocab_hash[a] = -1;
@@ -112,7 +108,7 @@ public class VocabFunctions {
 		file.createNewFile();
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
 		for (int i = 0; i < v.vocab_size; i++) {
-			bw.write(new StringBuilder().append(v.vocab.get(i).word).append(" ").append(v.vocab.get(i).cn).append("\n").toString());
+			bw.write(v.vocab.get(i).word + " " + v.vocab.get(i).cn + "\n");
 		}
 		bw.close();
 	}
@@ -120,11 +116,12 @@ public class VocabFunctions {
 	// Reduce the vocabulary by removing infrequent tokens
 	public void ReduceVocab(Vocabulary v) {
 		int hash;
-		Collections.sort(v.vocab, new Comparator<VocabWord>() {
+		/*Collections.sort(v.vocab, new Comparator<VocabWord>() {
 			public int compare(VocabWord o1, VocabWord o2) {
 				return (int) (o2.cn - o1.cn);
 			}
-		});
+		});*/
+		v.vocab = v.vocab.stream().sorted((e1, e2) -> (int) (e2.cn - e1.cn)).collect(Collectors.toList());
 		int size = v.vocab_size;
 		v.word_count = 0;
 		int index = 0;

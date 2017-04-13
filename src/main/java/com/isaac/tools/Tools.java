@@ -63,7 +63,7 @@ public class Tools {
 			Properties props = new Properties();
 			props.setProperty("annotators", "tokenize, ssplit");
 			StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-			String line = "";
+			String line;
 			while ((line = br.readLine()) != null) {
 				line = Junidecode.unidecode(line); // convert unicode to 7-bits ASCII valid string
 				if (lowercase)
@@ -95,12 +95,9 @@ public class Tools {
 					bw.write(line + "\n");
 					bw.flush();
 				}
-
 			}
 			br.close();
 			bw.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -214,16 +211,16 @@ public class Tools {
 		for (int i = 0; i < words.length; i++) {
 			if (words[i].contains("'ll")) {
 				sb.append(words[i].split("'")[0]).append(" will ");
-				continue;
+				//continue;
 			} else if (words[i].contains("'d")) {
 				sb.append(words[i].split("'")[0]).append(" would ");
-				continue;
+				//continue;
 			} else if (words[i].contains("'re")) {
 				sb.append(words[i].split("'")[0]).append(" are ");
-				continue;
+				//continue;
 			} else if (words[i].contains("'ve")) {
 				sb.append(words[i].split("'")[0]).append(" have ");
-				continue;
+				//continue;
 			} else if (words[i].contains("'cause")) {
 				sb.append(words[i].split("'")[0]).append(" becasue ");
 			} else if (words[i].contains("'til")) {
@@ -242,12 +239,12 @@ public class Tools {
 	}
 
 	private static Map<String, String> loadUk2usMap() {
-		Map<String, String> uk2us = new HashMap<String, String>();
+		Map<String, String> uk2us = new HashMap<>();
 		File file = new File("files/UK-US");
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-			String line = "";
+			String line;
 			while ((line = br.readLine()) != null) {
 				String[] lines = line.split("::");
 				uk2us.put(lines[0], lines[1]);
@@ -265,7 +262,7 @@ public class Tools {
 	}
 
 	private static Map<String, String> loadAbbr2FullMap() {
-		Map<String, String> abbr2full = new HashMap<String, String>();
+		Map<String, String> abbr2full = new HashMap<>();
 		abbr2full.put("don't", "do not");
 		abbr2full.put("don'ts", "do not");
 		abbr2full.put("shouldn't", "should not");

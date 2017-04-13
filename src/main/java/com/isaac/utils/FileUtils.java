@@ -25,55 +25,46 @@ public class FileUtils {
 
 	private final static long ONE_GB = 1024 * 1024 * 1024;
 
-	public static void saveEnsembleModel(String directory, EnsembleW2VfModel ensembleModel) {
-		saveWord2VecfModel(directory + "/words", ensembleModel.wordModel);
-		saveWord2VecfModel(directory + "/contexts", ensembleModel.contextModel);
-	}
-
-	public static EnsembleW2VfModel readEnsembleModelFromBinary(String directory) {
-		String wordFilename = directory + "/words";
-		Word2VecfModel wordModel = readWord2VecfModelFromBinary(wordFilename);
-		String contextFilename = directory + "/contexts";
-		Word2VecfModel contextModel = readWord2VecfModelFromBinary(contextFilename);
-		return new EnsembleW2VfModel(wordModel, contextModel);
-	}
-
-	public static EnsembleW2VfModel readEnsembleModelFromText(String directory) {
-		String wordFilename = directory + "/words";
-		Word2VecfModel wordModel = readWord2VecfModelFromText(wordFilename);
-		String contextFilename = directory + "/contexts";
-		Word2VecfModel contextModel = readWord2VecfModelFromText(contextFilename);
-		return new EnsembleW2VfModel(wordModel, contextModel);
-	}
-
-	public static void saveWord2VecfModel(String filename, Word2VecfModel model) {
-		String vocabFilename = filename + ".vocab";
+	public static void saveWord2VecfModel(String directory, Word2VecfModel model) {
+		String vocabFilename = directory + File.separator + "words.vocab";
 		saveVocabulary(vocabFilename, model.words);
-		String vectorFilename = filename + ".matrix";
-		saveVectors(vectorFilename, model.vectors);
+		String vectorFilename = directory + File.separator + "words.matrix";
+		saveVectors(vectorFilename, model.wordVectors);
+		if (model.contexts != null) {
+			saveVocabulary(directory + File.separator + "contexts.vocab", model.contexts);
+			saveVectors(directory + File.separator + "contexts.matrix", model.contextVectors);
+		}
 	}
 
-	public static Word2VecfModel readWord2VecfModelFromBinary(String filename) {
-		String vocabFilename = filename + ".vocab";
+	public static Word2VecfModel readWord2VecfModelFromBinary(String directory) {
+		String vocabFilename = directory + File.separator + "words.vocab";
 		List<String> words = readVocabulary(vocabFilename);
-		String vectorFilename = filename + ".matrix";
-		float[][] matrix = readVectors(vectorFilename);
-		int layerSize = matrix[0].length;
-		return new Word2VecfModel(layerSize, words, matrix);
+		String vectorFilename = directory + File.separator + "words.matrix";
+		float[][] wordMatrix = readVectors(vectorFilename);
+		int layerSize = wordMatrix[0].length;
+		if (!new File(directory + File.separator + "contexts.vocab").exists()) {
+			return new Word2VecfModel(layerSize, words, wordMatrix);
+		} else {
+			List<String> contexts = readVocabulary(directory + File.separator + "contexts.vocab");
+			float[][] contextMatrix = readVectors(directory + File.separator + "contexts.matrix");
+			return new Word2VecfModel(layerSize, words, wordMatrix, contexts, contextMatrix);
+		}
 	}
 
-	public static Word2VecfModel readWord2VecfModelFromText(String filename) {
+	public static Word2VecfModel readWord2VecfModelFromText(String directory) {
 		String[] words = null;
-		float[][] matrix = null;
+		float[][] wordMatrix = null;
+		String[] contexts = null;
+		float[][] contextMatrix = null;
 		int layerSize = 0;
 		try {
-			File file = new File(filename);
+			File file = new File(directory + File.separator + "words");
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			String line = br.readLine();
 			int vocabSize = Integer.parseInt(line.split(" ")[0]);
 			layerSize = Integer.parseInt(line.split(" ")[1]);
 			words = new String[vocabSize];
-			matrix = new float[vocabSize][layerSize];
+			wordMatrix = new float[vocabSize][layerSize];
 			int index = 0;
 			while ((line = br.readLine()) != null) {
 				String[] values = line.split(" ");
@@ -81,21 +72,44 @@ public class FileUtils {
 				float[] row = new float[layerSize];
 				for (int i = 1; i < values.length; i++)
 					row[i - 1] = Float.parseFloat(values[i]);
-				matrix[index] = row;
+				wordMatrix[index] = row;
 				index++;
 			}
 			br.close();
+			file = new File(directory + File.separator + "contexts");
+			if (file.exists()) {
+				BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+				line = reader.readLine();
+				vocabSize = Integer.parseInt(line.split(" ")[0]);
+				contexts = new String[vocabSize];
+				contextMatrix = new float[vocabSize][layerSize];
+				index = 0;
+				while ((line = reader.readLine()) != null) {
+					String[] values = line.split(" ");
+					contexts[index] = values[0];
+					float[] row = new float[layerSize];
+					for (int i = 1; i < values.length; i++)
+						row[i - 1] = Float.parseFloat(values[i]);
+					contextMatrix[index] = row;
+					index++;
+				}
+				br.close();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return new Word2VecfModel(layerSize, Arrays.asList(words), matrix);
+		if (contexts == null) {
+			return new Word2VecfModel(layerSize, Arrays.asList(words), wordMatrix);
+		} else {
+			return new Word2VecfModel(layerSize, Arrays.asList(words), wordMatrix, Arrays.asList(contexts), contextMatrix);
+		}
 	}
 
 	public static void convertTextToBinary(String filename) {
-		List<Map.Entry<String, float[]>> list = new ArrayList<Map.Entry<String, float[]>>(readFromTextToMap(filename).entrySet());
+		List<Map.Entry<String, float[]>> list = new ArrayList<>(readFromTextToMap(filename).entrySet());
 		list = list.stream().sorted(Map.Entry.comparingByKey()).collect(Collectors.toList());
-		List<String> words = new ArrayList<String>();
-		List<float[]> matList = new ArrayList<float[]>();
+		List<String> words = new ArrayList<>();
+		List<float[]> matList = new ArrayList<>();
 		Iterator<Map.Entry<String, float[]>> it = list.iterator();
 		while (it.hasNext()) {
 			Map.Entry<String, float[]> entry = it.next();
@@ -108,7 +122,7 @@ public class FileUtils {
 	}
 
 	private static Map<String, float[]> readFromTextToMap(String filename) {
-		Map<String, float[]> map = new HashMap<String, float[]>();
+		Map<String, float[]> map = new HashMap<>();
 		try {
 			File file = new File(filename);
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
@@ -133,11 +147,11 @@ public class FileUtils {
 	}
 
 	public static List<String> readVocabulary(String filename) {
-		List<String> words = new ArrayList<String>();
+		List<String> words = new ArrayList<>();
 		try {
 			File file = new File(filename);
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-			String line = "";
+			String line;
 			while ((line = br.readLine()) != null)
 				words.add(line);
 			br.close();
@@ -152,7 +166,8 @@ public class FileUtils {
 		try {
 			FileInputStream fis = new FileInputStream(new File(filename));
 			FileChannel channel = fis.getChannel();
-			MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, Math.min(channel.size(), Integer.MAX_VALUE));
+			MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, Math.min(channel.size(),
+					Integer.MAX_VALUE));
 			// load vocabSize and layerSize
 			final float[] sizes = new float[2];
 			final FloatBuffer sizeBuffer = buffer.asFloatBuffer();
@@ -160,7 +175,7 @@ public class FileUtils {
 			buffer.position(buffer.position() + 4 * 2);
 			int vocabSize = (int) sizes[0];
 			int layerSize = (int) sizes[1];
-			// load float vectors from matrix file
+			// load float wordVectors from matrix file
 			matrix = new float[vocabSize][layerSize];
 			int bufferCount = 1;
 			final float[] floats = new float[layerSize];
@@ -191,7 +206,7 @@ public class FileUtils {
 	}
 
 	public static void saveVocabulary(String filename, String[] words) {
-		File wordFile = new File(filename + ".vocab");
+		File wordFile = new File(filename);
 		try {
 			if (wordFile.exists())
 				wordFile.delete();
@@ -209,7 +224,7 @@ public class FileUtils {
 	}
 
 	public static void saveVocabulary(String filename, List<String> words) {
-		File wordFile = new File(filename + ".vocab");
+		File wordFile = new File(filename);
 		try {
 			if (wordFile.exists())
 				wordFile.delete();
@@ -229,7 +244,7 @@ public class FileUtils {
 	public static void saveVectors(String filename, float[][] matrix) {
 		int vocabSize = matrix.length;
 		int layerSize = matrix[0].length;
-		File matrixFile = new File(filename + ".matrix");
+		File matrixFile = new File(filename);
 		if (matrixFile.exists())
 			matrixFile.delete();
 		try {

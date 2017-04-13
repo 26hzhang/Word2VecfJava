@@ -45,7 +45,7 @@ public class VocabAndDepsExtract {
 		this.MIN_FREQUENCY = MIN_FREQUENCY;
 		this.MIN_COUNT = MIN_COUNT;
 		this.train_file = new File(filename);
-		this.wordSet = new HashSet<String>(this.countWords(train_file));
+		this.wordSet = new HashSet<>(this.countWords(train_file));
 		this.depContexts_file = new File(this.train_file.getParent() + "/dep.contexts");
 		this.wvocab_file = this.train_file.getParent() + "/wv";
 		this.cvocab_file = this.train_file.getParent() + "/cv";
@@ -57,7 +57,7 @@ public class VocabAndDepsExtract {
 	 */
 	public String train() {
 		try {
-			this.extractDepAndcountFilter();
+			this.extractDepAndCountFilter();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -65,23 +65,23 @@ public class VocabAndDepsExtract {
 	}
 
 	/** extract dep.context and generate wv, cv files */
-	private void extractDepAndcountFilter() throws IOException {
+	private void extractDepAndCountFilter() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(train_file)));
 		BufferedWriter depWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(depContexts_file)));
 		// initiate the list to store tokens of a sentence
-		List<Tokens> sent = new ArrayList<Tokens>();
+		List<Tokens> sent = new ArrayList<>();
 		Tokens root = new Tokens(0, "*root*", -1, "rroot");
 		sent.add(root);
-		String line = null;
+		String line;
 		while ((line = br.readLine()) != null) {
 			if (line.equals("")) {
 				if (sent.size() > 1) {
 					String depContexts = this.extractDependency(sent);
 					depWriter.write(depContexts);
 					depWriter.flush();
-					this.counterAndFilter(new ArrayList<String>(Arrays.asList(depContexts.split("\n"))));
+					this.counterAndFilter(new ArrayList<>(Arrays.asList(depContexts.split("\n"))));
 				}
-				sent = new ArrayList<Tokens>();
+				sent = new ArrayList<>();
 				sent.add(root);
 			} else {
 				String[] str = line.toLowerCase().split("\t");
@@ -195,11 +195,11 @@ public class VocabAndDepsExtract {
 			e.printStackTrace();
 		}
 		// add map elements to the list and sort according to the value
-		List<Map.Entry<String, AtomicInteger>> list = new ArrayList<Map.Entry<String, AtomicInteger>>(map.entrySet());
+		List<Map.Entry<String, AtomicInteger>> list = new ArrayList<>(map.entrySet());
 		// create a comparator to compare the value of each element, and sort the list
 		list = list.stream().sorted((a, b) -> Integer.compare(b.getValue().get(), a.getValue().get())).collect(Collectors.toList());
-		List<String> words = new ArrayList<String>();
-		List<Integer> counts = new ArrayList<Integer>();
+		List<String> words = new ArrayList<>();
+		List<Integer> counts = new ArrayList<>();
 		for (Entry<String, AtomicInteger> entry : list) {
 			if (entry.getValue().intValue() < MIN_FREQUENCY)
 				break;

@@ -44,10 +44,10 @@ public class DependencyGenerator {
 	}
 
 	public List<String> getDependency(String sentence, String word, String context) {
-		List<String> result = new ArrayList<String>();
+		List<String> result = new ArrayList<>();
 		if (sentence == null || sentence.isEmpty())
 			return result;
-		Type type = Type.ALL; // Default
+		Type type; // Default
 		if ((word == null || word.isEmpty()) && (context == null || context.isEmpty()))
 			type = Type.ALL;
 		else if (!word.isEmpty() && !context.isEmpty())
@@ -123,7 +123,7 @@ public class DependencyGenerator {
 				}
 			}
 		}
-		return String.format("Can not detect the relationaship between %s and %s.", tgtWord, tgtContext);
+		return String.format("Can not detect the relationship between %s and %s.", tgtWord, tgtContext);
 	}
 
 }

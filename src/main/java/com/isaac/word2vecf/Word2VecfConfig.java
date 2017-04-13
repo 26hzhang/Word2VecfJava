@@ -1,6 +1,9 @@
 package com.isaac.word2vecf;
 
 public class Word2VecfConfig {
+	String trainFile = "";
+	String wordVocabFile = "";
+	String contextVocabFile = "";
 	int numThreads = 10;
 	int iterations = 1;
 	int layerSize = 300;
@@ -12,31 +15,14 @@ public class Word2VecfConfig {
 	int classes = 0;
 	double sample = 0;
 
-	/**
-	 *
-	 * @param numThreads
-	 *            normally, 10
-	 * @param iterations
-	 *            normally, 1
-	 * @param layerSize
-	 *            normally, 300~500
-	 * @param negative
-	 *            normally, 15
-	 * @param minCount
-	 *            normally, 40~100
-	 * @param debugModel
-	 *            normally, 2
-	 * @param binary
-	 *            normally, 0
-	 * @param classes
-	 *            normally, 0
-	 * @param sample
-	 *            normally, 0
-	 * @param initialLearningRate
-	 *            normally, 0.025
-	 */
-	public Word2VecfConfig(int numThreads, int iterations, int layerSize, int negative, int minCount, int debugModel, int binary, int classes, double sample,
-			double initialLearningRate) {
+	public Word2VecfConfig() {}
+
+	public Word2VecfConfig(String trainFile, String wordVocabFile, String contextVocabFile, int numThreads,
+						   int iterations, int layerSize, int negative, int minCount, int debugModel, int binary,
+						   int classes, double sample, double initialLearningRate) {
+		this.trainFile = trainFile;
+		this.wordVocabFile = wordVocabFile;
+		this.contextVocabFile = contextVocabFile;
 		this.numThreads = numThreads;
 		this.iterations = iterations;
 		this.layerSize = layerSize;
@@ -49,8 +35,23 @@ public class Word2VecfConfig {
 		this.initialLearningRate = initialLearningRate;
 	}
 
-	public Word2VecfConfig() {
+	public Word2VecfConfig setTrainFile(String trainFile) {
+		this.trainFile = trainFile;
+		return this;
+	}
 
+	public String getTrainFile() {
+		return this.trainFile;
+	}
+
+	public Word2VecfConfig setWordVocabFile(String wordVocabFile) {
+		this.wordVocabFile = wordVocabFile;
+		return this;
+	}
+
+	public Word2VecfConfig setContextVocabFile(String contextVocabFile) {
+		this.contextVocabFile = contextVocabFile;
+		return this;
 	}
 
 	public Word2VecfConfig setNumThreads(int numThreads) {

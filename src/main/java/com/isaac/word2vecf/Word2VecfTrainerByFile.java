@@ -18,10 +18,7 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.isaac.utils.CallableVoid;
-import com.isaac.utils.EnsembleW2VfModel;
-import com.isaac.utils.VocabFunctions;
-import com.isaac.utils.Vocabulary;
+import com.isaac.utils.*;
 import com.isaac.utils.Vocabulary.VocabWord;
 
 public class Word2VecfTrainerByFile {
@@ -60,7 +57,7 @@ public class Word2VecfTrainerByFile {
 	 * words that are discarded from sampling. Note that each word is processed
 	 * once per iteration.
 	 */
-	protected final AtomicInteger actualWordCount;
+	private final AtomicInteger actualWordCount;
 	/** Learning rate, affects how fast values in the layers get updated */
 	volatile double alpha;
 	/**
@@ -75,11 +72,11 @@ public class Word2VecfTrainerByFile {
 	private final String trainFile;
 	private final long fileSize;
 
-	public Word2VecfTrainerByFile(Word2VecfConfig config, String trainFilename, String wvocabFilename, String cvocabFilename) {
-		this.trainFile = trainFilename;
+	public Word2VecfTrainerByFile(Word2VecfConfig config) {
+		this.trainFile = config.trainFile;
 		this.fileSize = this.GetFileSize(trainFile);
-		this.wv = this.ReadVocab(wvocabFilename);
-		this.cv = this.ReadVocab(cvocabFilename);
+		this.wv = this.ReadVocab(config.wordVocabFile);
+		this.cv = this.ReadVocab(config.contextVocabFile);
 		this.numTrainedTokens = wv.word_count;
 		this.actualWordCount = new AtomicInteger();
 		this.config = config;
@@ -136,12 +133,13 @@ public class Word2VecfTrainerByFile {
 		return r * 25_214_903_917L + 11;
 	}
 
-	public EnsembleW2VfModel train() throws IOException, InterruptedException {
-		final ListeningExecutorService ex = MoreExecutors.listeningDecorator(new ThreadPoolExecutor(config.numThreads, config.numThreads, 0L,
-				TimeUnit.MILLISECONDS, new ArrayBlockingQueue<Runnable>(config.numThreads), new ThreadPoolExecutor.CallerRunsPolicy()));
+	public Word2VecfModel train() throws IOException, InterruptedException {
+		final ListeningExecutorService ex = MoreExecutors.listeningDecorator(
+				new ThreadPoolExecutor(config.numThreads, config.numThreads, 0L, TimeUnit.MILLISECONDS,
+						new ArrayBlockingQueue<>(config.numThreads), new ThreadPoolExecutor.CallerRunsPolicy()));
 		try {
 			for (int iter = config.iterations; iter > 0; iter--) {
-				List<ListenableFuture<?>> futures = new ArrayList<>(64);
+				List<ListenableFuture<?>> futures = new ArrayList<>(); // initialCapacity: 64
 				int i = 0;
 				for (int id = 0; id < config.numThreads; id++) {
 					futures.add(ex.submit(createWorker(i, iter, id)));
@@ -157,12 +155,13 @@ public class Word2VecfTrainerByFile {
 		} finally {
 			ex.shutdownNow();
 		}
-		return new EnsembleW2VfModel(config.layerSize, wv.wordSet(), convertToFloats(syn0), cv.wordSet(), convertToFloats(syn1neg));
+		return new Word2VecfModel(config.layerSize, wv.wordSet(), convertToFloats(syn0),
+				cv.wordSet(), convertToFloats(syn1neg));
 
 	}
 
 	/** @return {@link Worker} to process the given sentences */
-	Worker createWorker(int randomSeed, int iter, int id) {
+	private Worker createWorker(int randomSeed, int iter, int id) {
 		return new Worker(randomSeed, iter, id);
 	}
 
@@ -220,12 +219,14 @@ public class Word2VecfTrainerByFile {
 				wordCount++;
 				if (config.sample > 0) {
 					VocabWord wvw = wv.vocab.get(wrdi);
-					double random = (Math.sqrt(wvw.cn / (config.sample * wv.word_count)) + 1) * (config.sample * wv.word_count) / wvw.cn;
+					double random = (Math.sqrt(wvw.cn / (config.sample * wv.word_count)) + 1) *
+							(config.sample * wv.word_count) / wvw.cn;
 					nextRandom = incrementRandom(nextRandom);
 					if (random < (nextRandom & 0xFFFF) / (double) 65_536)
 						continue;
 					VocabWord cvw = cv.vocab.get(ctxi);
-					random = (Math.sqrt(cvw.cn / (config.sample * cv.word_count)) + 1) * (config.sample * cv.word_count) / cvw.cn;
+					random = (Math.sqrt(cvw.cn / (config.sample * cv.word_count)) + 1) *
+							(config.sample * cv.word_count) / cvw.cn;
 					nextRandom = incrementRandom(nextRandom);
 					if (random < (nextRandom & 0xFFFF) / (double) 65_536)
 						continue;
@@ -250,7 +251,8 @@ public class Word2VecfTrainerByFile {
 			int currentActual = actualWordCount.addAndGet(wordCount - lastWordCount);
 			lastWordCount = wordCount;
 			// Degrade the learning rate linearly towards 0 but keep a minimum
-			alpha = config.initialLearningRate * Math.max(1 - currentActual / (double) (config.iterations * numTrainedTokens), 0.0001);
+			alpha = config.initialLearningRate * Math.max(1 - currentActual / (double) (config.iterations *
+					numTrainedTokens), 0.0001);
 		}
 
 		private void handleNegativeSampling(int wrdi, int ctxi) {
@@ -262,9 +264,10 @@ public class Word2VecfTrainerByFile {
 					label = 1;
 				} else {
 					nextRandom = incrementRandom(nextRandom);
-					target = unitable[(int) (((nextRandom >> 16) % TABLE_SIZE) + TABLE_SIZE) % TABLE_SIZE]; // ?????
+					target = unitable[(int) (((nextRandom >> 16) % TABLE_SIZE) + TABLE_SIZE) % TABLE_SIZE];
 					if (target == 0)
-						target = (int) (((nextRandom % (cv.vocab_size - 1)) + cv.vocab_size - 1) % (cv.vocab_size - 1)) + 1;
+						target = (int) (((nextRandom % (cv.vocab_size - 1)) + cv.vocab_size - 1) %
+								(cv.vocab_size - 1)) + 1;
 					if (target == ctxi)
 						continue;
 					label = 0;
@@ -277,7 +280,7 @@ public class Word2VecfTrainerByFile {
 				if (f > MAX_EXP)
 					g = (label - 1) * alpha;
 				else if (f < -MAX_EXP)
-					g = (label - 0) * alpha;
+					g = label * alpha;
 				else
 					g = (label - EXP_TABLE[(int) ((f + MAX_EXP) * (EXP_TABLE_SIZE / MAX_EXP / 2))]) * alpha;
 				for (int c = 0; c < layer1_size; c++)
@@ -300,7 +303,7 @@ public class Word2VecfTrainerByFile {
 		Vocabulary v = V.CreateVocabulary();
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-			String line = "";
+			String line;
 			while ((line = br.readLine()) != null) {
 				String[] words = line.split(" ");
 				int a = V.AddWordToVocab(v, words[0]);

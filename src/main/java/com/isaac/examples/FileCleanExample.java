@@ -6,7 +6,8 @@ public class FileCleanExample {
 
 	public static void main(String[] args) {
 		String filename = "C:/Users/Dr Erik/Desktop/corpus4";
-		Tools.RawCorpusClean(filename, true, true, true, true, true);
+		Tools.RawCorpusClean(filename, true, true, true, true,
+				true);
 	}
 
 }

@@ -47,7 +47,7 @@ public class ConllFileGenerator {
 
 			StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 			Annotation annotation;
-			String line = "";
+			String line;
 			int index = 0;
 			while ((line = br.readLine()) != null) {
 				if (line.isEmpty())
@@ -77,8 +77,8 @@ public class ConllFileGenerator {
 
 	private static String deleteErrorResult(String conllOutputter) {
 		String result = "";
-		List<String> list = new ArrayList<String>(Arrays.asList(conllOutputter.split("\n")));
-		List<String> temp = new ArrayList<String>();
+		List<String> list = new ArrayList<>(Arrays.asList(conllOutputter.split("\n")));
+		List<String> temp = new ArrayList<>();
 		boolean judge = true;
 		for (String line : list) {
 			temp.add(line);

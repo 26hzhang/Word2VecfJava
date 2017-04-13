@@ -11,7 +11,7 @@ public class Vocabulary {
 	public int[] vocab_hash;
 
 	public List<String> wordSet() {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		for (VocabWord vw : vocab)
 			list.add(vw.word);
 		return list;
