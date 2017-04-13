@@ -26,7 +26,6 @@ In order to make the project more usable, the pre-computations are implemented i
 This is the very beginning version.
 * Achieves the pre-process and training process.
 * The parameter setting is fix according to the Levy's paper. 
-* Only the training process uses the parallel programming. 
 * Some bugs also need to be fixed.
 
 **TODO**
