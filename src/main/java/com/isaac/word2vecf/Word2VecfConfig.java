@@ -6,7 +6,7 @@ public class Word2VecfConfig {
 	String contextVocabFile = "";
 	int numThreads = 10;
 	int iterations = 1;
-	int layerSize = 300;
+	int layerSize = 500;
 	int negative = 15;
 	int minCount = 50;
 	int debugModel = 2;

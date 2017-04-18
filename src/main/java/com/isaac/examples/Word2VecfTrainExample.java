@@ -12,9 +12,9 @@ public class Word2VecfTrainExample {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 		Word2VecfConfig config = new Word2VecfConfig()
-				.setTrainFile("<Train File Path>")
-				.setWordVocabFile("<Word Vocab>")
-				.setContextVocabFile("<Context Vocab Path>")
+				.setTrainFile("/Volumes/Isaac Changhau/hyperwords/corpus4dir/dep.contexts")
+				.setWordVocabFile("/Volumes/Isaac Changhau/hyperwords/corpus4dir/wv")
+				.setContextVocabFile("/Volumes/Isaac Changhau/hyperwords/corpus4dir/cv")
 				.setNumThreads(10)
 				.setIterations(1)
 				.setLayerSize(500)

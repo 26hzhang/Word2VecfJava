@@ -256,7 +256,7 @@ public class Word2VecfTrainerByFile {
 		private void updateAlpha(int iter) {
 			int currentActual = actualWordCount.addAndGet(wordCount - lastWordCount);
 			lastWordCount = wordCount;
-			// Degrade the learning rate linearly towards 0 but keep a minimum
+			// Update learning rate, keep a minimum to avoid it degrades to zero
 			alpha = config.initialLearningRate * Math.max(1 - currentActual / (double) (config.iterations *
 					numTrainedTokens), 0.0001);
 		}
@@ -295,7 +295,6 @@ public class Word2VecfTrainerByFile {
 					syn1neg[l2][c] = g * syn0[wrdi][c];
 			}
 		}
-
 	}
 
 	/** load vocabulary file from file */
@@ -313,7 +312,7 @@ public class Word2VecfTrainerByFile {
 			while ((line = br.readLine()) != null) {
 				String[] words = line.split(" ");
 				int a = V.AddWordToVocab(v, words[0]);
-				v.vocab.get(a).cn = Integer.parseInt(words[1]);
+				v.vocab.get(a).cn = Integer.parseInt(words[1].trim());
 			}
 			br.close();
 		} catch (IOException e) {
