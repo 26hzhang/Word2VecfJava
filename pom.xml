@@ -23,49 +23,69 @@
 		</plugins>
 	</build>
 
-  	<properties>
-    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<junidecode.version>0.1.1</junidecode.version>
-		<guava.version>19.0</guava.version>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<stanfordcorenlp.version>3.6.0</stanfordcorenlp.version>
-  	</properties>
+		<junidecode.version>0.1.1</junidecode.version>
+		<guava.version>21.0</guava.version>
+		<commons-lang.version>3.5</commons-lang.version>
+		<commons-io.version>2.4</commons-io.version>
+		<commons-math.version>3.6.1</commons-math.version>
+		<slf4j.version>1.7.21</slf4j.version>
+		<nd4j.version>0.8.0</nd4j.version>
+	</properties>
 
-  	<dependencies>
-    	<dependency>
-    		<groupId>edu.stanford.nlp</groupId>
-    		<artifactId>stanford-corenlp</artifactId>
-    		<version>${stanfordcorenlp.version}</version>
-		</dependency>
-		<dependency>
-    		<groupId>edu.stanford.nlp</groupId>
-    		<artifactId>stanford-corenlp</artifactId>
-    		<version>${stanfordcorenlp.version}</version>
-    		<classifier>models</classifier>
-		</dependency>
-		<dependency>
-    		<groupId>com.moparisthebest</groupId>
-    		<artifactId>junidecode</artifactId>
-    		<version>${junidecode.version}</version>
-		</dependency>
+	<dependencies>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>${stanfordcorenlp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>${stanfordcorenlp.version}</version>
+			<classifier>models</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
+			<version>${commons-io.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-math3</artifactId>
-			<version>3.6.1</version>
+			<version>${commons-math.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>log4j-over-slf4j</artifactId>
-			<version>1.7.13</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang.version}</version>
 		</dependency>
-  	</dependencies>
+		<dependency>
+			<groupId>org.nd4j</groupId>
+			<artifactId>nd4j-api</artifactId>
+			<version>${nd4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.nd4j</groupId>
+			<artifactId>nd4j-native</artifactId>
+			<version>${nd4j.version}</version>
+		</dependency>
+	</dependencies>
 </project>
