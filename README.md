@@ -53,7 +53,7 @@ The expected files are:
 
 1. word_vocabulary: file mapping words (strings) to their counts.
 2. context_vocabulary: file mapping contexts (strings) to their counts, used for constructing the sampling table for the negative training.
-3. training_data: textual file of word-context pairs. each pair takes a seperate line. the format of a pair is "<word> <context>", i.e. space delimited, where <word> and <context> are strings. if we want to prefer some contexts over the others, we should construct the training data to contain the bias.
+3. training_data: textual file of word-context pairs. each pair takes a seperate line. the format of a pair is "(word context)", i.e. space delimited, where <word> and <context> are strings. if we want to prefer some contexts over the others, we should construct the training data to contain the bias.
 
 In order to make the project more usable, the pre-computations are implemented inside the project too. Since the Word2Vecf project is dependency-based word embeddings, the [stanford dependency parser](http://nlp.stanford.edu/software/stanford-dependencies.shtml) is used, more usage information can be found in its [website](http://nlp.stanford.edu/software/lex-parser.shtml).
 
