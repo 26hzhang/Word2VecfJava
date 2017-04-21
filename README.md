@@ -70,8 +70,9 @@ This is the very beginning version.
 
 ### Version 2.0
 * Rewrite the codes and change the structure.
+* Add Lexical Substitute methods (Add, BalAdd, Mult, BalMult) and demo test.
 * Add WordSim353 task.
 * Add TOEFL synonym questions solving task.
 * Add SynSem analogy task.
-* user defined parameters.
+* User defined parameters.
 * Still... some bugs need to be fixed.
