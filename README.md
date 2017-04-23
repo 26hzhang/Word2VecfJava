@@ -6,7 +6,7 @@ This algorithm uses the Skip-Gram method and train with shallow neural network, 
 
 ### Requirements
 * [Java 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
-* [ND4J](http://nd4j.org/), its source codes in GitHub [page](https://github.com/deeplearning4j/nd4j). For [Maven](http://mvnrepository.com/artifact/org.nd4j), import the following dependency:
+* [ND4J](http://nd4j.org/), its source codes in GitHub [page](https://github.com/deeplearning4j/nd4j). For [Maven](http://mvnrepository.com/artifact/org.nd4j), import the following snippet:
 ```XML
 <dependency>
     <groupId>org.nd4j</groupId>
@@ -14,7 +14,7 @@ This algorithm uses the Skip-Gram method and train with shallow neural network, 
     <version>${nd4j.version}</version>
 </dependency>
 ```
-* [Stanford NLP](https://nlp.stanford.edu/software/), its source codes in GitHub [page](https://github.com/stanfordnlp). For [Maven](https://mvnrepository.com/artifact/edu.stanford.nlp), import the following dependency:
+* [Stanford NLP](https://nlp.stanford.edu/software/), its source codes in GitHub [page](https://github.com/stanfordnlp). For [Maven](https://mvnrepository.com/artifact/edu.stanford.nlp), import the following snippet:
 ```XML
 <dependency>
     <groupId>edu.stanford.nlp</groupId>
@@ -30,7 +30,7 @@ This algorithm uses the Skip-Gram method and train with shallow neural network, 
     <classifier>models</classifier>
 </dependency>
 ```
-* [Guava](https://github.com/google/guava). For [Maven](https://mvnrepository.com/artifact/com.google.guava/guava), import the following dependency:
+* [Guava](https://github.com/google/guava). For [Maven](https://mvnrepository.com/artifact/com.google.guava/guava), import the following snippet:
 ```XML
 <dependency>
     <groupId>com.google.guava</groupId>
