@@ -5,6 +5,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.isaac.word2vecf.utils.CallableVoid;
+import com.isaac.word2vecf.utils.Common;
 import com.isaac.word2vecf.utils.NetworkConfig;
 import com.isaac.word2vecf.vocabulary.VocabFunctions;
 import com.isaac.word2vecf.vocabulary.Vocabulary;
@@ -25,8 +26,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * email: isaac.changhau@gmail.com
  */
 public class Word2VecfTrainer {
-	/** Sentences longer than this are broken into multiple chunks */
-	private static final int MAX_SENTENCE_LENGTH = 1_000;
 	/** A string longer than this are trunked the first part */
 	private static final int MAX_STRING = 100;
 	/** Boundary for maximum exponent allowed */
@@ -81,7 +80,7 @@ public class Word2VecfTrainer {
 
 	Word2VecfTrainer(String trainFile, String wordVocabFile, String contextVocabFile, NetworkConfig config) {
 		this.trainFile = trainFile;
-		this.fileSize = getFileSize(trainFile);
+		this.fileSize = Common.getFileSize(trainFile);
 		this.wv = readVocab(wordVocabFile);
 		this.cv = readVocab(contextVocabFile);
 		this.config = config;
@@ -276,7 +275,7 @@ public class Word2VecfTrainer {
 				if (f > MAX_EXP)
 					g = (label - 1) * alpha;
 				else if (f < -MAX_EXP)
-					g = label * alpha;
+					g = (label - 0) * alpha;
 				else
 					g = (label - EXP_TABLE[(int) ((f + MAX_EXP) * (EXP_TABLE_SIZE / MAX_EXP / 2))]) * alpha;
 				for (int c = 0; c < layer1_size; c++)
@@ -305,19 +304,6 @@ public class Word2VecfTrainer {
 			e.printStackTrace();
 		}
 		return v;
-	}
-
-	/** @return file size */
-	private long getFileSize(String filename) {
-		long fsize = 0;
-		try {
-			RandomAccessFile file = new RandomAccessFile(filename, "r");
-			fsize = file.length();
-			file.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return fsize;
 	}
 
 }

@@ -62,6 +62,19 @@ public class Common {
 		return StringUtils.isAlphanumeric(str);
 	}
 
+	/** @return file size */
+	public static long getFileSize(String filename) {
+		long fsize = 0;
+		try {
+			RandomAccessFile file = new RandomAccessFile(filename, "r");
+			fsize = file.length();
+			file.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return fsize;
+	}
+
 	/** @return lemmatized string, input string can be a word, sentence or paragraph */
 	public static String lemmatizer (String string, StanfordCoreNLP pipeline) {
 		String lemmas = "";
