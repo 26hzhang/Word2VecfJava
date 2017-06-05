@@ -76,3 +76,10 @@ This is the very beginning version.
 * Add SynSem analogy task.
 * User defined parameters.
 * Still... some bugs need to be fixed.
+
+### Version 2.1
+* Some bugs fixed.
+* Compatible with Word2Vec, say, you can use this repository to load trained result by Word2Vec, and perform similarity, nearest words tasks and etc. (Using Word2Vec and Word2VecModel, see Word2VecExample.java in examples)
+* Rewrite embeddings load function, decrease resource occupancy
+* Split Word2Vecf and Word2VecfModel and clean up redundant codes, Word2Vecf is separated to Word2Vecf and Word2Vec, where Word2Vecf handles word and context embeddings, while Word2Vec handles word embeddings only. Word2VecfModel is separated to Word2VecModel and Word2VecfModel, similar to Word2Vecf...
+* For training, vectors use double-precision (double), then those vectors are converted to single-precision (float) to store (in order to disk space and fast load)

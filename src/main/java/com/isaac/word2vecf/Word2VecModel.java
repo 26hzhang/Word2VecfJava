@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Bytes;
 import com.isaac.word2vecf.utils.Common;
-import com.isaac.word2vecf.utils.Pair;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -19,11 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by zhanghao on 18/4/17.
+ * Created by zhanghao on 5/6/17.
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
-public class Word2VecfModel {
+public class Word2VecModel {
 	/** For file process usage */
 	private final static long ONE_GB = 1024 * 1024 * 1024;
 	private final static byte LINE_SEPARATOR = 10;
@@ -33,15 +32,11 @@ public class Word2VecfModel {
 	private final int layerSize;
 	private final List<String> wordVocab;
 	private final float[][] wordVectors;
-	private final List<String> contextVocab;
-	private final float[][] contextVectors;
 
-	Word2VecfModel(int layerSize, Iterable<String> wordVocab, float[][] wordVectors, Iterable<String> contextVocab, float[][] contextVectors) {
+	Word2VecModel(int layerSize, Iterable<String> wordVocab, float[][] wordVectors) {
 		this.layerSize = layerSize;
 		this.wordVocab = ImmutableList.copyOf(wordVocab);
 		this.wordVectors = wordVectors;
-		this.contextVocab = ImmutableList.copyOf(contextVocab);
-		this.contextVectors = contextVectors;
 	}
 
 	/** @return Layer size */
@@ -54,17 +49,9 @@ public class Word2VecfModel {
 		return wordVocab.size();
 	}
 
-	/** @return context vocabulary size */
-	public int getContextVocabSize() { return contextVocab.size(); }
-
 	/** @return word vocabulary */
 	public List<String> getWordVocab() {
 		return wordVocab;
-	}
-
-	/** @return context vocabulary */
-	public List<String> getContextVocab() {
-		return contextVocab;
 	}
 
 	/** @return word vectors */
@@ -72,39 +59,30 @@ public class Word2VecfModel {
 		return wordVectors;
 	}
 
-	/** @return context vectors */
-	public float[][] getContextVectors() {
-		return contextVectors;
-	}
-
-	/** @return {@link Word2VecfModel} */
-	public static Word2VecfModel fromTextFile(String wordFilePath, String contextFilePath) {
+	/** @return {@link Word2VecModel} */
+	public static Word2VecModel fromTextFile(String wordFilePath) {
 		List<String> wordLines = null;
-		List<String> contextLines = null;
 		try {
 			wordLines = Common.readToList(new File(wordFilePath));
-			contextLines = Common.readToList(new File(contextFilePath));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return fromTextFile(wordFilePath, wordLines, contextFilePath, contextLines);
+		return fromText(wordFilePath, wordLines);
 	}
 
-	/** @return {@link Word2VecfModel} */
-	public static Word2VecfModel fromBinaryFile(String wordFilePath, String contextFilePath) {
-		Pair<List<String>, float[][]> wordPair = null;
-		Pair<List<String>, float[][]> contextPair = null;
+	/** @return {@link Word2VecModel} */
+	public static Word2VecModel fromBinaryFile(String wordFilePath) {
+		Word2VecModel model = null;
 		try {
-			wordPair = fromBinaryFile(wordFilePath);
-			contextPair = fromBinaryFile(contextFilePath);
+			model = fromBinary(wordFilePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return new Word2VecfModel(wordPair.second[0].length, wordPair.first, wordPair.second, contextPair.first, contextPair.second);
+		return model;
 	}
 
 	/** Saves the model as bin file */
-	public void toBinaryFile(String wordFilePath, String contextFilePath){
+	public void toBinaryFile(String wordFilePath){
 		final Charset cs = StandardCharsets.UTF_8;
 		try {
 			final OutputStream os = new FileOutputStream(new File(wordFilePath));
@@ -123,41 +101,19 @@ public class Word2VecfModel {
 			}
 			os.flush();
 			os.close();
-			// context
-			final OutputStream cos = new FileOutputStream(new File(contextFilePath));
-			final String cheader = String.format("%d %d\n", contextVocab.size(), layerSize);
-			cos.write(cheader.getBytes(cs));
-			final ByteBuffer cbuffer = ByteBuffer.allocate(4 * layerSize);
-			cbuffer.order(byteOrder);
-			for (int i = 0; i < contextVocab.size(); ++i) {
-				cos.write(String.format("%s ", contextVocab.get(i)).getBytes(cs)); // Write one vocab in byte format, add a space.
-				cbuffer.clear();
-				for (int j = 0; j < layerSize; ++j) {
-					cbuffer.putFloat(this.contextVectors[i][j]);
-				}
-				cos.write(cbuffer.array()); // Write all float values of one vector in byte format.
-				cos.write('\n'); // Add a newline.
-			}
-			cos.flush();
-			cos.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	/** @return {@link Word2VecfModel} */
-	private static Word2VecfModel fromTextFile(String wordFilePath, List<String> wordLines, String contextFilePath, List<String> contextLines) {
+	/** @return {@link Word2VecModel} */
+	private static Word2VecModel fromText(String wordFilePath, List<String> wordLines) {
 		List<String> wordVocab = Lists.newArrayList();
-		List<String> contextVocab = Lists.newArrayList();
-		int wordVocabSize = Integer.parseInt(wordLines.get(0).split(" ")[0]);
-		int contextVocabSize = Integer.parseInt(contextLines.get(0).split(" ")[0]);
+		int vocabSize = Integer.parseInt(wordLines.get(0).split(" ")[0]);
 		int layerSize = Integer.parseInt(wordLines.get(0).split(" ")[1]);
-		Preconditions.checkArgument(wordVocabSize == wordLines.size() - 1, "For file '%s', vocab size is %s, but there are %s word vectors in the file",
-				wordFilePath, wordVocabSize, wordLines.size() - 1);
-		Preconditions.checkArgument(contextVocabSize == contextLines.size() - 1, "For file '%s', vocab size is %s, but there are %s context vectors in the file",
-				contextFilePath, contextVocabSize, contextLines.size() - 1);
-		float[][] wordVectors = new float[wordVocabSize][layerSize];
-		float[][] contextVectors = new float[contextVocabSize][layerSize];
+		Preconditions.checkArgument(vocabSize == wordLines.size() - 1, "For file '%s', vocab size is %s, but there are %s word vectors in the file",
+				wordFilePath, vocabSize, wordLines.size() - 1);
+		float[][] wordVectors = new float[vocabSize][layerSize];
 		for (int n = 1; n < wordLines.size(); n++) {
 			String[] values = wordLines.get(n).split(" ");
 			wordVocab.add(values[0]);
@@ -167,24 +123,15 @@ public class Word2VecfModel {
 				wordVectors[n - 1][d - 1] = Float.parseFloat(values[d]);
 			}
 		}
-		for (int n = 1; n < contextLines.size(); n++) {
-			String[] values = contextLines.get(n).split(" ");
-			contextVocab.add(values[0]);
-			Preconditions.checkArgument(layerSize == values.length - 1, "For file '%s', on line %s, layer size is %s, but found %s values in the context vector",
-					contextFilePath, n, layerSize, values.length - 1); // Sanity check
-			for (int d = 1; d < values.length; d++) {
-				contextVectors[n - 1][d - 1] = Float.parseFloat(values[d]);
-			}
-		}
-		return new Word2VecfModel(layerSize, wordVocab, wordVectors, contextVocab, contextVectors);
+		return new Word2VecModel(layerSize, wordVocab, wordVectors);
 	}
 
-	/** @return {@link Pair}, which format is <List<String>, double[][]> */
-	private static Pair<List<String>, float[][]> fromBinaryFile(String filename) throws IOException {
+	/** @return {@link Word2VecModel} */
+	private static Word2VecModel fromBinary(String filename) throws IOException {
 		if (filename == null || filename.isEmpty())
 			return null;
 		try (final FileInputStream fis = new FileInputStream((new File(filename)));
-			 final FileChannel channel = fis.getChannel()) {
+		     final FileChannel channel = fis.getChannel()) {
 			final Charset cs = StandardCharsets.UTF_8;
 			MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, Math.min(channel.size(), Integer.MAX_VALUE));
 			buffer.order(byteOrder);
@@ -234,12 +181,7 @@ public class Word2VecfModel {
 					bufferCount += 1;
 				}
 			}
-			return Pair.cons(vocab, vectors);
+			return new Word2VecModel(layerSize, vocab, vectors);
 		}
-	}
-
-	/** @return {@link Word2VecfTrainerBuilder} for training a model */
-	public static Word2VecfTrainerBuilder trainer() {
-		return new Word2VecfTrainerBuilder();
 	}
 }

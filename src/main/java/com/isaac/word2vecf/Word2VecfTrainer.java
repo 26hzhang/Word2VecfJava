@@ -58,7 +58,7 @@ public class Word2VecfTrainer {
 	/** configurations of word2vecf training */
 	private final NetworkConfig config;
 
-	/* The following includes shared state that is updated per worker thread */
+	/* -----The following includes shared state that is updated per worker thread----- */
 	/**
 	 * To be precise, this is the number of words in the training data that
 	 * exist in the vocabulary which have been processed so far. It includes
@@ -156,7 +156,7 @@ public class Word2VecfTrainer {
 		} finally {
 			ex.shutdownNow();
 		}
-		return new Word2VecfModel(layer1_size, wv.wordSet(), syn0, cv.wordSet(), syn1neg);
+		return new Word2VecfModel(layer1_size, wv.wordSet(), convert2Float(syn0), cv.wordSet(), convert2Float(syn1neg));
 	}
 
 	/** @return {@link Worker} to process the given sentences */
@@ -306,4 +306,14 @@ public class Word2VecfTrainer {
 		return v;
 	}
 
+	/** @return float array */
+	private float[][] convert2Float(double[][] vectors) {
+		float[][] res = new float[vectors.length][vectors[0].length];
+		for (int i = 0; i < vectors.length; i++) {
+			for (int j = 0; j < vectors[0].length; j++) {
+				res[i][j] = (float) vectors[i][j];
+			}
+		}
+		return res;
+	}
 }

@@ -2,6 +2,7 @@
   <dictionary name="zhanghao">
     <words>
       <w>changhau</w>
+      <w>cscores</w>
       <w>ctxi</w>
       <w>cvectors</w>
       <w>cvocab</w>
@@ -18,6 +19,7 @@
       <w>unitable</w>
       <w>vecf</w>
       <w>wrdi</w>
+      <w>wscores</w>
       <w>wvectors</w>
       <w>wvocab</w>
     </words>

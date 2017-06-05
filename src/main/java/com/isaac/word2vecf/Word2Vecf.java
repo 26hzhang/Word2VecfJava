@@ -25,9 +25,6 @@ public class Word2Vecf {
 	private final List<String> contextVocab;
 	private final INDArray contextVectors;
 
-	/** flag the existence of context vocabulary */
-	private final boolean contextExist;
-
 	public Word2Vecf(Word2VecfModel w2vfModel, boolean normalize) {
 		this.layerSize = w2vfModel.getLayerSize();
 		this.wordVocab = w2vfModel.getWordVocab();
@@ -35,17 +32,11 @@ public class Word2Vecf {
 			this.wordVectors = normalize(Nd4j.create(w2vfModel.getWordVectors()));
 		else
 			this.wordVectors = Nd4j.create(w2vfModel.getWordVectors());
-		if (w2vfModel.containsContext()) {
-			this.contextVocab = w2vfModel.getContextVocab();
-			if (normalize)
-				this.contextVectors = normalize(Nd4j.create(w2vfModel.getContextVectors()));
-			else
-				this.contextVectors = Nd4j.create(w2vfModel.getContextVectors());
-		} else {
-			this.contextVocab = null;
-			this.contextVectors = null;
-		}
-		this.contextExist = w2vfModel.containsContext();
+		this.contextVocab = w2vfModel.getContextVocab();
+		if (normalize)
+			this.contextVectors = normalize(Nd4j.create(w2vfModel.getContextVectors()));
+		else
+			this.contextVectors = Nd4j.create(w2vfModel.getContextVectors());
 	}
 
 	/** @return layerSize */
@@ -60,7 +51,7 @@ public class Word2Vecf {
 
 	/** @return context vocabulary size, 0 if context vocabulary does not exist */
 	public int contextVocabSize () {
-		return contextExist ? contextVocab.size() : 0;
+		return contextVocab.size();
 	}
 
 	/** @return true if it is contained in word vocabulary, false if not */
@@ -70,7 +61,7 @@ public class Word2Vecf {
 
 	/** @return true if it is contained in context vocabulary, false if not or context vocabulary is null */
 	public boolean hasContext (String str) {
-		return contextExist && contextVocab.contains(str);
+		return contextVocab.contains(str);
 	}
 
 	/** @return {@link INDArray} vector if it is contained in word vocabulary, full-zero vector if not */
@@ -105,7 +96,7 @@ public class Word2Vecf {
 	}
 
 	/** @return the index of given context in context vocabulary, -1 not found or context vocabulary does not exist */
-	public int contextIndexOf (String context) { return contextExist ? contextVocab.indexOf(context) : -1; }
+	public int contextIndexOf (String context) { return contextVocab.indexOf(context); }
 
 	/** @return cosine similarity between two given words */
 	public double wordSimilarity (String word1, String word2) {
@@ -131,7 +122,7 @@ public class Word2Vecf {
 	/** @return similarity scores between vector and all records in context vectors, full-zero vector if context vocabulary does not exist */
 	private INDArray contextSimilarity (INDArray vector) {
 		Preconditions.checkArgument(vector.columns() == layerSize, String.format("vector's dimension(%d) must be the same as layer size(%d)", vector.columns(), layerSize));
-		return contextExist ? contextVectors.mmul(vector.transpose()) : null;
+		return contextVectors.mmul(vector.transpose());
 	}
 
 	/** @return p-cosine similarity scores between vector and all records in word vectors */
@@ -141,9 +132,10 @@ public class Word2Vecf {
 	}
 
 	/** @return p-cosine similarity scores between vector and all records in context vectors, full-zero vector if context vocabulary does not exist */
+	@SuppressWarnings("unused")
 	private INDArray contextPosSimilarity (INDArray vector) {
 		Preconditions.checkArgument(vector.columns() == layerSize, String.format("vector's dimension(%d) must be the same as layer size(%d)", vector.columns(), layerSize));
-		return contextExist ? contextVectors.mmul(vector.transpose()).add(Nd4j.scalar(1)).div(Nd4j.scalar(2)) : null;
+		return contextVectors.mmul(vector.transpose()).add(Nd4j.scalar(1)).div(Nd4j.scalar(2));
 	}
 
 	/** @return list of nearest {@link Pair} of given word, size num, each {@link Pair} contains result word and it cosine score */
@@ -157,7 +149,7 @@ public class Word2Vecf {
 		INDArray res = wordSimilarity(word);
 		List<Pair<String, Double>> list = new ArrayList<>(wordVocab.size());
 		for (int i = 0; i < wordVocab.size(); i++) { list.add(Pair.cons(wordVocab.get(i), res.getDouble(i))); }
-		return list.stream().sorted((e1, e2) -> (int) (e2.getSecond() - e1.getSecond())).limit(top).collect(Collectors.toCollection(LinkedList::new));
+		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getSecond()).compareTo(Double.valueOf(e1.getSecond()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/** @return list of nearest {@link Pair} of given context, size num, each {@link Pair} contains result context and it cosine score */
@@ -167,13 +159,11 @@ public class Word2Vecf {
 
 	/** @return list of nearest {@link Pair} of given context, size num, each {@link Pair} contains result context and it cosine score */
 	public List<Pair<String, Double>> contextsNearest (INDArray context, Integer top) {
-		if (!contextExist)
-			return null;
 		top = MoreObjects.firstNonNull(top, 10);
 		INDArray res = contextSimilarity(context);
 		List<Pair<String, Double>> list = new ArrayList<>(contextVocab.size());
 		for (int i = 0; i < contextVocab.size(); i++) { list.add(Pair.cons(contextVocab.get(i), res.getDouble(i))); }
-		return list.stream().sorted((e1, e2) -> (int) (e2.getSecond() - e1.getSecond())).limit(top).collect(Collectors.toCollection(LinkedList::new));
+		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getSecond()).compareTo(Double.valueOf(e1.getSecond()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/**
@@ -192,7 +182,7 @@ public class Word2Vecf {
 		INDArray res = wordSimilarity(pos.sub(neg));
 		List<Pair<String, Double>> list = new ArrayList<>(wordVocab.size());
 		for (int i = 0; i < wordVocab.size(); i++) { list.add(Pair.cons(wordVocab.get(i), res.getDouble(i))); }
-		return list.stream().sorted((e1, e2) -> (int) (e2.getSecond() - e1.getSecond())).limit(top).map(Pair::getFirst).collect(Collectors.toCollection(LinkedList::new));
+		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getSecond()).compareTo(Double.valueOf(e1.getSecond()))).limit(top).map(Pair::getFirst).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/**
@@ -217,7 +207,7 @@ public class Word2Vecf {
 		}
 		List<Pair<String, Double>> list = new ArrayList<>(wordVocab.size());
 		for (int i = 0; i < wordVocab.size(); i++) { list.add(Pair.cons(wordVocab.get(i), scores.getDouble(i))); }
-		return list.stream().sorted((e1, e2) -> (int) (e2.getSecond() - e1.getSecond())).limit(top).collect(Collectors.toCollection(LinkedList::new));
+		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getSecond()).compareTo(Double.valueOf(e1.getSecond()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/**
@@ -248,7 +238,7 @@ public class Word2Vecf {
 		INDArray scores = wordSimilarity(targetVec);
 		List<Pair<String, Double>> list = new ArrayList<>(wordVocab.size());
 		for (int i = 0; i < wordVocab.size(); i++) { list.add(Pair.cons(wordVocab.get(i), scores.getDouble(i))); }
-		return list.stream().sorted((e1, e2) -> (int) (e2.getSecond() - e1.getSecond())).limit(top).collect(Collectors.toCollection(LinkedList::new));
+		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getSecond()).compareTo(Double.valueOf(e1.getSecond()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/**
@@ -286,7 +276,7 @@ public class Word2Vecf {
 		scores.divi(scores.maxNumber());
 		List<Pair<String, Double>> list = new ArrayList<>(wordVocab.size());
 		for (int i = 0; i < wordVocab.size(); i++) { list.add(Pair.cons(wordVocab.get(i), scores.getDouble(i))); }
-		return list.stream().sorted((e1, e2) -> (int) (e2.getSecond() - e1.getSecond())).limit(top).collect(Collectors.toCollection(LinkedList::new));
+		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getSecond()).compareTo(Double.valueOf(e1.getSecond()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/** @return {@link INDArray} */
@@ -296,16 +286,16 @@ public class Word2Vecf {
 			for (int j = 0; j < norm.size(1); j++)
 				if (norm.getFloat(i) == 0)
 					norm.put(i, j, 1.0);
-		return array.diviRowVector(norm);
+		return array.diviColumnVector(norm);
 	}
 
 	/** @return {@link INDArray} */
-	private INDArray zeros () {
+	public INDArray zeros () {
 		return Nd4j.zeros(1, layerSize);
 	}
 
 	/** @return {@link INDArray} */
-	private INDArray ones () {
+	public INDArray ones () {
 		return Nd4j.ones(1, layerSize);
 	}
 
@@ -318,7 +308,5 @@ public class Word2Vecf {
 	public List<String> getContextVocab () { return contextVocab; }
 
 	public INDArray getContextVectors () { return contextVectors; }
-
-	public boolean isContextExist () { return contextExist; }
 
 }
