@@ -79,15 +79,15 @@ public class Word2VecfModel {
 
 	/** @return {@link Word2VecfModel} */
 	public static Word2VecfModel fromTextFile(String wordFilePath, String contextFilePath) {
-		List<String> wordLines = null;
-		List<String> contextLines = null;
+		Pair<List<String>, float[][]> wordEmbeddings = null;
+		Pair<List<String>, float[][]> contextEmbeddings = null;
 		try {
-			wordLines = Common.readToList(new File(wordFilePath));
-			contextLines = Common.readToList(new File(contextFilePath));
+			wordEmbeddings = fromText(wordFilePath, Common.readToList(new File(wordFilePath)));
+			contextEmbeddings = fromText(contextFilePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return fromTextFile(wordFilePath, wordLines, contextFilePath, contextLines);
+		return new Word2VecfModel(wordEmbeddings.second[0].length, wordEmbeddings.first, wordEmbeddings.second, contextEmbeddings.first, contextEmbeddings.second);
 	}
 
 	/** @return {@link Word2VecfModel} */
@@ -145,8 +145,49 @@ public class Word2VecfModel {
 		}
 	}
 
+	/** @return {@link Pair} */
+	private static Pair<List<String>, float[][]> fromText(String filePath, List<String> lines) {
+		List<String> vocab = Lists.newArrayList();
+		int vocabSize = Integer.parseInt(lines.get(0).split(" ")[0]);
+		int layerSize = Integer.parseInt(lines.get(0).split(" ")[1]);
+		Preconditions.checkArgument(vocabSize == lines.size() - 1, "For file '%s', vocab size is %s, but there are %s word vectors in the file",
+				filePath, vocabSize, lines.size() - 1);
+		float[][] vectors = new float[vocabSize][layerSize];
+		for (int n = 1; n < lines.size(); n++) {
+			String[] values = lines.get(n).split(" ");
+			vocab.add(values[0]);
+			Preconditions.checkArgument(layerSize == values.length - 1, "For file '%s', on line %s, layer size is %s, but found %s values in the word vector",
+					filePath, n, layerSize, values.length - 1); // Sanity check
+			for (int d = 1; d < values.length; d++) {
+				vectors[n - 1][d - 1] = Float.parseFloat(values[d]);
+			}
+		}
+		return Pair.cons(vocab, vectors);
+	}
+
+	/** @return {@link Pair}  It is used to load context embeddings only, since context embeddings are too large to cause Java Heap Space (16GB RAM)*/
+	private static Pair<List<String>, float[][]> fromText(String filePath) throws IOException {
+		List<String> vocab = Lists.newArrayList();
+		BufferedReader reader = new BufferedReader(new FileReader(filePath));
+		String line = reader.readLine();
+		int vocabSize = Integer.parseInt(line.split(" ")[0]);
+		int layerSize = Integer.parseInt(line.split(" ")[1]);
+		float[][] vectors = new float[vocabSize][layerSize];
+		int n = 0;
+		while ((line = reader.readLine()) != null) {
+			String[] values = line.split(" ");
+			vocab.add(values[0]);
+			for (int d = 1; d < values.length; d++) {
+				vectors[n][d - 1] = Float.parseFloat(values[d]);
+			}
+			n++;
+		}
+		reader.close();
+		return Pair.cons(vocab, vectors);
+	}
+
 	/** @return {@link Word2VecfModel} */
-	private static Word2VecfModel fromTextFile(String wordFilePath, List<String> wordLines, String contextFilePath, List<String> contextLines) {
+	/*private static Word2VecfModel fromTextFile(String wordFilePath, List<String> wordLines, String contextFilePath, List<String> contextLines) {
 		List<String> wordVocab = Lists.newArrayList();
 		List<String> contextVocab = Lists.newArrayList();
 		int wordVocabSize = Integer.parseInt(wordLines.get(0).split(" ")[0]);
@@ -177,7 +218,7 @@ public class Word2VecfModel {
 			}
 		}
 		return new Word2VecfModel(layerSize, wordVocab, wordVectors, contextVocab, contextVectors);
-	}
+	}*/
 
 	/** @return {@link Pair}, which format is <List<String>, double[][]> */
 	private static Pair<List<String>, float[][]> fromBinaryFile(String filename) throws IOException {

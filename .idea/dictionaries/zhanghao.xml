@@ -1,7 +1,9 @@
 <component name="ProjectDictionaryState">
   <dictionary name="zhanghao">
     <words>
+      <w>cbuffer</w>
       <w>changhau</w>
+      <w>cheader</w>
       <w>cscores</w>
       <w>ctxi</w>
       <w>cvectors</w>
@@ -12,6 +14,7 @@
       <w>fsize</w>
       <w>havn</w>
       <w>hyperwords</w>
+      <w>lemmatizing</w>
       <w>precompute</w>
       <w>puncts</w>
       <w>ssplit</w>

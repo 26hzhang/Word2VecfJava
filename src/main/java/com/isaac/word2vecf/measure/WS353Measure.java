@@ -1,6 +1,6 @@
 package com.isaac.word2vecf.measure;
 
-import com.isaac.word2vecf.Word2Vecf;
+import com.isaac.word2vecf.Word2Vec;
 import org.nd4j.linalg.io.ClassPathResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,25 +16,25 @@ import java.util.LinkedList;
 public class WS353Measure {
 	private static Logger log = LoggerFactory.getLogger(WS353Measure.class);
 
-	public static void measure(Word2Vecf w2vf) {
+	public static void measure(Word2Vec w2v) {
 		log.info("load WS353 data...");
 		LinkedList<WS353Node> wsList = new WS353Measure().loadWS353Data("ws/ws353.txt");
 		LinkedList<WS353Node> wsListRel = new WS353Measure().loadWS353Data("ws/ws353_relatedness.txt");
 		LinkedList<WS353Node> wsListSim = new WS353Measure().loadWS353Data("ws/ws353_similarity.txt");
 		log.info("run the test...");
-		run(w2vf, wsList, "WS353");
-		run(w2vf, wsListRel, "WS353 Relatedness");
-		run(w2vf, wsListSim, "WS353 Similarity");
+		run(w2v, wsList, "WS353");
+		run(w2v, wsListRel, "WS353 Relatedness");
+		run(w2v, wsListSim, "WS353 Similarity");
 		log.info("done.");
 	}
 
-	private static void run(Word2Vecf w2vf, LinkedList<WS353Node> list, String name) {
+	private static void run(Word2Vec w2v, LinkedList<WS353Node> list, String name) {
 		int size = list.size();
 		double[] values = new double[size];
 		double[] cosValues = new double[size];
 		for (int i = 0; i < size; i++) {
 			values[i] = list.get(i).value;
-			cosValues[i] = w2vf.wordSimilarity(list.get(i).word1, list.get(i).word2);
+			cosValues[i] = w2v.wordSimilarity(list.get(i).word1, list.get(i).word2);
 		}
 		// pearson
 		double res = pearson(values, cosValues);

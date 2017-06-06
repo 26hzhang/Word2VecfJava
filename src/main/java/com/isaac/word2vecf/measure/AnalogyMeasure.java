@@ -1,6 +1,6 @@
 package com.isaac.word2vecf.measure;
 
-import com.isaac.word2vecf.Word2Vecf;
+import com.isaac.word2vecf.Word2Vec;
 import org.nd4j.linalg.io.ClassPathResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ public class AnalogyMeasure {
 
 	private static Logger log = LoggerFactory.getLogger(AnalogyMeasure.class);
 
-	public static void measure(Word2Vecf w2vf) {
+	public static void measure(Word2Vec w2v) {
 		log.info("load SynSem data...");
 		Map<String, List<SynSemNode>> anaMap = new AnalogyMeasure().loadSynSemData();
 		log.info("run the test..");
@@ -28,9 +28,9 @@ public class AnalogyMeasure {
 			int pass = 0;
 			int ignore = 0;
 			for (SynSemNode node : list) {
-				if (w2vf.hasWord(node.str1) && w2vf.hasWord(node.str2) && w2vf.hasWord(node.str3)) {
+				if (w2v.hasWord(node.str1) && w2v.hasWord(node.str2) && w2v.hasWord(node.str3)) {
 					total++;
-					String answer = w2vf.wordsNearest(Arrays.asList(node.str2, node.str3),
+					String answer = w2v.wordsNearest(Arrays.asList(node.str2, node.str3),
 							Collections.singletonList(node.str1), 1).iterator().next();
 					// convert answer and gold result to same form to eliminate errors
 					answer = answer.replaceAll("[^A-Za-z]", "");

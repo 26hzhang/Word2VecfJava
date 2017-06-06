@@ -1,6 +1,6 @@
 package com.isaac.word2vecf.measure;
 
-import com.isaac.word2vecf.Word2Vecf;
+import com.isaac.word2vecf.Word2Vec;
 import org.nd4j.linalg.io.ClassPathResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class TOEFLMeasure {
 
 	private static Logger log = LoggerFactory.getLogger(TOEFLMeasure.class);
 
-	public static void measure(Word2Vecf w2vf) {
+	public static void measure(Word2Vec w2v) {
 		log.info("load TOEFL data...");
 		List<TFLNode> list = new TOEFLMeasure().loadTOEFLData();
 		log.info("run the test...");
@@ -33,7 +33,7 @@ public class TOEFLMeasure {
 			int bestId = -1;
 			double cosValue = Double.MIN_VALUE;
 			for (int k = 0; k < node.choices.length; k++) {
-				double cosSim = w2vf.wordSimilarity(node.ques, node.choices[k]);
+				double cosSim = w2v.wordSimilarity(node.ques, node.choices[k]);
 				if (cosSim > cosValue) {
 					bestId = k;
 					cosValue = cosSim;

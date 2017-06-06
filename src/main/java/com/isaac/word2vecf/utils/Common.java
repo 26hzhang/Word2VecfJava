@@ -95,6 +95,7 @@ public class Common {
 				// Retrieve and add the lemma for each word into the list of lemmas
 				//lemmas.add(token.get(LemmaAnnotation.class));
 				lemmas += token.get(CoreAnnotations.LemmaAnnotation.class) + " ";
+				//String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
 			}
 		}
 		return lemmas.trim();
