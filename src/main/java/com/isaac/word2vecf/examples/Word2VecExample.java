@@ -15,11 +15,14 @@ public class Word2VecExample {
 		System.out.println("creating word2vec...");
 		Word2Vec w2v = new Word2Vec(w2vModel, true);
 		System.out.println("done...");
-		String word1 = "kill";
-		List<Pair<String, Double>> list = w2v.wordsNearest(word1, 100);
+		String word = "kill";
+		List<Pair<String, Double>> list = w2v.wordsNearest(word, 10);
 		for (int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i).getFirst() + "\t" + list.get(i).getSecond());
 		}
+		String word1 = "eat";
+		String word2 = "pay";
+		System.out.println(w2v.wordSimilarity(word1, word2));
 	}
 
 }
