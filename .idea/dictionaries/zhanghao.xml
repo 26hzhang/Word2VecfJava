@@ -18,9 +18,11 @@
       <w>precompute</w>
       <w>puncts</w>
       <w>ssplit</w>
+      <w>unicodes</w>
       <w>unigram</w>
       <w>unitable</w>
       <w>vecf</w>
+      <w>wheader</w>
       <w>wrdi</w>
       <w>wscores</w>
       <w>wvectors</w>

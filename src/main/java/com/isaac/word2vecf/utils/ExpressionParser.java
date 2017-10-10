@@ -8,9 +8,11 @@ import java.util.regex.Pattern;
 
 /**
  * Created by zhanghao on 19/4/17.
+ * Modified by zhanghao on 10/10/17
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
+// TODO -- clean up
 public class ExpressionParser {
 	private String query;
 
@@ -31,7 +33,6 @@ public class ExpressionParser {
 		Matcher matcher = this.pattern.matcher(this.query);
 		List<String> matches = new ArrayList<>();
 		while (matcher.find()) matches.add(matcher.group());
-
 		terms = new ArrayList<>();
 		operations = new ArrayList<>();
 		String global = "";
@@ -39,16 +40,13 @@ public class ExpressionParser {
 			if (string.equals(PLUS) || string.equals(MINUS)) {
 				operations.add(string);
 			} else {
-				global += string;
+				global = global.concat(string);
 				terms.add(cleanString(string));
 			}
 		}
-
 		Matcher matcher2 = this.pattern2.matcher(this.query);
 		while (matcher2.find()) operations.add(matcher2.group());
-
 		terms.add(this.query.replace(global, "").trim());
-
 		return this;
 	}
 

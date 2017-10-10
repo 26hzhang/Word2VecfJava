@@ -1,8 +1,7 @@
-package com.isaac.word2vecf;
+package com.isaac.word2vecf.models;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
-import com.isaac.word2vecf.utils.NetworkConfig;
 
 import java.io.File;
 
@@ -23,7 +22,7 @@ public class Word2VecfTrainerBuilder {
 
 	private Integer debugMode = 2;
 
-	Word2VecfTrainerBuilder(){}
+	private Word2VecfTrainerBuilder(){}
 
 	public Word2VecfTrainerBuilder setLayerSize(int layerSize) {
 		Preconditions.checkArgument(layerSize > 0, "layer size must be positive");
@@ -73,8 +72,8 @@ public class Word2VecfTrainerBuilder {
 		return this;
 	}
 
-	/** @return {@link Word2VecfModel} */
-	public Word2VecfModel train(String trainFile, String wordVocabFile, String contextVocabFile) {
+	/** @return {@link Word2Vecf} */
+	public Word2Vecf train(String trainFile, String wordVocabFile, String contextVocabFile) {
 		Preconditions.checkArgument(trainFile != null && !trainFile.isEmpty(), "training file must be assigned");
 		if (!(new File(trainFile).exists()))
 			throw new IllegalArgumentException("training file not found");
@@ -93,7 +92,7 @@ public class Word2VecfTrainerBuilder {
 		this.downSampleRate = MoreObjects.firstNonNull(downSampleRate, 0.001);
 		this.debugMode = MoreObjects.firstNonNull(debugMode, 2);
 		return new Word2VecfTrainer(trainFile, wordVocabFile, contextVocabFile,
-				new NetworkConfig(
+				new Configurations(
 						layerSize,
 						iterations,
 						numThreads,
@@ -104,6 +103,11 @@ public class Word2VecfTrainerBuilder {
 						debugMode
 				)
 		).train();
+	}
+
+	/** @return {@link Word2VecfTrainerBuilder} for training a model */
+	public static Word2VecfTrainerBuilder trainer() {
+		return new Word2VecfTrainerBuilder();
 	}
 
 }

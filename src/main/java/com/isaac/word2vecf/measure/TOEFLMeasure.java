@@ -1,6 +1,6 @@
 package com.isaac.word2vecf.measure;
 
-import com.isaac.word2vecf.Word2Vec;
+import com.isaac.word2vecf.models.Word2Vec;
 import org.nd4j.linalg.io.ClassPathResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +53,7 @@ public class TOEFLMeasure {
 	private List<TFLNode> loadTOEFLData() {
 		List<TFLNode> list = new ArrayList<>();
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new ClassPathResource("tfl/toefl.txt").getFile())));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new ClassPathResource("data/toefl.txt").getFile())));
 			String line;
 			String ques = "";
 			String[] choices = new String[4];

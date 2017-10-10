@@ -1,15 +1,14 @@
-package com.isaac.word2vecf;
+package com.isaac.word2vecf.models;
 
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.isaac.word2vecf.utils.CallableVoid;
 import com.isaac.word2vecf.utils.Common;
-import com.isaac.word2vecf.utils.NetworkConfig;
 import com.isaac.word2vecf.vocabulary.VocabFunctions;
 import com.isaac.word2vecf.vocabulary.Vocabulary;
 import com.isaac.word2vecf.vocabulary.Vocabulary.VocabWord;
+import org.nd4j.linalg.factory.Nd4j;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -22,6 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by zhanghao on 18/4/17.
+ * Modified by zhanghao on 10/10/17.
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
@@ -56,7 +56,7 @@ public class Word2VecfTrainer {
 	private final Vocabulary wv;
 	private final Vocabulary cv;
 	/** configurations of word2vecf training */
-	private final NetworkConfig config;
+	private final Configurations config;
 
 	/* -----The following includes shared state that is updated per worker thread----- */
 	/**
@@ -78,7 +78,7 @@ public class Word2VecfTrainer {
 	private final int[] unitable;
 
 
-	Word2VecfTrainer(String trainFile, String wordVocabFile, String contextVocabFile, NetworkConfig config) {
+	Word2VecfTrainer(String trainFile, String wordVocabFile, String contextVocabFile, Configurations config) {
 		this.trainFile = trainFile;
 		this.fileSize = Common.getFileSize(trainFile);
 		this.wv = readVocab(wordVocabFile);
@@ -131,8 +131,8 @@ public class Word2VecfTrainer {
 		return r * 25_214_903_917L + 11;
 	}
 
-	/** @return {@link Word2VecfModel} */
-	Word2VecfModel train() {
+	/** @return {@link Word2Vecf} */
+	Word2Vecf train() {
 		final ListeningExecutorService ex = MoreExecutors.listeningDecorator(
 				new ThreadPoolExecutor(config.numThreads, config.numThreads, 0L, TimeUnit.MILLISECONDS,
 						new ArrayBlockingQueue<>(config.numThreads), new ThreadPoolExecutor.CallerRunsPolicy()));
@@ -156,7 +156,8 @@ public class Word2VecfTrainer {
 		} finally {
 			ex.shutdownNow();
 		}
-		return new Word2VecfModel(layer1_size, wv.wordSet(), convert2Float(syn0), cv.wordSet(), convert2Float(syn1neg));
+		//return new Word2VecfModel(layer1_size, wv.wordSet(), convert2Float(syn0), cv.wordSet(), convert2Float(syn1neg));
+		return new Word2Vecf(layer1_size, wv.wordSet(), Nd4j.create(syn0), cv.wordSet(), Nd4j.create(syn1neg), true);
 	}
 
 	/** @return {@link Worker} to process the given sentences */

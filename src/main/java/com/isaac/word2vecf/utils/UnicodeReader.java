@@ -9,7 +9,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 
 /**
- * Generic unicode textreader, which will use BOM 
+ * Generic unicode text reader, which will use BOM
  * to identify the encoding to be used. If BOM is not found
  * then use a given default or system encoding.
  * <p>

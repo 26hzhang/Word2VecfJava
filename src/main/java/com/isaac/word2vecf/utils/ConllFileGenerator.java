@@ -1,7 +1,6 @@
-package com.isaac.word2vecf.stanfordnlp;
+package com.isaac.word2vecf.utils;
 
 import com.google.common.base.Preconditions;
-import com.isaac.word2vecf.utils.Common;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.CoNLLUOutputter;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;

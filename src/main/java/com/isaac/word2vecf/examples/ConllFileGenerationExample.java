@@ -1,6 +1,6 @@
 package com.isaac.word2vecf.examples;
 
-import com.isaac.word2vecf.stanfordnlp.ConllFileGenerator;
+import com.isaac.word2vecf.utils.ConllFileGenerator;
 
 /**
  * Created by zhanghao on 20/4/17.

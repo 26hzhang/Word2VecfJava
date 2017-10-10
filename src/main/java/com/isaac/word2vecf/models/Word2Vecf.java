@@ -1,8 +1,8 @@
-package com.isaac.word2vecf;
+package com.isaac.word2vecf.models;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
-import com.isaac.word2vecf.utils.Pair;
+import javafx.util.Pair;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.ops.transforms.Transforms;
@@ -25,18 +25,14 @@ public class Word2Vecf {
 	private final List<String> contextVocab;
 	private final INDArray contextVectors;
 
-	public Word2Vecf(Word2VecfModel w2vfModel, boolean normalize) {
-		this.layerSize = w2vfModel.getLayerSize();
-		this.wordVocab = w2vfModel.getWordVocab();
-		if (normalize)
-			this.wordVectors = normalize(Nd4j.create(w2vfModel.getWordVectors()));
-		else
-			this.wordVectors = Nd4j.create(w2vfModel.getWordVectors());
-		this.contextVocab = w2vfModel.getContextVocab();
-		if (normalize)
-			this.contextVectors = normalize(Nd4j.create(w2vfModel.getContextVectors()));
-		else
-			this.contextVectors = Nd4j.create(w2vfModel.getContextVectors());
+	public Word2Vecf (int layerSize, List<String> wordVocab, INDArray wordVectors, List<String> contextVocab, INDArray contextVectors, boolean normalize) {
+		this.layerSize = layerSize;
+		this.wordVocab = wordVocab;
+		if (normalize) this.wordVectors = normalize(wordVectors);
+		else this.wordVectors = wordVectors;
+		this.contextVocab = contextVocab;
+		if (normalize) this.contextVectors = normalize(contextVectors);
+		else this.contextVectors = contextVectors;
 	}
 
 	/** @return layerSize */
@@ -148,8 +144,8 @@ public class Word2Vecf {
 		top = MoreObjects.firstNonNull(top, 10); // set default value: 10
 		INDArray res = wordSimilarity(word);
 		List<Pair<String, Double>> list = new ArrayList<>(wordVocab.size());
-		for (int i = 0; i < wordVocab.size(); i++) { list.add(Pair.cons(wordVocab.get(i), res.getDouble(i))); }
-		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getSecond()).compareTo(Double.valueOf(e1.getSecond()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
+		for (int i = 0; i < wordVocab.size(); i++) { list.add(new Pair<>(wordVocab.get(i), res.getDouble(i))); }
+		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getValue()).compareTo(Double.valueOf(e1.getValue()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/** @return list of nearest {@link Pair} of given context, size num, each {@link Pair} contains result context and it cosine score */
@@ -162,8 +158,8 @@ public class Word2Vecf {
 		top = MoreObjects.firstNonNull(top, 10);
 		INDArray res = contextSimilarity(context);
 		List<Pair<String, Double>> list = new ArrayList<>(contextVocab.size());
-		for (int i = 0; i < contextVocab.size(); i++) { list.add(Pair.cons(contextVocab.get(i), res.getDouble(i))); }
-		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getSecond()).compareTo(Double.valueOf(e1.getSecond()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
+		for (int i = 0; i < contextVocab.size(); i++) { list.add(new Pair<>(contextVocab.get(i), res.getDouble(i))); }
+		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getValue()).compareTo(Double.valueOf(e1.getValue()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/**
@@ -181,8 +177,8 @@ public class Word2Vecf {
 		for (String str : negative) { neg.addiRowVector(getWordVector(str)); }
 		INDArray res = wordSimilarity(pos.sub(neg));
 		List<Pair<String, Double>> list = new ArrayList<>(wordVocab.size());
-		for (int i = 0; i < wordVocab.size(); i++) { list.add(Pair.cons(wordVocab.get(i), res.getDouble(i))); }
-		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getSecond()).compareTo(Double.valueOf(e1.getSecond()))).limit(top).map(Pair::getFirst).collect(Collectors.toCollection(LinkedList::new));
+		for (int i = 0; i < wordVocab.size(); i++) { list.add(new Pair<>(wordVocab.get(i), res.getDouble(i))); }
+		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getValue()).compareTo(Double.valueOf(e1.getValue()))).limit(top).map(Pair::getKey).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/**
@@ -206,8 +202,8 @@ public class Word2Vecf {
 			}
 		}
 		List<Pair<String, Double>> list = new ArrayList<>(wordVocab.size());
-		for (int i = 0; i < wordVocab.size(); i++) { list.add(Pair.cons(wordVocab.get(i), scores.getDouble(i))); }
-		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getSecond()).compareTo(Double.valueOf(e1.getSecond()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
+		for (int i = 0; i < wordVocab.size(); i++) { list.add(new Pair<>(wordVocab.get(i), scores.getDouble(i))); }
+		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getValue()).compareTo(Double.valueOf(e1.getValue()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/**
@@ -237,8 +233,8 @@ public class Word2Vecf {
 		targetVec.divi(Nd4j.scalar(norm));
 		INDArray scores = wordSimilarity(targetVec);
 		List<Pair<String, Double>> list = new ArrayList<>(wordVocab.size());
-		for (int i = 0; i < wordVocab.size(); i++) { list.add(Pair.cons(wordVocab.get(i), scores.getDouble(i))); }
-		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getSecond()).compareTo(Double.valueOf(e1.getSecond()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
+		for (int i = 0; i < wordVocab.size(); i++) { list.add(new Pair<>(wordVocab.get(i), scores.getDouble(i))); }
+		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getValue()).compareTo(Double.valueOf(e1.getValue()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/**
@@ -275,8 +271,8 @@ public class Word2Vecf {
 		INDArray scores = wscores.mul(1.0 - parameter).add(cscores.mul(parameter));
 		scores.divi(scores.maxNumber());
 		List<Pair<String, Double>> list = new ArrayList<>(wordVocab.size());
-		for (int i = 0; i < wordVocab.size(); i++) { list.add(Pair.cons(wordVocab.get(i), scores.getDouble(i))); }
-		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getSecond()).compareTo(Double.valueOf(e1.getSecond()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
+		for (int i = 0; i < wordVocab.size(); i++) { list.add(new Pair<>(wordVocab.get(i), scores.getDouble(i))); }
+		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getValue()).compareTo(Double.valueOf(e1.getValue()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/** @return {@link INDArray} */

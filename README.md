@@ -62,8 +62,16 @@ In order to make the project more usable, the pre-computations are implemented i
 * TOEFL: The TOEFL set contains 80 multiple-choice synonym questions, each with 4 candidates. For example, the question word levied has choices: imposed (correct), believed, requested and correlated. Choose the nearest neighbor of the question word from the candidates based on the cosine distance and use the accuracy to measure the performance. [[pdf]](http://www.indiana.edu/~clcl/Q550_WWW/Papers/Landauer_Dumais_1997.pdf)
 * Analogy: The analogy task has approximately 9K semantic and 10.5K syntactic analogy questions. The question are similar to “man is to (woman) as king is to queen” or “predict is to (predicting) as dance is to dancing”. Following the previous work, using the nearest neighbor of "queen − king + man" in the vocabulary as the answer. Additionally, the accuracy is used to measure the performance. This dataset is relatively large compared to the previous two sets; therefore, the results using this dataset are more stable than those using the previous two datasets. [[pdf]](https://arxiv.org/pdf/1301.3781.pdf)
 
+### Version 2.2
+* Rewrite Word2Vec(f) model loader and saver, merge Word2VecModel and Word2VecfModel to ModelSerializer, cleanup the abundant codes. This process significantly reduce the resource occupancy by increasing the model restore time slightly.
+* Delete self-defined Pair class, change to use the Java built-in Pair function.
+* Adjust the codes of examples as well as WordNetUtils.
+* Renamed some functions and classes.
+* TODO: CollFileGenerator, DependencyGenerator and ExpressionParser need to be rewrite.
+* TODO: classes and functions in vocabulary package should be adjusted.
+
 ### Version 2.1.1
-* bugs fixed: fail to load context embeddings of Word2VecfModel.
+* Bugs fixed: fail to load context embeddings of Word2VecfModel.
 * Add WordNet Utility (first version) and example.
 * For Word2VecModel, 8GB RAM is required, for Word2VecfModel, 16 GB RAM is required. (Testing embeddings: word embeddings--more than 200000 words, 500 dim; context embeddings--more than 850000 contexts, 500 dim)
 

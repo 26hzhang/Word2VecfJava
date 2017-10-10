@@ -12,7 +12,7 @@ import com.isaac.word2vecf.vocabulary.ExtractionImpl;
  * Generate context vocabulary
  *
  */
-public class WrdCtxDepsExtractionExample {
+public class DependencyExtractionExample {
 	public static void main(String[] args) {
 		String filePath = "<Your CoNLL file>"; // the training file of this task is the CoNLL format file derived from ConllFileGenerator
 		Integer minFrequency = 50; // if null or small than 0, default value is 5

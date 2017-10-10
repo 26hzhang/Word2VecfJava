@@ -1,4 +1,4 @@
-package com.isaac.word2vecf.stanfordnlp;
+package com.isaac.word2vecf.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -86,7 +86,7 @@ public class DependencyGenerator {
 	public String getDependency(String sentence) {
 		String word = sentence.substring(sentence.indexOf("[") + 1, sentence.indexOf("]"));
 		String context = sentence.substring(sentence.indexOf("(") + 1, sentence.indexOf(")"));
-		sentence = sentence.replaceAll("[\\[\\]\\(\\)]", "");
+		sentence = sentence.replaceAll("[\\[\\]()]", "");
 		Annotation annotation = new Annotation(sentence);
 		pipeline.annotate(annotation);
 		CoreMap sent = annotation.get(CoreAnnotations.SentencesAnnotation.class).get(0);
@@ -107,7 +107,7 @@ public class DependencyGenerator {
 	public static String getDep(String sentence) {
 		String tgtWord = sentence.substring(sentence.indexOf("[") + 1, sentence.indexOf("]"));
 		String tgtContext = sentence.substring(sentence.indexOf("(") + 1, sentence.indexOf(")"));
-		sentence = sentence.replaceAll("[\\[\\]\\(\\)]", "");
+		sentence = sentence.replaceAll("[\\[\\]()]", "");
 		Properties props = new Properties();
 		props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner, depparse");
 		props.setProperty("depparse.model", "edu/stanford/nlp/models/parser/nndep/english_SD.gz");

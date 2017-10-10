@@ -1,22 +1,22 @@
-package com.isaac.word2vecf.utils;
+package com.isaac.word2vecf.models;
 
 /**
  * Created by zhanghao on 18/4/17.
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
-public class NetworkConfig {
-    public final int layerSize;
-    public final int iterations;
-    public final int numThreads;
-    public final int minFrequency;
-    public final double initialLearningRate;
-    public final int negativeSamples;
-    public final double downSampleRate;
-    public final int debugMode;
+public class Configurations {
+    final int layerSize;
+    final int iterations;
+    final int numThreads;
+    private final int minFrequency;
+    final double initialLearningRate;
+    final int negativeSamples;
+    final double downSampleRate;
+    private final int debugMode;
 
     /** Constructor */
-    public NetworkConfig(int layerSize, int iterations, int numThreads, int minFrequency, double initialLearningRate, int negativeSamples, double downSampleRate, int debugMode) {
+    Configurations(int layerSize, int iterations, int numThreads, int minFrequency, double initialLearningRate, int negativeSamples, double downSampleRate, int debugMode) {
         this.layerSize = layerSize;
         this.iterations = iterations;
         this.numThreads = numThreads;

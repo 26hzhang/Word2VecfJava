@@ -1,8 +1,8 @@
-package com.isaac.word2vecf;
+package com.isaac.word2vecf.models;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
-import com.isaac.word2vecf.utils.Pair;
+import javafx.util.Pair;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 
@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 /**
  * Created by zhanghao on 5/6/17.
+ * Modified by zhanghao on 10/10/17.
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
@@ -21,13 +22,11 @@ public class Word2Vec {
 	private final List<String> wordVocab;
 	private final INDArray wordVectors;
 
-	public Word2Vec(Word2VecModel w2vModel, boolean normalize) {
-		this.layerSize = w2vModel.getLayerSize();
-		this.wordVocab = w2vModel.getWordVocab();
-		if (normalize)
-			this.wordVectors = normalize(Nd4j.create(w2vModel.getWordVectors()));
-		else
-			this.wordVectors = Nd4j.create(w2vModel.getWordVectors());
+	public Word2Vec (int layerSize, List<String> wordVocab, INDArray wordVectors, boolean normalize) {
+		this.layerSize = layerSize;
+		this.wordVocab = wordVocab;
+		if (normalize) this.wordVectors = normalize(wordVectors);
+		else this.wordVectors = wordVectors;
 	}
 
 	/** @return layerSize */
@@ -40,14 +39,10 @@ public class Word2Vec {
 		return wordVocab.size();
 	}
 
-	/** @return context vocabulary size, 0 if context vocabulary does not exist */
-
 	/** @return true if it is contained in word vocabulary, false if not */
 	public boolean hasWord (String str) {
 		return wordVocab.contains(str);
 	}
-
-	/** @return true if it is contained in context vocabulary, false if not or context vocabulary is null */
 
 	/** @return {@link INDArray} vector if it is contained in word vocabulary, full-zero vector if not */
 	public INDArray getWordVector (String str) { return hasWord(str) ? wordVectors.getRow(wordVocab.indexOf(str)) : zeros(); }
@@ -74,7 +69,8 @@ public class Word2Vec {
 
 	/** @return similarity scores between vector and all records in word vectors */
 	private INDArray wordSimilarity (INDArray vector) {
-		Preconditions.checkArgument(vector.columns() == layerSize, String.format("vector's dimension(%d) must be the same as layer size(%d)", vector.columns(), layerSize));
+		Preconditions.checkArgument(vector.columns() == layerSize,
+				String.format("vector's dimension(%d) must be the same as layer size(%d)", vector.columns(), layerSize));
 		return wordVectors.mmul(vector.transpose());
 	}
 
@@ -88,8 +84,9 @@ public class Word2Vec {
 		top = MoreObjects.firstNonNull(top, 10); // set default value: 10
 		INDArray res = wordSimilarity(word);
 		List<Pair<String, Double>> list = new ArrayList<>(wordVocab.size());
-		for (int i = 0; i < wordVocab.size(); i++) { list.add(Pair.cons(wordVocab.get(i), res.getDouble(i))); }
-		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getSecond()).compareTo(Double.valueOf(e1.getSecond()))).limit(top).collect(Collectors.toCollection(LinkedList::new));
+		for (int i = 0; i < wordVocab.size(); i++) { list.add(new Pair<>(wordVocab.get(i), res.getDouble(i))); }
+		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getValue()).compareTo(Double.valueOf(e1.getValue())))
+				.limit(top).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/**
@@ -107,8 +104,9 @@ public class Word2Vec {
 		for (String str : negative) { neg.addiRowVector(getWordVector(str)); }
 		INDArray res = wordSimilarity(pos.sub(neg));
 		List<Pair<String, Double>> list = new ArrayList<>(wordVocab.size());
-		for (int i = 0; i < wordVocab.size(); i++) { list.add(Pair.cons(wordVocab.get(i), res.getDouble(i))); }
-		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getSecond()).compareTo(Double.valueOf(e1.getSecond()))).limit(top).map(Pair::getFirst).collect(Collectors.toCollection(LinkedList::new));
+		for (int i = 0; i < wordVocab.size(); i++) { list.add(new Pair<>(wordVocab.get(i), res.getDouble(i))); }
+		return list.stream().sorted((e1, e2) -> Double.valueOf(e2.getValue()).compareTo(Double.valueOf(e1.getValue())))
+				.limit(top).map(Pair::getKey).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/** @return {@link INDArray} */
