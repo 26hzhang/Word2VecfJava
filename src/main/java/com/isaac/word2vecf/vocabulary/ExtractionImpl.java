@@ -82,7 +82,8 @@ public class ExtractionImpl {
 			V.sortAndReduceVocab(wv, MIN_COUNT);
 			V.sortAndReduceVocab(cv, MIN_COUNT);
 			System.out.println(String.format("Count and filter process finished. Minimum count: %s", MIN_COUNT));
-			System.out.println(String.format("Word vocabulary size: %s\nContext vocabulary size: %s\nWords in train file: %s", wv.vocabSize, cv.vocabSize, trainedWordsCount));
+			System.out.println(String.format("Word vocabulary size: %s\nContext vocabulary size: %s\nWords in train file: %s",
+					wv.vocabSize, cv.vocabSize, trainedWordsCount));
 			V.saveVocab(wv, directory.concat("/wv"));
 			V.saveVocab(cv, directory.concat("/cv"));
 		} catch (IOException e) {
@@ -125,25 +126,20 @@ public class ExtractionImpl {
 	private String extractDependency(List<Token> sent) {
 		StringBuilder sb = new StringBuilder();
 		for (Token tok : sent) {
-			if (tok.getRelation() == -1)
-				continue;
+			if (tok.getRelation() == -1) continue;
 			Token par = sent.get(tok.getRelation());
 			String m = tok.getWord();
 			String h;
 			if (!wordSet.contains(m))
 				continue;
 			String ref = tok.getDependency();
-			if (ref.equals("prep")) // english_SD model, for english_UD model, use "adpmod"
-				continue;
-			if (ref.equals("pobj") && par.getIndex() != 0) { // english_SD model, for english_UD model, use "adpobj"
+			if (ref.equals("prep")) continue; // for english_SD model, if english_UD model is used, change to "adpmod"
+			if (ref.equals("pobj") && par.getIndex() != 0) { // for english_SD model, if english_UD model is used, change to "adpobj"
 				Token ppar = sent.get(par.getRelation());
 				ref = par.getDependency().concat(":").concat(par.getWord());
-				//ref = new StringBuilder().append(par.getDependency()).append(":").append(par.getWord()).toString();
 				h = ppar.getWord();
-			} else
-				h = par.getWord();
-			if (!wordSet.contains(h))
-				continue;
+			} else h = par.getWord();
+			if (!wordSet.contains(h)) continue;
 			sb.append(h).append(" ").append(ref).append("_").append(m).append("\n");
 			sb.append(m).append(" ").append(ref).append("I_").append(h).append("\n");
 		}
@@ -157,13 +153,10 @@ public class ExtractionImpl {
 			BufferedReader reader = new BufferedReader(new FileReader(filename));
 			String line;
 			while ((line = reader.readLine()) != null) {
-				if (line.isEmpty())
-					continue;
+				if (line.isEmpty()) continue;
 				String str = line.split("\t")[1].trim();
-				if (map.containsKey(str))
-					map.get(str).incrementAndGet();
-				else
-					map.put(str, new AtomicInteger(1));
+				if (map.containsKey(str)) map.get(str).incrementAndGet();
+				else map.put(str, new AtomicInteger(1));
 			}
 			reader.close();
 		} catch (IOException e) {

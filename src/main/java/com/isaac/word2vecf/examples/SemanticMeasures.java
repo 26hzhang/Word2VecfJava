@@ -20,7 +20,6 @@ public class SemanticMeasures {
 		AnalogyMeasure.measure(w2v);
 		// 3. WS353 test
 		WS353Measure.measure(w2v);
-
 		// save Word2Vec Model to binary file
 		ModelSerializer.saveWord2VecToBinary("<Path to Save>", w2v);
 	}

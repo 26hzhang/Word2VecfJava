@@ -12,15 +12,15 @@ import java.util.regex.Pattern;
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
-// TODO -- clean up
+// TODO -- Clean up
 public class ExpressionParser {
 	private String query;
 
-	private Pattern pattern = Pattern.compile("(\\s*?.*?\\s*?(\\+|-)\\s*?.*?\\s?)");
-	private Pattern pattern2 = Pattern.compile("(\\+|-)");
+	private Pattern pattern = Pattern.compile("(\\s*?.*?\\s*?([+-])\\s*?.*?\\s?)");
+	private Pattern pattern2 = Pattern.compile("([+-])");
 
-	public static final String PLUS = "+";
-	public static final String MINUS = "-";
+	private static final String PLUS = "+";
+	private static final String MINUS = "-";
 
 	public ArrayList<String> terms;
 	public ArrayList<String> operations;
@@ -52,14 +52,12 @@ public class ExpressionParser {
 
 	public HashMap<String[], String> getTermsCombo() {
 		HashMap<String[], String> result = new HashMap<>();
-
 		for (int i = 0; i < this.terms.size(); i++) {
-			if (i+1 < this.terms.size()) {
+			if (i + 1 < this.terms.size()) {
 				String[] couple = new String[2];
 				couple[0] = this.terms.get(i);
-				couple[1] = this.terms.get(i+1);
+				couple[1] = this.terms.get(i + 1);
 				i++;
-
 				String type;
 				type = this.operations.get(i - 1);
 				result.put(couple, type);

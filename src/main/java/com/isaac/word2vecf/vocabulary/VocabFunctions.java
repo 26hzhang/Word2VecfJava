@@ -17,7 +17,7 @@ import com.isaac.word2vecf.vocabulary.Vocabulary.VocabWord;
  */
 public class VocabFunctions {
 
-	public static final int vocabHashSize = 30000000; // Maximum 30*0.7=21M words in the vocabulary
+	private static final int vocabHashSize = 30000000; // Maximum 30*0.7=21M words in the vocabulary
 	private static final int MAX_STRING = 100;
 	private static final int MAX_INTEGER = Integer.MAX_VALUE;
 	private static int minReduce = 1;
@@ -97,17 +97,15 @@ public class VocabFunctions {
 		v.vocabSize = 0;
 		v.vocab = new ArrayList<>(2000000);
 		v.vocabHash = new int[vocabHashSize];
-		for (int a = 0; a < vocabHashSize; a++)
-			v.vocabHash[a] = -1;
+		for (int a = 0; a < vocabHashSize; a++) v.vocabHash[a] = -1;
 		return v;
 	}
 
 	/** Saves to a file */
 	public void saveVocab (Vocabulary v, String vocabFilePath) throws IOException {
 		File file = new File(vocabFilePath);
-		if (file.exists())
-			file.delete();
-		file.createNewFile();
+		//if (file.exists()) file.delete();
+		//file.createNewFile();
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
 		for (int i = 0; i < v.vocabSize; i++) {
 			bw.write(v.vocab.get(i).word + " " + v.vocab.get(i).cn + "\n");
@@ -144,8 +142,7 @@ public class VocabFunctions {
 	}
 
 	public void ensureVocabSize (Vocabulary vocab) {
-		if (vocab.vocabSize > vocabHashSize * 0.7)
-			reduceVocab(vocab);
+		if (vocab.vocabSize > vocabHashSize * 0.7) reduceVocab(vocab);
 	}
 
 }

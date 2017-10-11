@@ -5,7 +5,6 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
 import java.util.*;
@@ -13,22 +12,23 @@ import java.util.regex.Pattern;
 
 /**
  * Created by zhanghao on 18/4/17.
+ * Modified by zhanghao on 11/10/17.
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
 public class Common {
 
 	/** @return true if i is an even number */
-	public static boolean isEven(int i) { return (i&1)==0; }
+	public static boolean isEven (int i) { return (i & 1) == 0; }
 
 	/** @return true if i is an odd number */
-	public static boolean isOdd(int i) { return !isEven(i); }
+	public static boolean isOdd (int i) { return !isEven(i); }
 
 	/**
 	 * Read the file line for line and return the result in a list
 	 * @throws IOException upon failure in reading, note that we wrap the underlying IOException with the file name
 	 */
-	public static List<String> readToList(File f) throws IOException {
+	public static List<String> readToList (File f) throws IOException {
 		try (final Reader reader = asReaderUTF8Lenient(new FileInputStream(f))) {
 			return readToList(reader);
 		} catch (IOException ioe) {
@@ -37,33 +37,32 @@ public class Common {
 	}
 
 	/** Read the Reader line for line and return the result in a list */
-	public static List<String> readToList(Reader r) throws IOException {
+	public static List<String> readToList (Reader r) throws IOException {
 		try (BufferedReader in = new BufferedReader(r)) {
 			List<String> l = new ArrayList<>();
 			String line;
-			while ((line = in.readLine()) != null)
-				l.add(line);
+			while ((line = in.readLine()) != null) l.add(line);
 			return Collections.unmodifiableList(l);
 		}
 	}
 
 	/** Wrap the InputStream in a Reader that reads UTF-8. Invalid content will be replaced by unicode replacement glyph. */
-	public static Reader asReaderUTF8Lenient(InputStream in) {
+	public static Reader asReaderUTF8Lenient (InputStream in) {
 		return new UnicodeReader(in, "utf-8");
 	}
 
 	/** determine whether the input string is a number */
 	public static boolean isNumeric (String str) {
-		return Pattern.compile("[0-9]*").matcher(str).matches();
+		return Pattern.compile("[\\d]+").matcher(str).matches();
 	}
 
 	/** determine whether the input string contains only alphanumeric character */
 	public static boolean isAlphanumeric (String str) {
-		return StringUtils.isAlphanumeric(str);
+		return Pattern.compile("[\\w]+").matcher(str).matches();
 	}
 
 	/** @return file size */
-	public static long getFileSize(String filename) {
+	public static long getFileSize (String filename) {
 		long fsize = 0;
 		try {
 			RandomAccessFile file = new RandomAccessFile(filename, "r");
@@ -75,9 +74,9 @@ public class Common {
 		return fsize;
 	}
 
-	/** @return lemmatized string, input string can be a word, sentence or paragraph */
+	/** @return Lemmatized string, input string can be a word, sentence or paragraph */
 	public static String lemmatizer (String string, StanfordCoreNLP pipeline) {
-		String lemmas = "";
+		List<String> lemmas = new ArrayList<>();
 		if (pipeline == null) {
 			Properties props = new Properties();
 			props.setProperty("annotators", "tokenize, ssplit, pos, lemma");
@@ -93,16 +92,14 @@ public class Common {
 			// Iterate over all tokens in a sentence
 			for (CoreLabel token : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
 				// Retrieve and add the lemma for each word into the list of lemmas
-				//lemmas.add(token.get(LemmaAnnotation.class));
-				lemmas += token.get(CoreAnnotations.LemmaAnnotation.class) + " ";
-				//String pos = token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+				lemmas.add(token.get(CoreAnnotations.LemmaAnnotation.class));
 			}
 		}
-		return lemmas.trim();
+		return String.join(" ", lemmas);
 	}
 
 	/** @return list of sentences, split from a paragraph or long sentence */
-	public static List<String> sentenceSplitter(String paragraph, StanfordCoreNLP pipeline) {
+	public static List<String> sentenceSplitter (String paragraph, StanfordCoreNLP pipeline) {
 		List<String> sentences = new LinkedList<>();
 		if (pipeline == null) {
 			Properties props = new Properties();
@@ -112,11 +109,31 @@ public class Common {
 		Annotation annotation = new Annotation(paragraph);
 		pipeline.annotate(annotation);
 		List<CoreMap> sents = annotation.get(CoreAnnotations.SentencesAnnotation.class);
-		if (sents == null)
-			return sentences;
-		for (int i = 0, sz = sents.size(); i < sz; i++) {
-			sentences.add(sents.get(i).toString().trim());
+		if (sents == null) return sentences;
+		for (CoreMap sent : sents) {
+			sentences.add(sent.toString().trim());
 		}
 		return sentences;
+	}
+
+	/** Convert Glove embeddings format to Word2Vec embeddings format */
+	public static void GloveToWord2VecEmbeddingFormat (String filePath, String toPath) {
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(filePath));
+			String fstLine = reader.readLine();
+			int vocabSize = 1;
+			int layerSize = fstLine.split(" ").length - 1; // count vector size (format: word vectors)
+			while (reader.readLine() != null) vocabSize++; // count vocabulary size
+			reader.close();
+			reader = new BufferedReader(new FileReader(filePath));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(toPath));
+			writer.write(String.valueOf(vocabSize).concat(" ").concat(String.valueOf(layerSize)).concat("\n"));
+			String line;
+			while ((line = reader.readLine()) != null) writer.write(line.trim().concat("\n"));
+			reader.close();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

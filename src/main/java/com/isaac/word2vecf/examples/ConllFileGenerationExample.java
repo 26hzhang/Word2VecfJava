@@ -12,7 +12,7 @@ import com.isaac.word2vecf.utils.ConllFileGenerator;
  */
 public class ConllFileGenerationExample {
 	public static void main (String[] args) {
-		String filePath = "<Your raw corpus>";
+		String filePath = "<path to the raw corpus>";
 		ConllFileGenerator.generate(filePath);
 		System.out.println("CoNLL format file is generated, located at the same directory as train file.");
 	}

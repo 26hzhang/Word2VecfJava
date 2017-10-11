@@ -11,7 +11,7 @@ public class Token {
 	private int relation;
 	private String dependency;
 
-	public Token (int index, String word, Integer relation, String dependency) {
+	Token(int index, String word, Integer relation, String dependency) {
 		this.index = index;
 		this.word = word;
 		this.relation = relation;

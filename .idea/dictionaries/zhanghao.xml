@@ -1,6 +1,8 @@
 <component name="ProjectDictionaryState">
   <dictionary name="zhanghao">
     <words>
+      <w>adpmod</w>
+      <w>adpobj</w>
       <w>cbuffer</w>
       <w>changhau</w>
       <w>cheader</w>
@@ -9,14 +11,24 @@
       <w>cvectors</w>
       <w>cvocab</w>
       <w>depparse</w>
+      <w>dobj</w>
       <w>doesnn</w>
       <w>dumpcv</w>
       <w>fsize</w>
       <w>havn</w>
       <w>hyperwords</w>
+      <w>kosgi</w>
+      <w>lemmatized</w>
       <w>lemmatizing</w>
+      <w>nllu</w>
+      <w>nmod</w>
+      <w>nsubj</w>
+      <w>outputter</w>
+      <w>ppar</w>
       <w>precompute</w>
+      <w>punct</w>
       <w>puncts</w>
+      <w>santosh</w>
       <w>ssplit</w>
       <w>unicodes</w>
       <w>unigram</w>
