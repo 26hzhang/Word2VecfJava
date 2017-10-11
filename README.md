@@ -21,8 +21,6 @@ This algorithm uses the Skip-Gram method and train with shallow neural network, 
     <artifactId>stanford-corenlp</artifactId>
     <version>${stanfordnlp.version}</version>
 </dependency>
-```
-```XML
 <dependency>
     <groupId>edu.stanford.nlp</groupId>
     <artifactId>stanford-corenlp</artifactId>
@@ -64,11 +62,11 @@ In order to make the project more usable, the pre-computations are implemented i
 
 ### Version 2.2
 * Rewrite Word2Vec(f) model loader and saver, merge Word2VecModel and Word2VecfModel to ModelSerializer, cleanup the abundant codes. This process significantly reduce the resource occupancy by increasing the model restore time slightly.
-* Delete self-defined Pair class, change to use the Java built-in Pair function.
-* Adjust the codes of examples as well as WordNetUtils.
-* Renamed some functions and classes.
-* TODO: CollFileGenerator, DependencyGenerator and ExpressionParser need to be rewrite.
-* TODO: classes and functions in vocabulary package should be adjusted.
+* Delete self-defined Pair class, change to use the Java built-in Pair function. 
+* Renamed some functions and classes. 
+* Cleaned up CollFileGenerator, DependencyGenerator and ExpressionParser.
+* Adjust the codes of examples, WordNetUtils as well as classes and functions in vocabulary package.
+* Add Glove embeddings to Word2Vec embeddings converter as well as GloVe embeddings example.
 
 ### Version 2.1.1
 * Bugs fixed: fail to load context embeddings of Word2VecfModel.
