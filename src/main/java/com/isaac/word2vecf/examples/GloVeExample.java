@@ -18,5 +18,6 @@ public class GloVeExample {
         Word2Vec glove = ModelSerializer.loadWord2VecModel(filePath, false);
         System.out.println("done...");
         System.out.println("increase -- decrease similarity: " + glove.wordSimilarity("increase", "decrease"));
+        System.out.println("increase: " + glove.getWordVector("increase"));
     }
 }

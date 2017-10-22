@@ -23,7 +23,7 @@ public class VocabFunctions {
 	private static int minReduce = 1;
 
 	/** @return hash value of a word */
-	public int getWordHash (String word) {
+	private int getWordHash(String word) {
 		return (word.hashCode() & MAX_INTEGER) % vocabHashSize;
 	}
 
@@ -31,10 +31,8 @@ public class VocabFunctions {
 	public int searchVocab (Vocabulary v, String word) {
 		int hash = getWordHash(word);
 		while (true) {
-			if (v.vocabHash[hash] == -1)
-				return -1;
-			if (word.equals(v.vocab.get(v.vocabHash[hash]).word))
-				return v.vocabHash[hash];
+			if (v.vocabHash[hash] == -1) return -1;
+			if (word.equals(v.vocab.get(v.vocabHash[hash]).word)) return v.vocabHash[hash];
 			hash = (hash + 1) % vocabHashSize;
 		}
 	}
@@ -48,13 +46,9 @@ public class VocabFunctions {
 		vocab.cn = 0;
 		v.vocab.add(vocab);
 		v.vocabSize++;
-		if (v.vocabSize + 2 >= v.vocabMaxSize) {
-			v.vocabMaxSize = v.vocabMaxSize + 1000;
-		}
+		if (v.vocabSize + 2 >= v.vocabMaxSize) v.vocabMaxSize = v.vocabMaxSize + 1000;
 		hash = getWordHash(word);
-		while (v.vocabHash[hash] != -1) {
-			hash = (hash + 1) % vocabHashSize;
-		}
+		while (v.vocabHash[hash] != -1) hash = (hash + 1) % vocabHashSize;
 		v.vocabHash[hash] = v.vocabSize - 1;
 		return v.vocabSize - 1;
 	}
@@ -65,15 +59,12 @@ public class VocabFunctions {
 		v.vocab = v.vocab.stream().sorted((e1, e2) -> (int) (e2.cn - e1.cn)).collect(Collectors.toList());
 		int size = v.vocabSize;
 		v.wordCount = 0;
-		int index = 0;
-		while (index < size) {
-			// Words occurring less than min_count times will be discarded from the vocab
+		for (int index = 0; index < size; index++) {
 			if (v.vocab.get(index).cn < min_count) {
 				v.vocab = v.vocab.subList(0, index);
 				v.vocabSize = v.vocab.size();
 				break;
 			}
-			index++;
 		}
 		// initialize hash table
 		for (int a = 0; a < vocabHashSize; a++) {
@@ -82,9 +73,7 @@ public class VocabFunctions {
 		// Hash will be recomputed, as after the sorting it is not actual
 		for (int a = 0; a < v.vocabSize; a++) {
 			hash = getWordHash(v.vocab.get(a).word);
-			while (v.vocabHash[hash] != -1) {
-				hash = (hash + 1) % vocabHashSize;
-			}
+			while (v.vocabHash[hash] != -1) hash = (hash + 1) % vocabHashSize;
 			v.vocabHash[hash] = a;
 			v.wordCount = v.wordCount + v.vocab.get(a).cn;
 		}
@@ -133,9 +122,7 @@ public class VocabFunctions {
 		}
 		for (int i = 0; i < v.vocabSize; i++) {
 			hash = getWordHash(v.vocab.get(i).word);
-			while (v.vocabHash[hash] != -1) {
-				hash = (hash + 1) % vocabHashSize;
-			}
+			while (v.vocabHash[hash] != -1) hash = (hash + 1) % vocabHashSize;
 			v.vocabHash[hash] = i;
 		}
 		minReduce++;

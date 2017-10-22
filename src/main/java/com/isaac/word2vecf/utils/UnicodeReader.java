@@ -29,10 +29,10 @@ import java.nio.charset.CharsetDecoder;
  * {@link CharsetDecoder}.
  */
 public class UnicodeReader extends Reader {
-	PushbackInputStream internalIn;
-	InputStreamReader   internalIn2 = null;
-	String              defaultEnc;
-	boolean             strict;
+	private PushbackInputStream internalIn;
+	private InputStreamReader   internalIn2 = null;
+	private String              defaultEnc;
+	private boolean             strict;
 
 	private static final int BOM_SIZE = 4;
 
@@ -76,7 +76,7 @@ public class UnicodeReader extends Reader {
 	 * Read-ahead four bytes and check for BOM. Extra bytes are
 	 * unread back to the stream, only BOM bytes are skipped.
 	 */
-	protected void init() throws IOException {
+	private void init() throws IOException {
 		if (internalIn2 != null) return;
 
 		String encoding;

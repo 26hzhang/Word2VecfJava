@@ -9,6 +9,8 @@ import com.isaac.word2vecf.vocabulary.VocabFunctions;
 import com.isaac.word2vecf.vocabulary.Vocabulary;
 import com.isaac.word2vecf.vocabulary.Vocabulary.VocabWord;
 import org.nd4j.linalg.factory.Nd4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -26,6 +28,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * email: isaac.changhau@gmail.com
  */
 public class Word2VecfTrainer {
+	/** Logger */
+	private static Logger log = LoggerFactory.getLogger(Word2VecfTrainer.class);
+
 	/** A string longer than this are trunked the first part */
 	private static final int MAX_STRING = 100;
 	/** Boundary for maximum exponent allowed */
@@ -109,8 +114,7 @@ public class Word2VecfTrainer {
 				i++;
 				d1 += Math.pow(cv.vocab.get(i).cn, power) / normalizer;
 			}
-			if (i >= cv.vocabSize)
-				i = cv.vocabSize - 1;
+			if (i >= cv.vocabSize) i = cv.vocabSize - 1;
 		}
 	}
 
@@ -156,7 +160,6 @@ public class Word2VecfTrainer {
 		} finally {
 			ex.shutdownNow();
 		}
-		//return new Word2VecfModel(layer1_size, wv.wordSet(), convert2Float(syn0), cv.wordSet(), convert2Float(syn1neg));
 		return new Word2Vecf(layer1_size, wv.wordSet(), Nd4j.create(syn0), cv.wordSet(), Nd4j.create(syn1neg), true);
 	}
 
@@ -193,29 +196,22 @@ public class Word2VecfTrainer {
 			RandomAccessFile file = new RandomAccessFile(trainFile, "r");
 			long start_offset = fileSize / config.numThreads * id;
 			long end_offset = fileSize / config.numThreads * (id + 1);
-			if (end_offset > fileSize) {
-				end_offset = fileSize;
-			}
+			if (end_offset > fileSize) end_offset = fileSize;
 			file.seek(start_offset);
 			while (file.readChar() != '\n') {} // index to the start of a line
 			while (true) {
-				if (file.getFilePointer() >= fileSize - 1 || file.getFilePointer() > end_offset)
-					break;
+				if (file.getFilePointer() >= fileSize - 1 || file.getFilePointer() > end_offset) break;
 				String s = file.readLine();
 				String word = s.split(" ")[0];
-				if (word.length() > MAX_STRING)
-					word = word.substring(0, MAX_STRING);
+				if (word.length() > MAX_STRING) word = word.substring(0, MAX_STRING);
 				String context = s.split(" ")[1];
-				if (context.length() > MAX_STRING)
-					context = context.substring(0, MAX_STRING);
+				if (context.length() > MAX_STRING) context = context.substring(0, MAX_STRING);
 				// update alpha
-				if (wordCount - lastWordCount > LEARNING_RATE_UPDATE_FREQUENCY)
-					updateAlpha(iter);
+				if (wordCount - lastWordCount > LEARNING_RATE_UPDATE_FREQUENCY) updateAlpha(iter);
 				VocabFunctions V = new VocabFunctions();
 				int wrdi = V.searchVocab(wv, word);
 				int ctxi = V.searchVocab(cv, context);
-				if (wrdi < 0 || ctxi < 0)
-					continue;
+				if (wrdi < 0 || ctxi < 0) continue;
 				wordCount++;
 				if (config.downSampleRate > 0) {
 					VocabWord wvw = wv.vocab.get(wrdi);
@@ -228,14 +224,12 @@ public class Word2VecfTrainer {
 					random = (Math.sqrt(cvw.cn / (config.downSampleRate * cv.wordCount)) + 1) *
 							(config.downSampleRate * cv.wordCount) / cvw.cn;
 					nextRandom = incrementRandom(nextRandom);
-					if (random < (nextRandom & 0xFFFF) / (double) 65_536)
-						continue;
+					if (random < (nextRandom & 0xFFFF) / (double) 65_536) continue;
 				}
 				// handle negative sampling
 				handleNegativeSampling(wrdi, ctxi);
 				// Learn weights input -> hidden
-				for (int c = 0; c < layer1_size; c++)
-					syn0[wrdi][c] += neu1e[c];
+				for (int c = 0; c < layer1_size; c++) syn0[wrdi][c] += neu1e[c];
 			}
 			actualWordCount.addAndGet(wordCount - lastWordCount);
 			file.close();
@@ -246,8 +240,7 @@ public class Word2VecfTrainer {
 			int currentActual = actualWordCount.addAndGet(wordCount - lastWordCount);
 			lastWordCount = wordCount;
 			// Update learning rate, keep a minimum to avoid it degrades to zero
-			alpha = config.initialLearningRate * Math.max(1 - currentActual / (double) (config.iterations *
-					numTrainedTokens), 0.0001);
+			alpha = config.initialLearningRate * Math.max(1 - currentActual / (double) (config.iterations * numTrainedTokens), 0.0001);
 		}
 
 		/** handle negative sampling */
@@ -262,27 +255,19 @@ public class Word2VecfTrainer {
 					nextRandom = incrementRandom(nextRandom);
 					target = unitable[(int) (((nextRandom >> 16) % TABLE_SIZE) + TABLE_SIZE) % TABLE_SIZE];
 					if (target == 0)
-						target = (int) (((nextRandom % (cv.vocabSize - 1)) + cv.vocabSize - 1) %
-								(cv.vocabSize - 1)) + 1;
-					if (target == ctxi)
-						continue;
+						target = (int) (((nextRandom % (cv.vocabSize - 1)) + cv.vocabSize - 1) % (cv.vocabSize - 1)) + 1;
+					if (target == ctxi) continue;
 					label = 0;
 				}
 				int l2 = target;
 				double f = 0;
-				for (int c = 0; c < layer1_size; c++)
-					f += syn0[wrdi][c] * syn1neg[l2][c];
+				for (int c = 0; c < layer1_size; c++) f += syn0[wrdi][c] * syn1neg[l2][c];
 				final double g;
-				if (f > MAX_EXP)
-					g = (label - 1) * alpha;
-				else if (f < -MAX_EXP)
-					g = (label - 0) * alpha;
-				else
-					g = (label - EXP_TABLE[(int) ((f + MAX_EXP) * (EXP_TABLE_SIZE / MAX_EXP / 2))]) * alpha;
-				for (int c = 0; c < layer1_size; c++)
-					neu1e[c] = g * syn1neg[l2][c];
-				for (int c = 0; c < layer1_size; c++)
-					syn1neg[l2][c] = g * syn0[wrdi][c];
+				if (f > MAX_EXP) g = (label - 1) * alpha;
+				else if (f < -MAX_EXP) g = (label - 0) * alpha;
+				else g = (label - EXP_TABLE[(int) ((f + MAX_EXP) * (EXP_TABLE_SIZE / MAX_EXP / 2))]) * alpha;
+				for (int c = 0; c < layer1_size; c++) neu1e[c] = g * syn1neg[l2][c];
+				for (int c = 0; c < layer1_size; c++) syn1neg[l2][c] = g * syn0[wrdi][c];
 			}
 		}
 
@@ -307,8 +292,8 @@ public class Word2VecfTrainer {
 		return v;
 	}
 
-	/** @return float array */
-	private float[][] convert2Float(double[][] vectors) {
+	/* convert to float array */
+	/*private float[][] convert2Float(double[][] vectors) {
 		float[][] res = new float[vectors.length][vectors[0].length];
 		for (int i = 0; i < vectors.length; i++) {
 			for (int j = 0; j < vectors[0].length; j++) {
@@ -316,5 +301,5 @@ public class Word2VecfTrainer {
 			}
 		}
 		return res;
-	}
+	}*/
 }

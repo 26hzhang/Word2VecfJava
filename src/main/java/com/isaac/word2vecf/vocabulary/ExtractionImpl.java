@@ -3,6 +3,8 @@ package com.isaac.word2vecf.vocabulary;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.*;
@@ -18,6 +20,9 @@ import java.util.stream.Collectors;
  * email: isaac.changhau@gmail.com
  */
 public class ExtractionImpl {
+	/** Logger */
+	private static Logger log = LoggerFactory.getLogger(ExtractionImpl.class);
+
 	/** Longest length of a word allowed */
 	private static final int MAX_STRING = 100;
 	/** drop frequency and minimal count */
@@ -76,13 +81,13 @@ public class ExtractionImpl {
 					sent.add(new Token(Integer.parseInt(str[0]), str[1], Integer.parseInt(str[6]), str[7]));
 				}
 			}
-			System.out.println("Dependency Contexts have extracted, file path: " + directory.concat("/dep.context"));
+			log.info("Dependency Contexts have extracted, file path: " + directory.concat("/dep.context"));
 			reader.close();
 			writer.close();
 			V.sortAndReduceVocab(wv, MIN_COUNT);
 			V.sortAndReduceVocab(cv, MIN_COUNT);
-			System.out.println(String.format("Count and filter process finished. Minimum count: %s", MIN_COUNT));
-			System.out.println(String.format("Word vocabulary size: %s\nContext vocabulary size: %s\nWords in train file: %s",
+			log.info(String.format("Count and filter process finished. Minimum count: %s", MIN_COUNT));
+			log.info(String.format("Word vocabulary size: %s\nContext vocabulary size: %s\nWords in train file: %s",
 					wv.vocabSize, cv.vocabSize, trainedWordsCount));
 			V.saveVocab(wv, directory.concat("/wv"));
 			V.saveVocab(cv, directory.concat("/cv"));
