@@ -1,5 +1,6 @@
-package com.isaac.word2vecf.measure;
+package com.isaac.word2vecf.examples;
 
+import com.isaac.word2vecf.models.ModelSerializer;
 import com.isaac.word2vecf.models.Word2Vec;
 import org.nd4j.linalg.io.ClassPathResource;
 import org.slf4j.Logger;
@@ -13,13 +14,19 @@ import java.util.*;
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
-public class AnalogyMeasure {
+public class Word2VecAnalogyTest {
 
-	private static Logger log = LoggerFactory.getLogger(AnalogyMeasure.class);
+	private static Logger log = LoggerFactory.getLogger(Word2VecAnalogyTest.class);
+
+	public static void main (String[] args) {
+		Word2Vec w2v = ModelSerializer.loadWord2VecModel("/home/zhanghao/Documents/GoogleNews-vectors-negative300.bin", true);
+		// 2. Analogy test -- "king - queen = man - woman"
+		measure(w2v);
+	}
 
 	public static void measure(Word2Vec w2v) {
 		log.info("load SynSem data...");
-		Map<String, List<SynSemNode>> anaMap = new AnalogyMeasure().loadSynSemData();
+		Map<String, List<SynSemNode>> anaMap = new Word2VecAnalogyTest().loadSynSemData();
 		log.info("run the test..");
 		for (Map.Entry<String, List<SynSemNode>> entry : anaMap.entrySet()) {
 			log.info(entry.getKey());

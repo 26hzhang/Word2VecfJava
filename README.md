@@ -6,36 +6,9 @@ This algorithm uses the Skip-Gram method and train with shallow neural network, 
 
 ### Requirements
 * [Java 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
-* [ND4J](http://nd4j.org/), its source codes in GitHub [page](https://github.com/deeplearning4j/nd4j). For [Maven](http://mvnrepository.com/artifact/org.nd4j), import the following snippet:
-```XML
-<dependency>
-    <groupId>org.nd4j</groupId>
-    <artifactId>nd4j-native</artifactId>
-    <version>${nd4j.version}</version>
-</dependency>
-```
-* [Stanford NLP](https://nlp.stanford.edu/software/), its source codes in GitHub [page](https://github.com/stanfordnlp). For [Maven](https://mvnrepository.com/artifact/edu.stanford.nlp), import the following snippet:
-```XML
-<dependency>
-    <groupId>edu.stanford.nlp</groupId>
-    <artifactId>stanford-corenlp</artifactId>
-    <version>${stanfordnlp.version}</version>
-</dependency>
-<dependency>
-    <groupId>edu.stanford.nlp</groupId>
-    <artifactId>stanford-corenlp</artifactId>
-    <version>${stanfordnlp.version}</version>
-    <classifier>models</classifier>
-</dependency>
-```
-* [Guava](https://github.com/google/guava). For [Maven](https://mvnrepository.com/artifact/com.google.guava/guava), import the following snippet:
-```XML
-<dependency>
-    <groupId>com.google.guava</groupId>
-    <artifactId>guava</artifactId>
-    <version>${guava.version}</version>
-</dependency>
-```
+* [ND4J](http://nd4j.org/), its GitHub page: [[link]](https://github.com/deeplearning4j/nd4j), and Maven source: [[link]](http://mvnrepository.com/artifact/org.nd4j).
+* [Stanford NLP](https://nlp.stanford.edu/software/), its GitHub page: [[link]](https://github.com/stanfordnlp), and Maven sources: [[link]](https://mvnrepository.com/artifact/edu.stanford.nlp) (For Maven, please import both corenlp and corenlp with classifier `models` snippets).
+* [Guava](https://github.com/google/guava), its Maven sources: [[link]](https://mvnrepository.com/artifact/com.google.guava/guava).
 
 ### Notes
 

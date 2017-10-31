@@ -1,5 +1,6 @@
-package com.isaac.word2vecf.measure;
+package com.isaac.word2vecf.examples;
 
+import com.isaac.word2vecf.models.ModelSerializer;
 import com.isaac.word2vecf.models.Word2Vec;
 import org.nd4j.linalg.io.ClassPathResource;
 import org.slf4j.Logger;
@@ -18,13 +19,19 @@ import java.util.regex.Pattern;
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
-public class TOEFLMeasure {
+public class Word2VecTOEFLTest {
 
-	private static Logger log = LoggerFactory.getLogger(TOEFLMeasure.class);
+	private static Logger log = LoggerFactory.getLogger(Word2VecTOEFLTest.class);
+
+	public static void main (String[] args) {
+		Word2Vec w2v = ModelSerializer.loadWord2VecModel("/home/zhanghao/Documents/GoogleNews-vectors-negative300.bin", true);
+		// TOEFL test
+		measure(w2v);
+	}
 
 	public static void measure(Word2Vec w2v) {
 		log.info("load TOEFL data...");
-		List<TFLNode> list = new TOEFLMeasure().loadTOEFLData();
+		List<TFLNode> list = new Word2VecTOEFLTest().loadTOEFLData();
 		log.info("run the test...");
 		int accuracy = 0;
 		int ignore = 0;

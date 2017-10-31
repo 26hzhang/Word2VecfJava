@@ -292,14 +292,4 @@ public class Word2VecfTrainer {
 		return v;
 	}
 
-	/* convert to float array */
-	/*private float[][] convert2Float(double[][] vectors) {
-		float[][] res = new float[vectors.length][vectors[0].length];
-		for (int i = 0; i < vectors.length; i++) {
-			for (int j = 0; j < vectors[0].length; j++) {
-				res[i][j] = (float) vectors[i][j];
-			}
-		}
-		return res;
-	}*/
 }

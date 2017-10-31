@@ -1,5 +1,6 @@
-package com.isaac.word2vecf.measure;
+package com.isaac.word2vecf.examples;
 
+import com.isaac.word2vecf.models.ModelSerializer;
 import com.isaac.word2vecf.models.Word2Vec;
 import org.nd4j.linalg.io.ClassPathResource;
 import org.slf4j.Logger;
@@ -13,14 +14,20 @@ import java.util.LinkedList;
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
-public class WS353Measure {
-	private static Logger log = LoggerFactory.getLogger(WS353Measure.class);
+public class Word2VecWS353Test {
+	private static Logger log = LoggerFactory.getLogger(Word2VecWS353Test.class);
+
+	public static void main (String[] args) {
+		Word2Vec w2v = ModelSerializer.loadWord2VecModel("/home/zhanghao/Documents/GoogleNews-vectors-negative300.bin", true);
+		// WS353 test
+		measure(w2v);
+	}
 
 	public static void measure(Word2Vec w2v) {
 		log.info("load WS353 data...");
-		LinkedList<WS353Node> wsList = new WS353Measure().loadWS353Data("data/ws353.txt");
-		LinkedList<WS353Node> wsListRel = new WS353Measure().loadWS353Data("data/ws353_relatedness.txt");
-		LinkedList<WS353Node> wsListSim = new WS353Measure().loadWS353Data("data/ws353_similarity.txt");
+		LinkedList<WS353Node> wsList = new Word2VecWS353Test().loadWS353Data("data/ws353.txt");
+		LinkedList<WS353Node> wsListRel = new Word2VecWS353Test().loadWS353Data("data/ws353_relatedness.txt");
+		LinkedList<WS353Node> wsListSim = new Word2VecWS353Test().loadWS353Data("data/ws353_similarity.txt");
 		log.info("run the test...");
 		run(w2v, wsList, "WS353");
 		run(w2v, wsListRel, "WS353 Relatedness");
