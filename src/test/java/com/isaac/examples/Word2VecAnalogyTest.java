@@ -1,4 +1,4 @@
-package com.isaac.word2vecf.examples;
+package com.isaac.examples;
 
 import com.isaac.word2vecf.models.ModelSerializer;
 import com.isaac.word2vecf.models.Word2Vec;
@@ -24,7 +24,7 @@ public class Word2VecAnalogyTest {
 		measure(w2v);
 	}
 
-	public static void measure(Word2Vec w2v) {
+	private static void measure(Word2Vec w2v) {
 		log.info("load SynSem data...");
 		Map<String, List<SynSemNode>> anaMap = new Word2VecAnalogyTest().loadSynSemData();
 		log.info("run the test..");

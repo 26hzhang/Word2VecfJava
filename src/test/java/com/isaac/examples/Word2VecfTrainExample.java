@@ -1,4 +1,4 @@
-package com.isaac.word2vecf.examples;
+package com.isaac.examples;
 
 import com.isaac.word2vecf.models.ModelSerializer;
 import com.isaac.word2vecf.models.Word2Vecf;

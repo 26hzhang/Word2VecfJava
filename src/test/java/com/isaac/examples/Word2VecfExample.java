@@ -1,4 +1,4 @@
-package com.isaac.word2vecf.examples;
+package com.isaac.examples;
 
 import java.util.Arrays;
 import java.util.Collections;

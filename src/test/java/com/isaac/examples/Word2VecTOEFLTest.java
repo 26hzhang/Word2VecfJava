@@ -1,4 +1,4 @@
-package com.isaac.word2vecf.examples;
+package com.isaac.examples;
 
 import com.isaac.word2vecf.models.ModelSerializer;
 import com.isaac.word2vecf.models.Word2Vec;
@@ -29,7 +29,7 @@ public class Word2VecTOEFLTest {
 		measure(w2v);
 	}
 
-	public static void measure(Word2Vec w2v) {
+	private static void measure(Word2Vec w2v) {
 		log.info("load TOEFL data...");
 		List<TFLNode> list = new Word2VecTOEFLTest().loadTOEFLData();
 		log.info("run the test...");

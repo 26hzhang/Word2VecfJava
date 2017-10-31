@@ -1,4 +1,4 @@
-package com.isaac.word2vecf.examples;
+package com.isaac.examples;
 
 import com.isaac.word2vecf.models.ModelSerializer;
 import com.isaac.word2vecf.models.Word2Vec;
@@ -23,7 +23,7 @@ public class Word2VecWS353Test {
 		measure(w2v);
 	}
 
-	public static void measure(Word2Vec w2v) {
+	private static void measure(Word2Vec w2v) {
 		log.info("load WS353 data...");
 		LinkedList<WS353Node> wsList = new Word2VecWS353Test().loadWS353Data("data/ws353.txt");
 		LinkedList<WS353Node> wsListRel = new Word2VecWS353Test().loadWS353Data("data/ws353_relatedness.txt");
@@ -85,7 +85,7 @@ public class Word2VecWS353Test {
 		return list;
 	}
 
-	class WS353Node {
+	private class WS353Node {
 		private String word1;
 		private String word2;
 		private double value;
