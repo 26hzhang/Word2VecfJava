@@ -4,6 +4,8 @@ It is a Java implementation of the [paper](http://www.aclweb.org/anthology/P14-2
 
 This algorithm uses the Skip-Gram method and train with shallow neural network, the input corpus is pre-processed by [Stanford Dependency Parser](http://nlp.stanford.edu/software/stanford-dependencies.shtml). For more information of word embedding technique, it is better to search the related information online. Usage already shown in examples.
 
+**Version Information**: [[version_log.md]](version_log.md)
+
 ### Requirements
 * [Java 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
 * [ND4J](http://nd4j.org/), its GitHub page: [[link]](https://github.com/deeplearning4j/nd4j), and Maven source: [[link]](http://mvnrepository.com/artifact/org.nd4j).
@@ -32,38 +34,3 @@ In order to make the project more usable, the pre-computations are implemented i
 * WordSim353: The WordSim353 set contains 353 word pairs. It was constructed by asking human subjects to rate the degree of semantic similarity or relatedness between two words on a numerical scale. The performance is measured by the Pearson correlation of the two word embeddings’ cosine distance and the average score given by the participants. [[pdf]](http://gabrilovich.com/papers/context_search.pdf)
 * TOEFL: The TOEFL set contains 80 multiple-choice synonym questions, each with 4 candidates. For example, the question word levied has choices: imposed (correct), believed, requested and correlated. Choose the nearest neighbor of the question word from the candidates based on the cosine distance and use the accuracy to measure the performance. [[pdf]](http://www.indiana.edu/~clcl/Q550_WWW/Papers/Landauer_Dumais_1997.pdf)
 * Analogy: The analogy task has approximately 9K semantic and 10.5K syntactic analogy questions. The question are similar to “man is to (woman) as king is to queen” or “predict is to (predicting) as dance is to dancing”. Following the previous work, using the nearest neighbor of "queen − king + man" in the vocabulary as the answer. Additionally, the accuracy is used to measure the performance. This dataset is relatively large compared to the previous two sets; therefore, the results using this dataset are more stable than those using the previous two datasets. [[pdf]](https://arxiv.org/pdf/1301.3781.pdf)
-
-### Version 2.2
-* Rewrite Word2Vec(f) model loader and saver, merge Word2VecModel and Word2VecfModel to ModelSerializer, cleanup the abundant codes. This process significantly reduce the resource occupancy by increasing the model restore time slightly.
-* Delete self-defined Pair class, change to use the Java built-in Pair function. 
-* Renamed some functions and classes. 
-* Cleaned up CollFileGenerator, DependencyGenerator and ExpressionParser.
-* Adjust the codes of examples, WordNetUtils as well as classes and functions in vocabulary package.
-* Add Glove embeddings to Word2Vec embeddings converter as well as GloVe embeddings example.
-
-### Version 2.1.1
-* Bugs fixed: fail to load context embeddings of Word2VecfModel.
-* Add WordNet Utility (first version) and example.
-* For Word2VecModel, 8GB RAM is required, for Word2VecfModel, 16 GB RAM is required. (Testing embeddings: word embeddings--more than 200000 words, 500 dim; context embeddings--more than 850000 contexts, 500 dim)
-
-### Version 2.1
-* Some bugs fixed.
-* Compatible with Word2Vec, say, you can use this repository to load trained result by Word2Vec, and perform similarity, nearest words tasks and etc. (Using Word2Vec and Word2VecModel, see Word2VecExample.java in examples)
-* Rewrite embeddings load function, decrease resource occupancy
-* Split Word2Vecf and Word2VecfModel and clean up redundant codes, Word2Vecf is separated to Word2Vecf and Word2Vec, where Word2Vecf handles word and context embeddings, while Word2Vec handles word embeddings only. Word2VecfModel is separated to Word2VecModel and Word2VecfModel, similar to Word2Vecf...
-* For training, vectors use double-precision (double), then those vectors are converted to single-precision (float) to store (in order to save disk space and fast load).
-
-### Version 2.0
-* Rewrite the codes and change the structure.
-* Add Lexical Substitute methods (Add, BalAdd, Mult, BalMult) and demo test.
-* Add WordSim353 task.
-* Add TOEFL synonym questions solving task.
-* Add SynSem analogy task.
-* User defined parameters.
-* Still... some bugs need to be fixed.
-
-### Version 1.0
-This is the very beginning version.
-* Achieves the pre-process and training process.
-* The parameter setting is fix according to the Levy's paper. 
-* Some bugs also need to be fixed.
