@@ -25,9 +25,9 @@ public class Word2VecWS353Test {
 
 	private static void measure(Word2Vec w2v) {
 		log.info("load WS353 data...");
-		LinkedList<WS353Node> wsList = new Word2VecWS353Test().loadWS353Data("data/ws353.txt");
-		LinkedList<WS353Node> wsListRel = new Word2VecWS353Test().loadWS353Data("data/ws353_relatedness.txt");
-		LinkedList<WS353Node> wsListSim = new Word2VecWS353Test().loadWS353Data("data/ws353_similarity.txt");
+		LinkedList<WS353Node> wsList = loadWS353Data("data/ws353.txt");
+		LinkedList<WS353Node> wsListRel = loadWS353Data("data/ws353_relatedness.txt");
+		LinkedList<WS353Node> wsListSim = loadWS353Data("data/ws353_similarity.txt");
 		log.info("run the test...");
 		run(w2v, wsList, "WS353");
 		run(w2v, wsListRel, "WS353 Relatedness");
@@ -48,7 +48,7 @@ public class Word2VecWS353Test {
 		log.info(name + ": " + String.format("%.2f", res * 100) + "%");
 	}
 
-	private static double pearson(double[] values, double[] cosValues) {
+	static double pearson(double[] values, double[] cosValues) {
 		int size = values.length;
 		double eps = 1e-8;
 		double avg_val = 0;
@@ -68,7 +68,7 @@ public class Word2VecWS353Test {
 		return v1 / (Math.sqrt(v2 + eps) * Math.sqrt(v3 + eps));
 	}
 
-	private LinkedList<WS353Node> loadWS353Data (String filePath) {
+	public static LinkedList<WS353Node> loadWS353Data (String filePath) {
 		LinkedList<WS353Node> list = new LinkedList<>();
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new ClassPathResource(filePath).getFile())));
@@ -85,10 +85,10 @@ public class Word2VecWS353Test {
 		return list;
 	}
 
-	private class WS353Node {
-		private String word1;
-		private String word2;
-		private double value;
+	static class WS353Node {
+		String word1;
+		String word2;
+		double value;
 
 		private WS353Node (String word1, String word2, double value) {
 			this.word1 = word1;

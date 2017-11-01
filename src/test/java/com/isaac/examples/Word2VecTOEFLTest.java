@@ -31,7 +31,7 @@ public class Word2VecTOEFLTest {
 
 	private static void measure(Word2Vec w2v) {
 		log.info("load TOEFL data...");
-		List<TFLNode> list = new Word2VecTOEFLTest().loadTOEFLData();
+		List<TFLNode> list = loadTOEFLData();
 		log.info("run the test...");
 		int accuracy = 0;
 		int ignore = 0;
@@ -57,7 +57,7 @@ public class Word2VecTOEFLTest {
 				"%(" + accuracy + "/" + list.size() + ")");
 	}
 
-	private List<TFLNode> loadTOEFLData() {
+	static List<TFLNode> loadTOEFLData() {
 		List<TFLNode> list = new ArrayList<>();
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new ClassPathResource("data/toefl.txt").getFile())));
@@ -86,19 +86,19 @@ public class Word2VecTOEFLTest {
 		return list;
 	}
 
-	class TFLNode {
-		private String ques;
-		private String[] choices = new String[4];
-		private int ans;
-		private int predict;
+	static class TFLNode {
+		String ques;
+		String[] choices = new String[4];
+		int ans;
+		int predict;
 
-		private TFLNode (String ques, String[] choices, int ans) {
+		TFLNode (String ques, String[] choices, int ans) {
 			this.ques = ques;
 			this.choices = choices.clone();
 			this.ans = ans;
 		}
 
-		private void setPredict (int predict) {
+		void setPredict (int predict) {
 			this.predict = predict;
 		}
 
@@ -106,6 +106,22 @@ public class Word2VecTOEFLTest {
 		public String toString () {
 			return "Questions: ".concat(ques).concat("\nChoices: ").concat(Arrays.asList(choices).toString()).concat("\nAnswer: ").concat(choices[ans])
 					.concat("\nPredict: ").concat(predict == -1 ? "N/A" : choices[predict]);
+		}
+
+		String toFileString() {
+			String result = "Question: " + ques + "\nChoices: [";
+			for (int i = 0; i < choices.length; i++) {
+				result += choices[i];
+				if (i < choices.length - 1)
+					result += ", ";
+			}
+			result += "]\nAnswer: " + choices[ans] + "\n";
+			if (predict == -1) {
+				result += "Predict: N/A";
+			} else {
+				result += "Predict: " + choices[predict];
+			}
+			return result;
 		}
 	}
 }

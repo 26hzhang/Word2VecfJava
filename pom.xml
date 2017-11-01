@@ -18,17 +18,24 @@
 		<commons-lang.version>3.5</commons-lang.version>
 		<commons-io.version>2.4</commons-io.version>
 		<commons-math.version>3.6.1</commons-math.version>
+		<commons.version>1.13</commons.version>
+		<httpcomponents.version>4.3.5</httpcomponents.version>
 		<slf4j.version>1.7.21</slf4j.version>
+		<dl4j.version>0.8.0</dl4j.version>
 		<nd4j.version>0.8.0</nd4j.version>
 		<jwi.version>2.2.3</jwi.version>
 	</properties>
 
 	<dependencies>
+
+		<!-- Guava -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>
 		</dependency>
+
+		<!-- Stanford NLP -->
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
 			<artifactId>stanford-corenlp</artifactId>
@@ -40,6 +47,8 @@
 			<version>${stanfordcorenlp.version}</version>
 			<classifier>models</classifier>
 		</dependency>
+
+		<!-- SLF4J libraries -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -50,6 +59,8 @@
 			<artifactId>slf4j-simple</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
+
+		<!-- Commons -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -66,6 +77,28 @@
 			<version>${commons-lang.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpcomponents.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>${commons.version}</version>
+		</dependency>
+
+		<!-- DeepLearning4J and ND4J -->
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-core</artifactId>
+			<version>${dl4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-nlp</artifactId>
+			<version>${dl4j.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.nd4j</groupId>
 			<artifactId>nd4j-api</artifactId>
 			<version>${nd4j.version}</version>
@@ -75,11 +108,14 @@
 			<artifactId>nd4j-native</artifactId>
 			<version>${nd4j.version}</version>
 		</dependency>
+
+		<!-- WordNet -->
 		<dependency>
 			<groupId>edu.mit</groupId>
 			<artifactId>jwi</artifactId>
 			<version>${jwi.version}</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>

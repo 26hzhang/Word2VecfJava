@@ -3,6 +3,7 @@
     <words>
       <w>adpmod</w>
       <w>adpobj</w>
+      <w>archize</w>
       <w>cbuffer</w>
       <w>changhau</w>
       <w>cheader</w>
@@ -14,9 +15,11 @@
       <w>dobj</w>
       <w>doesnn</w>
       <w>dumpcv</w>
+      <w>erhan</w>
       <w>fsize</w>
       <w>havn</w>
       <w>hyperwords</w>
+      <w>imdb</w>
       <w>kosgi</w>
       <w>lemmatized</w>
       <w>lemmatizing</w>
@@ -31,6 +34,7 @@
       <w>puncts</w>
       <w>santosh</w>
       <w>ssplit</w>
+      <w>tais</w>
       <w>unicodes</w>
       <w>unigram</w>
       <w>unitable</w>

@@ -26,7 +26,7 @@ public class Word2VecAnalogyTest {
 
 	private static void measure(Word2Vec w2v) {
 		log.info("load SynSem data...");
-		Map<String, List<SynSemNode>> anaMap = new Word2VecAnalogyTest().loadSynSemData();
+		Map<String, List<SynSemNode>> anaMap = loadSynSemData();
 		log.info("run the test..");
 		for (Map.Entry<String, List<SynSemNode>> entry : anaMap.entrySet()) {
 			log.info(entry.getKey());
@@ -53,7 +53,7 @@ public class Word2VecAnalogyTest {
 		log.info("done.");
 	}
 
-	private Map<String, List<SynSemNode>> loadSynSemData() {
+	public static Map<String, List<SynSemNode>> loadSynSemData() {
 		Map<String, List<SynSemNode>> map = new LinkedHashMap<>();
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new ClassPathResource("data/questions-words.txt").getFile())));
@@ -83,12 +83,12 @@ public class Word2VecAnalogyTest {
 		return map;
 	}
 
-	class SynSemNode {
-		private String str1;
-		private String str2;
-		private String str3;
-		private String str4;
-		private SynSemNode (String str1, String str2, String str3, String str4) {
+	static class SynSemNode {
+		String str1;
+		String str2;
+		String str3;
+		String str4;
+		SynSemNode (String str1, String str2, String str3, String str4) {
 			this.str1 = str1;
 			this.str2 = str2;
 			this.str3 = str3;
