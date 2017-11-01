@@ -4,12 +4,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.isaac.word2vecf.models.ModelSerializer;
+import com.isaac.word2vecf.utils.WordVectorSerializer;
 import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.isaac.word2vecf.models.Word2Vecf;
+import com.isaac.word2vecf.Word2Vecf;
 
 /**
  * Created by zhanghao on 5/6/17.
@@ -25,7 +25,7 @@ public class Word2VecfExample {
 		String wordsPath = "/home/zhanghao/Documents/embeddings/lexsub_words";
 		String contextsPath = "/home/zhanghao/Documents/embeddings/lexsub_contexts";
 		log.info("load word and context embeddings and create word2vecf...");
-		Word2Vecf w2vf = ModelSerializer.loadWord2VecfModel(wordsPath, contextsPath, false);
+		Word2Vecf w2vf = WordVectorSerializer.loadWord2VecfModel(wordsPath, contextsPath, false);
 		log.info("done...");
 		// measure test
 		/* Analogy task, "king" - "queen" = "man" - ["woman"], positive words: man, queen; negative words: king; target word: woman. */

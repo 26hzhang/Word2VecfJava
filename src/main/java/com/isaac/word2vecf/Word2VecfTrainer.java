@@ -1,9 +1,10 @@
-package com.isaac.word2vecf.models;
+package com.isaac.word2vecf;
 
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.isaac.word2vecf.utils.CallableVoid;
 import com.isaac.word2vecf.utils.Common;
 import com.isaac.word2vecf.vocabulary.VocabFunctions;
 import com.isaac.word2vecf.vocabulary.Vocabulary;

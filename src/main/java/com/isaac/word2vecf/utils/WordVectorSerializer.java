@@ -1,9 +1,10 @@
-package com.isaac.word2vecf.models;
+package com.isaac.word2vecf.utils;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Bytes;
-import com.isaac.word2vecf.utils.Common;
+import com.isaac.word2vecf.Word2Vec;
+import com.isaac.word2vecf.Word2Vecf;
 import javafx.util.Pair;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -25,7 +26,7 @@ import java.util.List;
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
-public class ModelSerializer {
+public class WordVectorSerializer {
 	/** For file process usage */
 	private final static long ONE_GB = 1024 * 1024 * 1024;
 	private final static byte LINE_SEPARATOR = 10;
@@ -139,6 +140,7 @@ public class ModelSerializer {
 	}
 
 	/** Save the word2vec model as binary file */
+	@SuppressWarnings("unused")
 	public static void saveWord2VecToBinary(String toPath, Word2Vec w2v){
 		final Charset cs = StandardCharsets.UTF_8;
 		try {

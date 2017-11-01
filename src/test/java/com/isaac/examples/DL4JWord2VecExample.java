@@ -1,6 +1,6 @@
 package com.isaac.examples;
 
-import com.isaac.word2vecdl4j.Word2VecTrainer;
+import com.isaac.word2vec.Word2VecTrainer;
 import org.datavec.api.util.ClassPathResource;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;

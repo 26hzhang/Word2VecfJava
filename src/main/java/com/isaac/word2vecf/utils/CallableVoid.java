@@ -1,4 +1,4 @@
-package com.isaac.word2vecf.models;
+package com.isaac.word2vecf.utils;
 
 import java.util.concurrent.Callable;
 

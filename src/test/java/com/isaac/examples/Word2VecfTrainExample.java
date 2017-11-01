@@ -1,8 +1,8 @@
 package com.isaac.examples;
 
-import com.isaac.word2vecf.models.ModelSerializer;
-import com.isaac.word2vecf.models.Word2Vecf;
-import com.isaac.word2vecf.models.Word2VecfTrainerBuilder;
+import com.isaac.word2vecf.utils.WordVectorSerializer;
+import com.isaac.word2vecf.Word2Vecf;
+import com.isaac.word2vecf.Word2VecfTrainerBuilder;
 import javafx.util.Pair;
 
 import java.util.Arrays;
@@ -32,7 +32,7 @@ public class Word2VecfTrainExample {
 				.train(trainFile, wordVocabFile, contextVocabFile);
 
 		// write the model to a bin file
-		ModelSerializer.saveWord2VecfToBinary("<path to store word vectors>", "<path to store context vectors>", w2vf);
+		WordVectorSerializer.saveWord2VecfToBinary("<path to store word vectors>", "<path to store context vectors>", w2vf);
 
 		// measure test
 		/* Analogy task, "king" - "queen" = "man" - ["woman"], positive words: man, queen; negative words: king; target word: woman. */

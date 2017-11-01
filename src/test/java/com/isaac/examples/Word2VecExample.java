@@ -2,8 +2,8 @@ package com.isaac.examples;
 
 import java.util.List;
 
-import com.isaac.word2vecf.models.Word2Vec;
-import com.isaac.word2vecf.models.ModelSerializer;
+import com.isaac.word2vecf.Word2Vec;
+import com.isaac.word2vecf.utils.WordVectorSerializer;
 import javafx.util.Pair;
 
 public class Word2VecExample {
@@ -11,7 +11,7 @@ public class Word2VecExample {
 	public static void main(String[] args) {
 		String filename = "/Users/zhanghao/Documents/Files/GoogleNews-vectors-negative300.bin";
 		System.out.println("loading embeddings and creating word2vec...");
-		Word2Vec w2v = ModelSerializer.loadWord2VecModel(filename, true);
+		Word2Vec w2v = WordVectorSerializer.loadWord2VecModel(filename, true);
 		System.out.println("done...");
 		String word = "kill";
 		List<Pair<String, Double>> list = w2v.wordsNearest(word, 10);

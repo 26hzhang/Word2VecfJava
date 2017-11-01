@@ -1,4 +1,4 @@
-package com.isaac.word2vecf.models;
+package com.isaac.word2vecf;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;

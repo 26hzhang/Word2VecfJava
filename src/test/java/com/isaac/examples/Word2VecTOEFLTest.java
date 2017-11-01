@@ -1,7 +1,7 @@
 package com.isaac.examples;
 
-import com.isaac.word2vecf.models.ModelSerializer;
-import com.isaac.word2vecf.models.Word2Vec;
+import com.isaac.word2vecf.utils.WordVectorSerializer;
+import com.isaac.word2vecf.Word2Vec;
 import org.nd4j.linalg.io.ClassPathResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ public class Word2VecTOEFLTest {
 	private static Logger log = LoggerFactory.getLogger(Word2VecTOEFLTest.class);
 
 	public static void main (String[] args) {
-		Word2Vec w2v = ModelSerializer.loadWord2VecModel("/home/zhanghao/Documents/GoogleNews-vectors-negative300.bin", true);
+		Word2Vec w2v = WordVectorSerializer.loadWord2VecModel("/home/zhanghao/Documents/GoogleNews-vectors-negative300.bin", true);
 		// TOEFL test
 		measure(w2v);
 	}

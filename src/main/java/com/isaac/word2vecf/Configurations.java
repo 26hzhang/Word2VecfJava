@@ -1,4 +1,4 @@
-package com.isaac.word2vecf.models;
+package com.isaac.word2vecf;
 
 /**
  * Created by zhanghao on 18/4/17.

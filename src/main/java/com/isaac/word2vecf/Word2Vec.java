@@ -1,4 +1,4 @@
-package com.isaac.word2vecf.models;
+package com.isaac.word2vecf;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
  * email: isaac.changhau@gmail.com
  */
 public class Word2Vec {
-	private final int layerSize;
-	private final List<String> wordVocab;
-	private final INDArray wordVectors;
+	final int layerSize;
+	final List<String> wordVocab;
+	final INDArray wordVectors;
 
 	public Word2Vec (int layerSize, List<String> wordVocab, INDArray wordVectors, boolean normalize) {
 		this.layerSize = layerSize;
@@ -50,10 +50,8 @@ public class Word2Vec {
 	/** @return mean vector, built from words passed in */
 	public INDArray getWordVectorMean (List<String> words) {
 		INDArray res = zeros();
-		if (words == null || words.isEmpty())
-			return res;
-		for (String word : words)
-			res.addi(getWordVector(word));
+		if (words == null || words.isEmpty()) return res;
+		for (String word : words) res.addi(getWordVector(word));
 		return res.div(Nd4j.scalar(words.size()));
 	}
 
@@ -68,9 +66,8 @@ public class Word2Vec {
 	}
 
 	/** @return similarity scores between vector and all records in word vectors */
-	private INDArray wordSimilarity (INDArray vector) {
-		Preconditions.checkArgument(vector.columns() == layerSize,
-				String.format("vector's dimension(%d) must be the same as layer size(%d)", vector.columns(), layerSize));
+	public INDArray wordSimilarity (INDArray vector) {
+		Preconditions.checkArgument(vector.columns() == layerSize, String.format("vector's dimension(%d) must be the same as layer size(%d)", vector.columns(), layerSize));
 		return wordVectors.mmul(vector.transpose());
 	}
 
@@ -110,12 +107,13 @@ public class Word2Vec {
 	}
 
 	/** @return {@link INDArray} */
-	private INDArray normalize (INDArray array) {
+	INDArray normalize(INDArray array) {
 		INDArray norm = array.norm2(1);
-		for (int i = 0; i < norm.size(0); i++)
-			for (int j = 0; j < norm.size(1); j++)
-				if (norm.getFloat(i) == 0)
-					norm.put(i, j, 1.0);
+		for (int i = 0; i < norm.size(0); i++) {
+			for (int j = 0; j < norm.size(1); j++) {
+				if (norm.getFloat(i) == 0) norm.put(i, j, 1.0);
+			}
+		}
 		return array.diviColumnVector(norm);
 	}
 

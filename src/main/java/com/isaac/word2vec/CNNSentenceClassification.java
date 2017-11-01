@@ -1,4 +1,4 @@
-package com.isaac.word2vecdl4j;
+package com.isaac.word2vec;
 
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;

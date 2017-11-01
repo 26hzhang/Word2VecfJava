@@ -11,8 +11,8 @@ import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.isaac.word2vecf.models.Word2Vec;
-import com.isaac.word2vecf.models.ModelSerializer;
+import com.isaac.word2vecf.Word2Vec;
+import com.isaac.word2vecf.utils.WordVectorSerializer;
 import com.isaac.word2vecf.utils.Common;
 
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
@@ -24,7 +24,7 @@ public class WordNetExample {
 	public static void main(String[] args) {
 		String filename = "/home/zhanghao/Documents/GoogleNews-vectors-negative300.bin";
 		log.info("load google news embeddings and create word2vec...");
-		Word2Vec w2v = ModelSerializer.loadWord2VecModel(filename, true);
+		Word2Vec w2v = WordVectorSerializer.loadWord2VecModel(filename, true);
 		log.info("done...");
 		String word = "kill";
 		log.info("find top 5000 nearest words...");

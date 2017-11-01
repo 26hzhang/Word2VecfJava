@@ -1,6 +1,6 @@
 package com.isaac.examples;
 
-import com.isaac.word2vecdl4j.CNNSentenceClassification;
+import com.isaac.word2vec.CNNSentenceClassification;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.deeplearning4j.eval.Evaluation;
