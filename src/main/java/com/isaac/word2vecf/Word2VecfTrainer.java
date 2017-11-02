@@ -62,7 +62,7 @@ public class Word2VecfTrainer {
 	private final Vocabulary wv;
 	private final Vocabulary cv;
 	/** configurations of word2vecf training */
-	private final Configurations config;
+	private final Word2VecfConfigs config;
 
 	/* -----The following includes shared state that is updated per worker thread----- */
 	/**
@@ -84,7 +84,7 @@ public class Word2VecfTrainer {
 	private final int[] unitable;
 
 
-	Word2VecfTrainer(String trainFile, String wordVocabFile, String contextVocabFile, Configurations config) {
+	Word2VecfTrainer(String trainFile, String wordVocabFile, String contextVocabFile, Word2VecfConfigs config) {
 		this.trainFile = trainFile;
 		this.fileSize = Common.getFileSize(trainFile);
 		this.wv = readVocab(wordVocabFile);

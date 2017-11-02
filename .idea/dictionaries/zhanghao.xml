@@ -17,6 +17,7 @@
       <w>dumpcv</w>
       <w>erhan</w>
       <w>fsize</w>
+      <w>geomean</w>
       <w>havn</w>
       <w>hyperwords</w>
       <w>imdb</w>
@@ -34,6 +35,7 @@
       <w>puncts</w>
       <w>santosh</w>
       <w>ssplit</w>
+      <w>strs</w>
       <w>tais</w>
       <w>unicodes</w>
       <w>unigram</w>

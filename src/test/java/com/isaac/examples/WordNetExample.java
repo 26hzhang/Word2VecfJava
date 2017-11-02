@@ -3,7 +3,6 @@ package com.isaac.examples;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
 import java.util.stream.Collectors;
 
 import com.isaac.word2vecf.utils.WorNetUtils;
@@ -14,8 +13,6 @@ import org.slf4j.LoggerFactory;
 import com.isaac.word2vecf.Word2Vec;
 import com.isaac.word2vecf.utils.WordVectorSerializer;
 import com.isaac.word2vecf.utils.Common;
-
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
 public class WordNetExample {
 	
@@ -35,11 +32,8 @@ public class WordNetExample {
 		log.info("lemmatizing, filtering top 100 nearest distinct verbs...");
 		LinkedList<Pair<String, Double>> result = new LinkedList<>();
 		LinkedHashSet<String> vocab = new LinkedHashSet<>();
-		Properties props = new Properties();
-		props.setProperty("annotators", "tokenize, ssplit, pos, lemma");
-		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 		for (Pair<String, Double> aWordLst : wordLst) {
-			String str = Common.lemmatizer(aWordLst.getKey(), pipeline);
+			String str = Common.lemmatizer(aWordLst.getKey());
 			if (str.equals(word) || !WorNetUtils.isVerb(str))
 				continue;
 			if (vocab.contains(str))

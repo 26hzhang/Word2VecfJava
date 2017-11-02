@@ -1,22 +1,34 @@
 package com.isaac.word2vecf.utils;
 
+import com.isaac.lexsub.representation.Token;
+import com.isaac.word2vecf.utils.UnicodeReader;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
+import javafx.util.Pair;
 
 import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Created by zhanghao on 18/4/17.
- * Modified by zhanghao on 11/10/17.
+ * Modified by zhanghao on 02/11/17.
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
 public class Common {
+
+	/** Stanford CoreNLP Lemmatizer tool */
+	private static final StanfordCoreNLP pipeline;
+	static {
+		Properties props = new Properties();
+		props.setProperty("annotators", "tokenize, ssplit, pos, lemma");
+		pipeline = new StanfordCoreNLP(props);
+	}
 
 	/** @return true if i is an even number */
 	public static boolean isEven (int i) { return (i & 1) == 0; }
@@ -75,13 +87,8 @@ public class Common {
 	}
 
 	/** @return Lemmatized string, input string can be a word, sentence or paragraph */
-	public static String lemmatizer (String string, StanfordCoreNLP pipeline) {
+	public static String lemmatizer(String string) {
 		List<String> lemmas = new ArrayList<>();
-		if (pipeline == null) {
-			Properties props = new Properties();
-			props.setProperty("annotators", "tokenize, ssplit, pos, lemma");
-			pipeline = new StanfordCoreNLP(props);
-		}
 		// create an empty Annotation just with the given text
 		Annotation annotation = new Annotation(string);
 		// run all Annotators on this string

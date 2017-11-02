@@ -135,10 +135,9 @@ public class Word2Vecf extends Word2Vec {
 		INDArray ctxVec = zeros();
 		int found = 0;
 		for (String context : contexts) {
-			if (hasContext(context)) {
-				found++;
-				ctxVec.addi(getContextVector(context));
-			}
+			if (!hasContext(context)) continue;
+			found++;
+			ctxVec.addi(getContextVector(context));
 		}
 		if (average && (found != 0)) ctxVec.divi(Nd4j.scalar(found));
 		targetVec.addi(ctxVec);

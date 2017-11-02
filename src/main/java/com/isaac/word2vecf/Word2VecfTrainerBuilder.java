@@ -92,7 +92,7 @@ public class Word2VecfTrainerBuilder {
 		this.downSampleRate = MoreObjects.firstNonNull(downSampleRate, 0.001);
 		this.debugMode = MoreObjects.firstNonNull(debugMode, 2);
 		return new Word2VecfTrainer(trainFile, wordVocabFile, contextVocabFile,
-				new Configurations(
+				new Word2VecfConfigs(
 						layerSize,
 						iterations,
 						numThreads,
