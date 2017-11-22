@@ -3,6 +3,7 @@ package com.isaac.lexsub.representation;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("all")
 public class Token {
 	
 	private int id = 0;

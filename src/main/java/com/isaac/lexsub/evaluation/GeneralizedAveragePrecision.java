@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("all")
 public class GeneralizedAveragePrecision {
 	
 	public static float calc(Map<String, Integer> goldVector, Map<String, Float> evalVector, 

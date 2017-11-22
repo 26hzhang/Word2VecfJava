@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class ContextInstance {
 
 	private final List<String> validPOS = Arrays.asList("r", "j", "a", "v", "n");

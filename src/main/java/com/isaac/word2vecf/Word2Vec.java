@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
+@SuppressWarnings("all")
 public class Word2Vec {
 	final int layerSize;
 	final List<String> wordVocab;

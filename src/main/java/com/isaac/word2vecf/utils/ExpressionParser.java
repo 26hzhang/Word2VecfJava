@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
-// TODO -- Clean up
+@SuppressWarnings("all")
 public class ExpressionParser {
 	private String query;
 

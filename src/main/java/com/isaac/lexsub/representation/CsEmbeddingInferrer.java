@@ -8,6 +8,7 @@ import javafx.util.Pair;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("all")
 public class CsEmbeddingInferrer extends CsInferrer {
 
     private String contextMath;

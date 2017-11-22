@@ -1,18 +1,14 @@
 package com.isaac.word2vecf.utils;
 
-import com.isaac.lexsub.representation.Token;
-import com.isaac.word2vecf.utils.UnicodeReader;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
-import javafx.util.Pair;
 
 import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * Created by zhanghao on 18/4/17.
@@ -20,6 +16,7 @@ import java.util.stream.Collectors;
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
+@SuppressWarnings("all")
 public class Common {
 
 	/** Stanford CoreNLP Lemmatizer tool */

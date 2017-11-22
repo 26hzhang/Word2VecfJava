@@ -8,6 +8,7 @@ import org.nd4j.linalg.io.ClassPathResource;
 import java.io.IOException;
 import java.net.URL;
 
+@SuppressWarnings("all")
 public class WorNetUtils {
     /** Initialize IDictionary */
     private static final IDictionary wndict;

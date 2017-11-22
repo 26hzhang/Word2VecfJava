@@ -1,5 +1,6 @@
 package com.isaac.lexsub;
 
+@SuppressWarnings("all")
 public class LexSubConfigs {
     String inferrer = "emb";
     String lstmConfig = null; // only for Context2vecInferrer

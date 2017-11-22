@@ -28,6 +28,7 @@ import java.nio.charset.CharsetDecoder;
  * and exceptions will be propagated from the returned
  * {@link CharsetDecoder}.
  */
+@SuppressWarnings("all")
 public class UnicodeReader extends Reader {
 	private PushbackInputStream internalIn;
 	private InputStreamReader   internalIn2 = null;

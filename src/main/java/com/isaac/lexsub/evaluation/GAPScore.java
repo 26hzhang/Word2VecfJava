@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@SuppressWarnings("all")
 public class GAPScore {
 	
 	public static void evaluate(String goldFilename, String evalFilename, String outputFilename, String noMWE, 

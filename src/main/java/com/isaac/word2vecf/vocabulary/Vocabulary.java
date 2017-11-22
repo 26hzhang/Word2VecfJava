@@ -8,6 +8,7 @@ import java.util.List;
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
+@SuppressWarnings("all")
 public class Vocabulary {
 	public List<VocabWord> vocab;
 	public long vocabMaxSize;

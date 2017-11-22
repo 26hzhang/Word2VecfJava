@@ -38,6 +38,7 @@ import java.util.*;
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
+@SuppressWarnings("all")
 public class CNNSentenceClassification {
 
     private static final int BUFFER_SIZE = 4096;

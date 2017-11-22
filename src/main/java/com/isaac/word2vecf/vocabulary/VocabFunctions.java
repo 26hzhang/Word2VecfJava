@@ -15,6 +15,7 @@ import com.isaac.word2vecf.vocabulary.Vocabulary.VocabWord;
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
+@SuppressWarnings("all")
 public class VocabFunctions {
 
 	private static final int vocabHashSize = 30000000; // Maximum 30*0.7=21M words in the vocabulary

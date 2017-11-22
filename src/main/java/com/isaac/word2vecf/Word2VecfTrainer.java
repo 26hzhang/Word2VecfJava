@@ -28,6 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
+@SuppressWarnings("all")
 public class Word2VecfTrainer {
 	/** Logger */
 	private static Logger log = LoggerFactory.getLogger(Word2VecfTrainer.class);

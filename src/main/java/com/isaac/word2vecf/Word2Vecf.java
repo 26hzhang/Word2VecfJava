@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * @author  ZHANG HAO
  * email: isaac.changhau@gmail.com
  */
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 public class Word2Vecf extends Word2Vec {
 
 	private final List<String> contextVocab;

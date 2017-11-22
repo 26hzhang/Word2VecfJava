@@ -6,6 +6,7 @@ import javafx.util.Pair;
 import java.util.*;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("all")
 public class CsInferrer {
 
     private final List<String> defaultGeneratedResults = new ArrayList<>(Arrays.asList("time", "people", "information", "work", "first", "like", "year", "make", "day", "service"));
