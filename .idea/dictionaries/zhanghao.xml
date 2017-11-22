@@ -11,6 +11,7 @@
       <w>ctxi</w>
       <w>cvectors</w>
       <w>cvocab</w>
+      <w>dcoref</w>
       <w>depparse</w>
       <w>dobj</w>
       <w>doesnn</w>
@@ -25,14 +26,18 @@
       <w>lemmatized</w>
       <w>lemmatizing</w>
       <w>mikolov</w>
+      <w>natlog</w>
       <w>nllu</w>
       <w>nmod</w>
+      <w>nndep</w>
       <w>nsubj</w>
+      <w>openie</w>
       <w>outputter</w>
       <w>ppar</w>
       <w>precompute</w>
       <w>punct</w>
       <w>puncts</w>
+      <w>recog</w>
       <w>santosh</w>
       <w>ssplit</w>
       <w>strs</w>
