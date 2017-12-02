@@ -6,8 +6,6 @@ This algorithm uses the Skip-Gram method and train with shallow neural network, 
 
 **Reference Repository**: [eikdk/Word2VecJava](https://github.com/eikdk/Word2VecJava)
 
-**Version Information**: [[version_log.md]](version_log.md)
-
 ### Requirements
 * [Java 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
 * [DL4J](https://deeplearning4j.org), its GitHub page: [[link]](https://github.com/deeplearning4j/deeplearning4j), and Maven source: [[link]](https://mvnrepository.com/artifact/org.deeplearning4j).
