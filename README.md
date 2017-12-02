@@ -4,6 +4,8 @@ It is a Java implementation of the [paper](http://www.aclweb.org/anthology/P14-2
 
 This algorithm uses the Skip-Gram method and train with shallow neural network, the input corpus is pre-processed by [Stanford Dependency Parser](http://nlp.stanford.edu/software/stanford-dependencies.shtml). For more information of word embedding technique, it is better to search the related information online. Usage already shown in examples.
 
+**Reference Repository**: [eikdk/Word2VecJava](https://github.com/eikdk/Word2VecJava)
+
 **Version Information**: [[version_log.md]](version_log.md)
 
 ### Requirements
