@@ -1,5 +1,7 @@
 ## Word2VecfJava
 
+![Authour](https://img.shields.io/badge/Author-Zhang Hao (Isaac Changhau)-blue.svg)
+
 It is a Java implementation of the [paper](http://www.aclweb.org/anthology/P14-2050): Dependency Based Word Embeddings, published by [Levy et al.](https://levyomer.wordpress.com/) in [ACL](https://www.aclweb.org/website/conference-list), and extensions.
 
 This algorithm uses the Skip-Gram method and train with shallow neural network, the input corpus is pre-processed by [Stanford Dependency Parser](http://nlp.stanford.edu/software/stanford-dependencies.shtml). For more information of word embedding technique, it is better to search the related information online. Usage already shown in examples.
