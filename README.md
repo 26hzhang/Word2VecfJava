@@ -6,8 +6,6 @@ It is a Java implementation of the [paper](http://www.aclweb.org/anthology/P14-2
 
 This algorithm uses the Skip-Gram method and train with shallow neural network, the input corpus is pre-processed by [Stanford Dependency Parser](http://nlp.stanford.edu/software/stanford-dependencies.shtml). For more information of word embedding technique, it is better to search the related information online. Usage already shown in examples.
 
-**Reference Repository**: [eikdk/Word2VecJava](https://github.com/eikdk/Word2VecJava)
-
 ### Requirements
 * [Java 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
 * [DL4J](https://deeplearning4j.org), its GitHub page: [[link]](https://github.com/deeplearning4j/deeplearning4j), and Maven source: [[link]](https://mvnrepository.com/artifact/org.deeplearning4j).
@@ -37,3 +35,13 @@ In order to make the project more usable, the pre-computations are implemented i
 * WordSim353: The WordSim353 set contains 353 word pairs. It was constructed by asking human subjects to rate the degree of semantic similarity or relatedness between two words on a numerical scale. The performance is measured by the Pearson correlation of the two word embeddings’ cosine distance and the average score given by the participants. [[pdf]](http://gabrilovich.com/papers/context_search.pdf)
 * TOEFL: The TOEFL set contains 80 multiple-choice synonym questions, each with 4 candidates. For example, the question word levied has choices: imposed (correct), believed, requested and correlated. Choose the nearest neighbor of the question word from the candidates based on the cosine distance and use the accuracy to measure the performance. [[pdf]](http://www.indiana.edu/~clcl/Q550_WWW/Papers/Landauer_Dumais_1997.pdf)
 * Analogy: The analogy task has approximately 9K semantic and 10.5K syntactic analogy questions. The question are similar to “man is to (woman) as king is to queen” or “predict is to (predicting) as dance is to dancing”. Following the previous work, using the nearest neighbor of "queen − king + man" in the vocabulary as the answer. Additionally, the accuracy is used to measure the performance. This dataset is relatively large compared to the previous two sets; therefore, the results using this dataset are more stable than those using the previous two datasets. [[pdf]](https://arxiv.org/pdf/1301.3781.pdf)
+
+### Reference
+- [eikdk/Word2VecJava](https://github.com/eikdk/Word2VecJava)
+- [word2vec -- google sources](https://code.google.com/archive/p/word2vec/), [download](https://github.com/dav/word2vec)
+- [Yoav Goldberg/word2vecf](https://bitbucket.org/yoavgo/word2vecf/overview)
+- [orenmel/lexsub](https://github.com/orenmel/lexsub)
+- [GoogleNews-vectors-negative300.bin](https://github.com/mmihaltz/word2vec-GoogleNews-vectors) (Pre-trained Google News corpus (3 billion running words) word vector model (3 million 300-dimension English word vectors))
+
+### Version Information
+[Version Log.](others/version_log.md)

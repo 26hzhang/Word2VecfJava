@@ -13,7 +13,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<stanfordcorenlp.version>3.8.0</stanfordcorenlp.version>
-		<!--<junidecode.version>0.1.1</junidecode.version>-->
 		<guava.version>21.0</guava.version>
 		<commons-lang.version>3.6</commons-lang.version>
 		<commons-io.version>2.4</commons-io.version>

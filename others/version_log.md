@@ -8,7 +8,7 @@ This file is used to record the codes development information.
 
 ### Version 2.2.1
 * Rewrite Word2Vecf, which is extends from Word2Vec now, not a standalone model anymore.
-* Add DeepLearning4J (DL4J) libraries, and add two examples of using DL4J to implement Word2Vec trainer and tackle some tasks as well as a Convolutional Neural Network based sentence classification tasks according to [Kim](https://arxiv.org/abs/1408.5882). This added files located at [[here]](/src/main/java/com/isaac/word2vec).
+* Add DeepLearning4J (DL4J) libraries, and add two examples of using DL4J to implement Word2Vec trainer and tackle some tasks as well as a Convolutional Neural Network based sentence classification tasks according to [Kim](https://arxiv.org/abs/1408.5882). This added files located at [[here]](/com/isaac/word2vec).
 * re-structure the Word2Vecf package and cleanup some codes.
 
 ### Version 2.2

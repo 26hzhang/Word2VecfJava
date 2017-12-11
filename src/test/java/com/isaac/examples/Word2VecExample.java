@@ -18,10 +18,11 @@ public class Word2VecExample {
 		for (Pair<String, Double> aList : list) {
 			System.out.println(aList.getKey() + "\t" + aList.getValue());
 		}
-		String word1 = "eat";
-		String word2 = "pay";
+		String word1 = "tree";
+		String word2 = "oxygen";
 		System.out.println(w2v.wordSimilarity(word1, word2));
-
+		String word3 = "yard";
+		System.out.println(w2v.wordSimilarity(word1, word3));
 	}
 
 }
