@@ -43,5 +43,6 @@ In order to make the project more usable, the pre-computations are implemented i
 - [orenmel/lexsub](https://github.com/orenmel/lexsub)
 - [GoogleNews-vectors-negative300.bin](https://github.com/mmihaltz/word2vec-GoogleNews-vectors) (Pre-trained Google News corpus (3 billion running words) word vector model (3 million 300-dimension English word vectors))
 
-### Version Information
+### Other Information
 [Version Log.](others/version_log.md)
+[Word2Vecf C Codes Usage](others/w2vf_c_code_usage.md)
