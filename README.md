@@ -1,6 +1,6 @@
 ## Word2VecfJava
 
-![Authour](https://img.shields.io/badge/Author-Zhang%20Hao%20(Isaac%20Changhau)-blue.svg) ![](https://img.shields.io/badge/Java-1.8-brightgreen.svg) ![](https://img.shields.io/badge/DeepLearning4J-0.8.0-yellowgreen.svg) ![](https://img.shields.io/badge/ND4J-0.8.0-yellowgreen.svg) ![](https://img.shields.io/badge/StanfordCoreNLP-0.8.0-yellowgreen.svg) ![](https://img.shields.io/badge/Guava-21.0-yellowgreen.svg)
+![Authour](https://img.shields.io/badge/Author-Zhang%20Hao%20(Isaac%20Changhau)-blue.svg) ![](https://img.shields.io/badge/Java-1.8-brightgreen.svg) ![](https://img.shields.io/badge/DeepLearning4J-0.8.0-yellowgreen.svg) ![](https://img.shields.io/badge/ND4J-0.8.0-yellowgreen.svg) ![](https://img.shields.io/badge/StanfordCoreNLP-3.8.0-yellowgreen.svg) ![](https://img.shields.io/badge/Guava-21.0-yellowgreen.svg)
 
 It is a Java implementation of the [paper](http://www.aclweb.org/anthology/P14-2050): Dependency Based Word Embeddings, published by [Levy et al.](https://levyomer.wordpress.com/) in [ACL](https://www.aclweb.org/website/conference-list), and extensions.
 
