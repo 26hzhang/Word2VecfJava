@@ -45,4 +45,5 @@ In order to make the project more usable, the pre-computations are implemented i
 
 ### Other Information
 [Version Log.](others/version_log.md)
+
 [Word2Vecf C Codes Usage](others/w2vf_c_code_usage.md)
