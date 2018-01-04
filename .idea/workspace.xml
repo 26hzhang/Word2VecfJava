@@ -1,7 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2a2b0f41-f7f9-4a4f-9cfc-bf964f3bbb58" name="Default" comment="" />
+    <list default="true" id="2a2b0f41-f7f9-4a4f-9cfc-bf964f3bbb58" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/lexsub_datasets.zip" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/semeval_mult_result.zip" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/corpus_data.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/coinco.no_problematic.candidates" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/coinco.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/coinco_all.no_problematic.gold" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/coinco_all.no_problematic.preprocessed" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/coinco_all.no_problematic.sorted.conll" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/coinco_all.no_problematic.sorted.preprocessed" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/coinco_dev.no_problematic.preprocessed" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/coinco_test.no_problematic.preprocessed" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/lst.gold.candidates" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/lst.gold.candidates.lemma" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/lst_all.conll" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/lst_all.conll.lemma" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/lst_all.gold" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/lst_all.gold.lemma" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/lst_all.preprocessed" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/lst_all.preprocessed.lemma" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/lst_all.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/lst_all_UD.conll" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/lst_test.gold" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/lst_test.preprocessed" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/lst_trial.gold" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/lst_trial.preprocessed" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/score.pl" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lexsub_datasets/ukwac.vocab.lower.min100" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/semeval_mult_sample_result/bestscore" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/semeval_mult_sample_result/gapscore" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/semeval_mult_sample_result/ootscore" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/semeval_mult_sample_result/results" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/semeval_mult_sample_result/results.CONFIG" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/semeval_mult_sample_result/results.generated.best" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/semeval_mult_sample_result/results.generated.oot" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/semeval_mult_sample_result/results.ranked" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/isaac/examples/DL4JWord2VecExample.java" afterPath="$PROJECT_DIR$/src/test/java/com/isaac/examples/DL4JWord2VecExample.java" />
+      <change beforePath="$PROJECT_DIR$/target/classes/data/corpus_data.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/coinco.no_problematic.candidates" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/coinco.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/coinco_all.no_problematic.gold" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/coinco_all.no_problematic.preprocessed" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/coinco_all.no_problematic.sorted.conll" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/coinco_all.no_problematic.sorted.preprocessed" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/coinco_dev.no_problematic.preprocessed" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/coinco_test.no_problematic.preprocessed" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/lst.gold.candidates" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/lst.gold.candidates.lemma" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/lst_all.conll" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/lst_all.conll.lemma" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/lst_all.gold" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/lst_all.gold.lemma" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/lst_all.preprocessed" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/lst_all.preprocessed.lemma" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/lst_all.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/lst_all_UD.conll" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/lst_test.gold" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/lst_test.preprocessed" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/lst_trial.gold" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/lst_trial.preprocessed" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/score.pl" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lexsub_datasets/ukwac.vocab.lower.min100" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/semeval_mult_sample_result/bestscore" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/semeval_mult_sample_result/gapscore" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/semeval_mult_sample_result/ootscore" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/semeval_mult_sample_result/results" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/semeval_mult_sample_result/results.CONFIG" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/semeval_mult_sample_result/results.generated.best" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/semeval_mult_sample_result/results.generated.oot" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/target/classes/semeval_mult_sample_result/results.ranked" afterPath="" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -11,16 +83,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="FIRST">
-              <first_editor relative-caret-position="627">
-                <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-                <folding />
-              </first_editor>
-              <second_editor />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="DL4JWord2VecExample.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/isaac/examples/DL4JWord2VecExample.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="31" column="57" lean-forward="true" selection-start-line="31" selection-start-column="57" selection-end-line="31" selection-end-column="57" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -64,7 +133,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/isaac/word2vecdl4j/Word2VecTrainer.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/isaac/word2vecdl4j/CNNSentenceClassification.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/isaac/examples/DL4JCNNSentClassifyExample.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/isaac/examples/DL4JWord2VecExample.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/isaac/examples/Word2VecAnalogyTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/isaac/examples/Word2VecWS353Test.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/isaac/examples/Word2VecTOEFLTest.java" />
@@ -110,6 +178,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/others/w2vf_c_code_usage.md" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/test/java/com/isaac/examples/DL4JWord2VecExample.java" />
       </list>
     </option>
   </component>
@@ -173,8 +242,8 @@
     <panes>
       <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -207,15 +276,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="isaac" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Word2VecfJava" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Word2VecfJava" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="isaac" type="462c0819:PsiDirectoryNode" />
-              <item name="lexsub" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -885,22 +945,6 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="tests" factoryName="Unittests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Word2VecfJava" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;.&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method />
-    </configuration>
     <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -927,6 +971,21 @@
       <tasks />
       <arguments />
       <envs />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Word2VecfJava" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.GeneralExamples" />
@@ -1000,6 +1059,8 @@
       <workItem from="1512983486441" duration="1201000" />
       <workItem from="1513004106723" duration="1021000" />
       <workItem from="1514433308900" duration="233000" />
+      <workItem from="1514434214319" duration="26000" />
+      <workItem from="1515059603060" duration="443000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1501228672937</created>
@@ -1152,7 +1213,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67933000" />
+    <option name="totallyTimeSpent" value="68402000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1168,25 +1229,26 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32009926" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950193" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32822478" sideWeight="0.50824374" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297491" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950193" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.61430395" sideWeight="0.49175626" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950193" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950193" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2564671" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26385808" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1194,7 +1256,6 @@
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950193" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950193" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1234,13 +1295,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/com/isaac/word2vecf/Word2Vecff.java" />
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/isaac/examples/DL4JWord2VecExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="41" column="40" lean-forward="true" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/isaac/examples/Word2VecfExample.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="810">
@@ -1452,20 +1506,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/isaac/word2vec/CNNSentenceClassification.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="40" column="22" lean-forward="false" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/isaac/word2vec/Word2VecTrainer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/isaac/lexsub/LexicalSubstitute.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -1536,13 +1576,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/isaac/examples/Word2VecExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="25" column="5" lean-forward="false" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/target/test-classes/com/isaac/examples/ConllFileGenerationExample.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1581,11 +1614,43 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="627">
-            <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <first_editor relative-caret-position="135">
+            <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/isaac/word2vec/Word2VecTrainer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/isaac/word2vec/CNNSentenceClassification.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-940">
+          <caret line="40" column="22" lean-forward="false" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/isaac/examples/Word2VecExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="25" column="5" lean-forward="false" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/isaac/examples/DL4JWord2VecExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="31" column="57" lean-forward="true" selection-start-line="31" selection-start-column="57" selection-end-line="31" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>

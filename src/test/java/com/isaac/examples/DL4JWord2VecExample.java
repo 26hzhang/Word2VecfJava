@@ -20,7 +20,7 @@ public class DL4JWord2VecExample {
 
     public static void main (String[] args) throws Exception {
         // a 66.6MB sample data extract from around 13GB wikipedia dataset
-        String filePath = new ClassPathResource("data/corpus_data.txt").getFile().getAbsolutePath();
+        String filePath = new ClassPathResource("data/raw_sentences.txt").getFile().getAbsolutePath();
         log.info("Load & Vectorize Sentences....");
         // Strip white space before and after for each line
         SentenceIterator iter = new BasicLineIterator(filePath);

@@ -7,7 +7,6 @@ It is a Java implementation of the [paper](http://www.aclweb.org/anthology/P14-2
 This algorithm uses the Skip-Gram method and train with shallow neural network, the input corpus is pre-processed by [Stanford Dependency Parser](http://nlp.stanford.edu/software/stanford-dependencies.shtml). For more information of word embedding technique, it is better to search the related information online. Usage already shown in examples.
 
 ### Requirements
-* [Java 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
 * [DL4J](https://deeplearning4j.org), its GitHub page: [[link]](https://github.com/deeplearning4j/deeplearning4j), and Maven source: [[link]](https://mvnrepository.com/artifact/org.deeplearning4j).
 * [ND4J](http://nd4j.org/), its GitHub page: [[link]](https://github.com/deeplearning4j/nd4j), and Maven source: [[link]](http://mvnrepository.com/artifact/org.nd4j).
 * [Stanford NLP](https://nlp.stanford.edu/software/), its GitHub page: [[link]](https://github.com/stanfordnlp), and Maven sources: [[link]](https://mvnrepository.com/artifact/edu.stanford.nlp) (For Maven, please import both corenlp and corenlp with classifier `models` snippets).
