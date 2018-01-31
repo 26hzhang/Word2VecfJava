@@ -1,9 +1,9 @@
 package com.isaac.word2vecf;
 
-import com.google.common.util.concurrent.Futures;
+/*import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
-import com.google.common.util.concurrent.MoreExecutors;
+import com.google.common.util.concurrent.MoreExecutors;*/
 import com.isaac.word2vecf.utils.CallableVoid;
 import com.isaac.word2vecf.utils.Common;
 import com.isaac.word2vecf.vocabulary.VocabFunctions;
@@ -16,10 +16,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -139,24 +136,29 @@ public class Word2VecfTrainer {
 
 	/** @return {@link Word2Vecf} */
 	Word2Vecf train() {
-		final ListeningExecutorService ex = MoreExecutors.listeningDecorator(
+		/*final ListeningExecutorService ex = MoreExecutors.listeningDecorator(
 				new ThreadPoolExecutor(config.numThreads, config.numThreads, 0L, TimeUnit.MILLISECONDS,
-						new ArrayBlockingQueue<>(config.numThreads), new ThreadPoolExecutor.CallerRunsPolicy()));
+						new ArrayBlockingQueue<>(config.numThreads), new ThreadPoolExecutor.CallerRunsPolicy()));*/
+		final ExecutorService ex = Executors.newFixedThreadPool(config.numThreads);
 		try {
 			for (int iter = config.iterations; iter > 0; iter--) {
-				List<ListenableFuture<?>> futures = new ArrayList<>(); // initialCapacity: 64
+				//List<ListenableFuture<?>> futures = new ArrayList<>(); // initialCapacity: 64
+				List<CallableVoid> tasks = new ArrayList<>();
 				int i = 0;
 				for (int id = 0; id < config.numThreads; id++) {
-					futures.add(ex.submit(createWorker(i, iter, id)));
+					//futures.add(ex.submit(createWorker(i, iter, id)));
+					tasks.add(createWorker(i, iter, id));
 					i++;
 				}
-				try {
+				/*try {
 					Futures.allAsList(futures).get();
 				} catch (ExecutionException e) {
 					throw new IllegalStateException("Error training word2vecf model", e.getCause());
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				}
+				}*/
+				for (CallableVoid task : tasks)
+					ex.submit(task);
 			}
 			ex.shutdown();
 		} finally {
