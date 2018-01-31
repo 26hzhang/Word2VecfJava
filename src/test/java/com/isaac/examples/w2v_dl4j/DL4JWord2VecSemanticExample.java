@@ -1,24 +1,26 @@
-package com.isaac.examples;
+package com.isaac.examples.w2v_dl4j;
 
+import com.isaac.examples.word2vecf.Word2VecAnalogyTest;
+import com.isaac.examples.word2vecf.Word2VecTOEFLTest;
+import com.isaac.examples.word2vecf.Word2VecWS353Test;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.*;
 
-import static com.isaac.examples.Word2VecAnalogyTest.loadSynSemData;
-import static com.isaac.examples.Word2VecWS353Test.loadWS353Data;
-import static com.isaac.examples.Word2VecWS353Test.pearson;
-import static com.isaac.examples.Word2VecTOEFLTest.loadTOEFLData;
+import static com.isaac.examples.word2vecf.Word2VecAnalogyTest.loadSynSemData;
+import static com.isaac.examples.word2vecf.Word2VecWS353Test.loadWS353Data;
+import static com.isaac.examples.word2vecf.Word2VecWS353Test.pearson;
+import static com.isaac.examples.word2vecf.Word2VecTOEFLTest.loadTOEFLData;
 
 public class DL4JWord2VecSemanticExample {
 
     private static Logger log = LoggerFactory.getLogger(DL4JWord2VecSemanticExample.class);
 
-    public static void main (String[] args) throws FileNotFoundException {
+    public static void main (String[] args) {
         // download GoogleNews-vectors-negative300.bin.gz first
         // load google news vectors for measurements
         log.info("load word2vec model");

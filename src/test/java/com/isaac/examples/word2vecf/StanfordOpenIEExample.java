@@ -1,4 +1,4 @@
-package com.isaac.examples;
+package com.isaac.examples.word2vecf;
 
 import edu.stanford.nlp.ie.util.RelationTriple;
 import edu.stanford.nlp.ling.CoreAnnotations;

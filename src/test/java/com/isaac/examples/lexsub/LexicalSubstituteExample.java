@@ -1,4 +1,4 @@
-package com.isaac.examples;
+package com.isaac.examples.lexsub;
 
 import com.isaac.lexsub.LexSubConfigs;
 import com.isaac.lexsub.LexicalSubstitute;

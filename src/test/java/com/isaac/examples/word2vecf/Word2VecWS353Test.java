@@ -1,4 +1,4 @@
-package com.isaac.examples;
+package com.isaac.examples.word2vecf;
 
 import com.isaac.word2vecf.utils.WordVectorSerializer;
 import com.isaac.word2vecf.Word2Vec;
@@ -48,7 +48,7 @@ public class Word2VecWS353Test {
 		log.info(name + ": " + String.format("%.2f", res * 100) + "%");
 	}
 
-	static double pearson(double[] values, double[] cosValues) {
+	public static double pearson(double[] values, double[] cosValues) {
 		int size = values.length;
 		double eps = 1e-8;
 		double avg_val = 0;
@@ -85,10 +85,10 @@ public class Word2VecWS353Test {
 		return list;
 	}
 
-	static class WS353Node {
-		String word1;
-		String word2;
-		double value;
+	public static class WS353Node {
+		public String word1;
+		public String word2;
+		public double value;
 
 		private WS353Node (String word1, String word2, double value) {
 			this.word1 = word1;

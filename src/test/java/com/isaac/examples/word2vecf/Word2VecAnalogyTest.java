@@ -1,4 +1,4 @@
-package com.isaac.examples;
+package com.isaac.examples.word2vecf;
 
 import com.isaac.word2vecf.utils.WordVectorSerializer;
 import com.isaac.word2vecf.Word2Vec;
@@ -83,17 +83,19 @@ public class Word2VecAnalogyTest {
 		return map;
 	}
 
-	static class SynSemNode {
-		String str1;
-		String str2;
-		String str3;
-		String str4;
+	public static class SynSemNode {
+		public String str1;
+		public String str2;
+		public String str3;
+		public String str4;
+
 		SynSemNode (String str1, String str2, String str3, String str4) {
 			this.str1 = str1;
 			this.str2 = str2;
 			this.str3 = str3;
 			this.str4 = str4;
 		}
+
 		@Override
 		public String toString () {
 			return this.str1 + " " + this.str2 + " " + this.str3 + " " + this.str4;

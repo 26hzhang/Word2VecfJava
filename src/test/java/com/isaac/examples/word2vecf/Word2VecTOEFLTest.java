@@ -1,4 +1,4 @@
-package com.isaac.examples;
+package com.isaac.examples.word2vecf;
 
 import com.isaac.word2vecf.utils.WordVectorSerializer;
 import com.isaac.word2vecf.Word2Vec;
@@ -57,7 +57,7 @@ public class Word2VecTOEFLTest {
 				"%(" + accuracy + "/" + list.size() + ")");
 	}
 
-	static List<TFLNode> loadTOEFLData() {
+	public static List<TFLNode> loadTOEFLData() {
 		List<TFLNode> list = new ArrayList<>();
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new ClassPathResource("data/toefl.txt").getFile())));
@@ -86,11 +86,11 @@ public class Word2VecTOEFLTest {
 		return list;
 	}
 
-	static class TFLNode {
-		String ques;
-		String[] choices = new String[4];
-		int ans;
-		int predict;
+	public static class TFLNode {
+		public String ques;
+		public String[] choices;
+		public int ans;
+		public int predict;
 
 		TFLNode (String ques, String[] choices, int ans) {
 			this.ques = ques;
@@ -98,7 +98,7 @@ public class Word2VecTOEFLTest {
 			this.ans = ans;
 		}
 
-		void setPredict (int predict) {
+		public void setPredict (int predict) {
 			this.predict = predict;
 		}
 
@@ -108,7 +108,7 @@ public class Word2VecTOEFLTest {
 					.concat("\nPredict: ").concat(predict == -1 ? "N/A" : choices[predict]);
 		}
 
-		String toFileString() {
+		public String toFileString() {
 			String result = "Question: " + ques + "\nChoices: [";
 			for (int i = 0; i < choices.length; i++) {
 				result += choices[i];

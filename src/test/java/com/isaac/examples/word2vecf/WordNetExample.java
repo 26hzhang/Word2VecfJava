@@ -1,4 +1,4 @@
-package com.isaac.examples;
+package com.isaac.examples.word2vecf;
 
 import java.util.LinkedHashSet;
 import java.util.LinkedList;

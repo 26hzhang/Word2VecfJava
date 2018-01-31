@@ -1,4 +1,4 @@
-package com.isaac.examples;
+package com.isaac.examples.w2v_dl4j;
 
 import com.isaac.word2vec.CNNSentenceClassification;
 import org.apache.commons.io.FileUtils;
